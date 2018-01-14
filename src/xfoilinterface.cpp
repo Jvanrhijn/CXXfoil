@@ -1,11 +1,4 @@
-/* Copyright (C) Jesse van Rhijn - All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * Proprietary and confidential
- * Written by Jesse van Rhijn <jesse.v.rhijn@gmail.com>, November 2017
- */
-
 #include "xfoilinterface.h"
-
 
 // contains class XfoilInterface, which interacts with xfoil via the command line
 // the interface is instantiated in an empty state, optionally with parameters that set options in xfoil

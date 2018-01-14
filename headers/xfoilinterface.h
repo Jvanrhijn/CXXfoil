@@ -1,9 +1,3 @@
-/* Copyright (C) Jesse van Rhijn - All Rights Reserved
- *  * Unauthorized copying of this file, via any medium is strictly prohibited
- *  * Proprietary and confidential
- *  * Written by Jesse van Rhijn <jesse.v.rhijn@gmail.com>, November 2017
- */
-
 /**
  * @file xfoilinterface.h
  * @author Jesse van Rhijn
