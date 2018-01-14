@@ -1,0 +1,253 @@
+\hypertarget{inducedvelocities_8h}{}\section{/home/jesse/\+Dropbox/\+Git/\+C\+Prop/headers/inducedvelocities.h File Reference}
+\label{inducedvelocities_8h}\index{/home/jesse/\+Dropbox/\+Git/\+C\+Prop/headers/inducedvelocities.\+h@{/home/jesse/\+Dropbox/\+Git/\+C\+Prop/headers/inducedvelocities.\+h}}
+
+
+Functions for calculating induced velocities on lifting line.  
+
+
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{inducedvelocities_8h_a598a3330b3c21701223ee0ca14316eca}\label{inducedvelocities_8h_a598a3330b3c21701223ee0ca14316eca}} 
+\#define {\bfseries PI}~3.\+14159265359
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{inducedvelocities_8h_a8b2f0dc652b3d982bfc366b676615dfb}{asympf} (double y, double y0, double U, int a, int Z)
+\begin{DoxyCompactList}\small\item\em asymptotic formulae F1 and F2, encoded in single formula with parameter +/-\/ 1 \end{DoxyCompactList}\item 
+struct \hyperlink{structthreetuple}{threetuple} \hyperlink{inducedvelocities_8h_a4d2b060774a1533f5d8c3fda49666dab}{transform\+Vars} (double rc, double rv, double beta, int Z)
+\begin{DoxyCompactList}\small\item\em transforms variables rc, rv, beta to y, y0, U \end{DoxyCompactList}\item 
+double \hyperlink{inducedvelocities_8h_a993b7f92127cdc0c91f2f9eb52f87df8}{asymp\+F1} (double rc, double rv, double beta, int Z)
+\begin{DoxyCompactList}\small\item\em asymptotic F1 \end{DoxyCompactList}\item 
+double \hyperlink{inducedvelocities_8h_a46ba3c3651b7ae7c15f2f05de870a912}{asymp\+F2} (double rc, double rv, double beta, int Z)
+\begin{DoxyCompactList}\small\item\em asymptotic F2 \end{DoxyCompactList}\item 
+double \hyperlink{inducedvelocities_8h_a6305bc84a471e34066182463b68fe5ed}{axial\+Velocity} (double rc, double rv, double beta, int Z)
+\begin{DoxyCompactList}\small\item\em calculates axial velocity as per Coney \end{DoxyCompactList}\item 
+double \hyperlink{inducedvelocities_8h_a78f3b774d5412459f167dceca757bae0}{tangential\+Velocity} (double rc, double rv, double beta, int Z)
+\begin{DoxyCompactList}\small\item\em calculates tangential velocity as per Coney \end{DoxyCompactList}\item 
+double \hyperlink{inducedvelocities_8h_a3cc6b7fc1ba63dede5c3295eee6efeaf}{axial\+Velocity\+Star} (int m, int p, double $\ast$rc, double $\ast$rv, double $\ast$beta, int Z, double rh, int H\+U\+B\+\_\+\+F\+L\+AG)
+\begin{DoxyCompactList}\small\item\em axial velocity induced at point m by vortex at p, including hub effects \end{DoxyCompactList}\item 
+double \hyperlink{inducedvelocities_8h_a828d8e5d244a1588327f45d0dd38bde6}{tangential\+Velocity\+Star} (int m, int p, double $\ast$rc, double $\ast$rv, double $\ast$beta, int Z, double rh, int H\+U\+B\+\_\+\+F\+L\+AG)
+\begin{DoxyCompactList}\small\item\em tangential velocity induced at point m by vortex at p, including hub effects \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Functions for calculating induced velocities on lifting line. 
+
+\begin{DoxyAuthor}{Author}
+Jesse van Rhijn 
+\end{DoxyAuthor}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{inducedvelocities_8h_a8b2f0dc652b3d982bfc366b676615dfb}\label{inducedvelocities_8h_a8b2f0dc652b3d982bfc366b676615dfb}} 
+\index{inducedvelocities.\+h@{inducedvelocities.\+h}!asympf@{asympf}}
+\index{asympf@{asympf}!inducedvelocities.\+h@{inducedvelocities.\+h}}
+\subsubsection{\texorpdfstring{asympf()}{asympf()}}
+{\footnotesize\ttfamily double asympf (\begin{DoxyParamCaption}\item[{double}]{y,  }\item[{double}]{y0,  }\item[{double}]{U,  }\item[{int}]{a,  }\item[{int}]{Z }\end{DoxyParamCaption})}
+
+
+
+asymptotic formulae F1 and F2, encoded in single formula with parameter +/-\/ 1 
+
+
+\begin{DoxyParams}{Parameters}
+{\em y} & see Coney \\
+\hline
+{\em y0} & see Coney \\
+\hline
+{\em U} & see Coney \\
+\hline
+{\em Z} & blade number \\
+\hline
+{\em a} & 1 for F1, -\/1 for F2 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+value of asymptotic Bessel function formulae 
+\end{DoxyReturn}
+\mbox{\Hypertarget{inducedvelocities_8h_a993b7f92127cdc0c91f2f9eb52f87df8}\label{inducedvelocities_8h_a993b7f92127cdc0c91f2f9eb52f87df8}} 
+\index{inducedvelocities.\+h@{inducedvelocities.\+h}!asymp\+F1@{asymp\+F1}}
+\index{asymp\+F1@{asymp\+F1}!inducedvelocities.\+h@{inducedvelocities.\+h}}
+\subsubsection{\texorpdfstring{asymp\+F1()}{asympF1()}}
+{\footnotesize\ttfamily double asymp\+F1 (\begin{DoxyParamCaption}\item[{double}]{rc,  }\item[{double}]{rv,  }\item[{double}]{beta,  }\item[{int}]{Z }\end{DoxyParamCaption})}
+
+
+
+asymptotic F1 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rc} & control point radius \\
+\hline
+{\em rv} & vortex point radius \\
+\hline
+{\em beta} & pitch angle of trailing vortex \\
+\hline
+{\em Z} & blade number \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+result of asymptotic F1 
+\end{DoxyReturn}
+\mbox{\Hypertarget{inducedvelocities_8h_a46ba3c3651b7ae7c15f2f05de870a912}\label{inducedvelocities_8h_a46ba3c3651b7ae7c15f2f05de870a912}} 
+\index{inducedvelocities.\+h@{inducedvelocities.\+h}!asymp\+F2@{asymp\+F2}}
+\index{asymp\+F2@{asymp\+F2}!inducedvelocities.\+h@{inducedvelocities.\+h}}
+\subsubsection{\texorpdfstring{asymp\+F2()}{asympF2()}}
+{\footnotesize\ttfamily double asymp\+F2 (\begin{DoxyParamCaption}\item[{double}]{rc,  }\item[{double}]{rv,  }\item[{double}]{beta,  }\item[{int}]{Z }\end{DoxyParamCaption})}
+
+
+
+asymptotic F2 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rc} & control point radius \\
+\hline
+{\em rv} & vortex point radius \\
+\hline
+{\em beta} & pitch angle of trailing vortex \\
+\hline
+{\em Z} & blade number \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+result of asymptotic F2 
+\end{DoxyReturn}
+\mbox{\Hypertarget{inducedvelocities_8h_a6305bc84a471e34066182463b68fe5ed}\label{inducedvelocities_8h_a6305bc84a471e34066182463b68fe5ed}} 
+\index{inducedvelocities.\+h@{inducedvelocities.\+h}!axial\+Velocity@{axial\+Velocity}}
+\index{axial\+Velocity@{axial\+Velocity}!inducedvelocities.\+h@{inducedvelocities.\+h}}
+\subsubsection{\texorpdfstring{axial\+Velocity()}{axialVelocity()}}
+{\footnotesize\ttfamily double axial\+Velocity (\begin{DoxyParamCaption}\item[{double}]{rc,  }\item[{double}]{rv,  }\item[{double}]{beta,  }\item[{int}]{Z }\end{DoxyParamCaption})}
+
+
+
+calculates axial velocity as per Coney 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rc} & control point radius \\
+\hline
+{\em rv} & vortex point radius \\
+\hline
+{\em beta} & pitch angle of trailing vortex \\
+\hline
+{\em Z} & blade number \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+value of axial velocity at r = rc due to helical vortex line at radius r = rv 
+\end{DoxyReturn}
+\mbox{\Hypertarget{inducedvelocities_8h_a3cc6b7fc1ba63dede5c3295eee6efeaf}\label{inducedvelocities_8h_a3cc6b7fc1ba63dede5c3295eee6efeaf}} 
+\index{inducedvelocities.\+h@{inducedvelocities.\+h}!axial\+Velocity\+Star@{axial\+Velocity\+Star}}
+\index{axial\+Velocity\+Star@{axial\+Velocity\+Star}!inducedvelocities.\+h@{inducedvelocities.\+h}}
+\subsubsection{\texorpdfstring{axial\+Velocity\+Star()}{axialVelocityStar()}}
+{\footnotesize\ttfamily double axial\+Velocity\+Star (\begin{DoxyParamCaption}\item[{int}]{m,  }\item[{int}]{p,  }\item[{double $\ast$}]{rc,  }\item[{double $\ast$}]{rv,  }\item[{double $\ast$}]{beta,  }\item[{int}]{Z,  }\item[{double}]{rh,  }\item[{int}]{H\+U\+B\+\_\+\+F\+L\+AG }\end{DoxyParamCaption})}
+
+
+
+axial velocity induced at point m by vortex at p, including hub effects 
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & index of control point \\
+\hline
+{\em p} & index of vortex point \\
+\hline
+{\em rc} & array of control point radii \\
+\hline
+{\em rv} & array of vortex point radii \\
+\hline
+{\em beta} & array of vortex pitch angles \\
+\hline
+{\em Z} & blade number \\
+\hline
+{\em rh} & hub radius \\
+\hline
+{\em H\+U\+B\+\_\+\+F\+L\+AG} & sets whether to include hub effects \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+axial induced velocitiy at m due to helical horseshoe vortex at p 
+\end{DoxyReturn}
+\mbox{\Hypertarget{inducedvelocities_8h_a78f3b774d5412459f167dceca757bae0}\label{inducedvelocities_8h_a78f3b774d5412459f167dceca757bae0}} 
+\index{inducedvelocities.\+h@{inducedvelocities.\+h}!tangential\+Velocity@{tangential\+Velocity}}
+\index{tangential\+Velocity@{tangential\+Velocity}!inducedvelocities.\+h@{inducedvelocities.\+h}}
+\subsubsection{\texorpdfstring{tangential\+Velocity()}{tangentialVelocity()}}
+{\footnotesize\ttfamily double tangential\+Velocity (\begin{DoxyParamCaption}\item[{double}]{rc,  }\item[{double}]{rv,  }\item[{double}]{beta,  }\item[{int}]{Z }\end{DoxyParamCaption})}
+
+
+
+calculates tangential velocity as per Coney 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rc} & control point radius \\
+\hline
+{\em rv} & vortex point radius \\
+\hline
+{\em beta} & pitch angle \\
+\hline
+{\em Z} & blade number \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+value of tangential velocity at r = rc due to helical vortex line at radius r = rv 
+\end{DoxyReturn}
+\mbox{\Hypertarget{inducedvelocities_8h_a828d8e5d244a1588327f45d0dd38bde6}\label{inducedvelocities_8h_a828d8e5d244a1588327f45d0dd38bde6}} 
+\index{inducedvelocities.\+h@{inducedvelocities.\+h}!tangential\+Velocity\+Star@{tangential\+Velocity\+Star}}
+\index{tangential\+Velocity\+Star@{tangential\+Velocity\+Star}!inducedvelocities.\+h@{inducedvelocities.\+h}}
+\subsubsection{\texorpdfstring{tangential\+Velocity\+Star()}{tangentialVelocityStar()}}
+{\footnotesize\ttfamily double tangential\+Velocity\+Star (\begin{DoxyParamCaption}\item[{int}]{m,  }\item[{int}]{p,  }\item[{double $\ast$}]{rc,  }\item[{double $\ast$}]{rv,  }\item[{double $\ast$}]{beta,  }\item[{int}]{Z,  }\item[{double}]{rh,  }\item[{int}]{H\+U\+B\+\_\+\+F\+L\+AG }\end{DoxyParamCaption})}
+
+
+
+tangential velocity induced at point m by vortex at p, including hub effects 
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & index of control point \\
+\hline
+{\em p} & index of vortex point \\
+\hline
+{\em rc} & array of control point radii \\
+\hline
+{\em rv} & array of vortex point radii \\
+\hline
+{\em beta} & array of vortex pitch angles \\
+\hline
+{\em Z} & blade number \\
+\hline
+{\em rh} & hub radius \\
+\hline
+{\em H\+U\+B\+\_\+\+F\+L\+AG} & sets whether to include hub effects \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+tangential induced velocitiy at m due to helical horseshoe vortex at p 
+\end{DoxyReturn}
+\mbox{\Hypertarget{inducedvelocities_8h_a4d2b060774a1533f5d8c3fda49666dab}\label{inducedvelocities_8h_a4d2b060774a1533f5d8c3fda49666dab}} 
+\index{inducedvelocities.\+h@{inducedvelocities.\+h}!transform\+Vars@{transform\+Vars}}
+\index{transform\+Vars@{transform\+Vars}!inducedvelocities.\+h@{inducedvelocities.\+h}}
+\subsubsection{\texorpdfstring{transform\+Vars()}{transformVars()}}
+{\footnotesize\ttfamily struct \hyperlink{structthreetuple}{threetuple} transform\+Vars (\begin{DoxyParamCaption}\item[{double}]{rc,  }\item[{double}]{rv,  }\item[{double}]{beta,  }\item[{int}]{Z }\end{DoxyParamCaption})}
+
+
+
+transforms variables rc, rv, beta to y, y0, U 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rc} & control point radius \\
+\hline
+{\em rv} & vortex point radius \\
+\hline
+{\em beta} & pitch angle of trailing vortex \\
+\hline
+{\em Z} & blade number \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+three-\/tuple of transformed variables 
+\end{DoxyReturn}
