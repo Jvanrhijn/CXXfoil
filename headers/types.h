@@ -10,18 +10,28 @@
 /**
  * @brief Vector of vectors, for storing xfoil calculation results
  */
-class polar : public std::vector<std::vector<double>> {
-public:
+class polar
+{
+    public:
+        explicit polar(size_t lines)
+            : contents(lines)
+        {
+            for (int i = 0; i < lines; i++) {
+                contents[i].resize(5);
+            }
+        }
+
     std::vector<std::vector<double>> contents;
-    explicit polar(size_t lines);
 };
 
 /**
  * @brief Throw this when Xfoil calculation fails to converge
  */
 class ConvergenceException : public std::exception {
-public:
-    virtual const char* what() const throw();
+    public:
+        const char* what() const throw() {
+            return "VISCAL: Convergence Failed";
+        }
 };
 
 #endif //CPROP_TYPES_H
