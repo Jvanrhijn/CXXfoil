@@ -20,10 +20,10 @@
 
 #define POLAR_DATA_LINENR  12
 
-#define ParentRead inpipe[0]
-#define ParentWrite outpipe[1]
-#define ChildRead outpipe[0]
-#define ChildWrite inpipe[1]
+#define ParentRead inpipe_[0]
+#define ParentWrite outpipe_[1]
+#define ChildRead outpipe_[0]
+#define ChildWrite inpipe_[1]
 
 /**
  * @brief Class that interfaces with XFoil
@@ -117,44 +117,44 @@ class Xfoil {
   };
 
   //! struct containing xfoil settings current values
-  state xfoil_state;
+  state xfoil_state_;
 
   //! Filestream to write into xfoil
-  FILE* input;
+  FILE* input_;
 
   //! Filestream to get xfoil output
-  FILE* output;
+  FILE* output_;
 
   //! pid of xfoil child process
-  pid_t process;
+  pid_t process_;
 
   //! input pipe file descriptors
-  int inpipe[2];
+  int inpipe_[2];
 
   //! output pipe file descriptors
-  int outpipe[2];
+  int outpipe_[2];
 
   //! mutex for locking output buffer
-  std::mutex mutex_output;
+  std::mutex mutex_output_;
 
   //! buffer for xfoil last char output
-  char output_buffer;
+  char output_buffer_;
 
-  char outp[OUTPUT_BUFF_SIZE];
+  char outp_[OUTPUT_BUFF_SIZE];
 
   //! xfoil log file
-  std::ofstream log;
+  std::ofstream log_;
 
-  std::ofstream input_log;
+  std::ofstream input_log_;
 
   //! thread for reading xfoil output
-  std::thread reading;
+  std::thread reading_;
 
   //! bool to stop output logging thread
-  volatile bool log_output;
+  volatile bool log_output_;
 
   //! line number to read from polar file
-  int line_number;
+  int line_number_;
 
   //! Writes a single newline to xfoil
   void Newline();

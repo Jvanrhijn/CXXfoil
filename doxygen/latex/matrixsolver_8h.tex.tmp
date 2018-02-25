@@ -278,7 +278,7 @@ Solves the nonlinear system by iteratively solving the linearized system.
 
 
 \begin{DoxyParams}{Parameters}
-{\em threshold} & fractional change input lagrange multiplier required for convergence \\
+{\em threshold} & fractional change input_ lagrange multiplier required for convergence \\
 \hline
 {\em itermax} & maximum number of iterations \\
 \hline

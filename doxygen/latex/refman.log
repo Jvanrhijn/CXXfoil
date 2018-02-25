@@ -29,7 +29,7 @@ Package: fixltx2e 2015/06/22 v2.0b fixes to LaTeX (obsolete)
 
 
 Package fixltx2e Warning: fixltx2e is not required with releases after 2015
-(fixltx2e)                All fixes are now input the LaTeX kernel.
+(fixltx2e)                All fixes are now input_ the LaTeX kernel.
 (fixltx2e)                See the latexrelease package for details.
 
 ) (/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
@@ -40,8 +40,8 @@ Package: calc 2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
 \calc@Bdimen=\dimen104
 \calc@Askip=\skip43
 \calc@Bskip=\skip44
-LaTeX Info: Redefining \setlength on input line 80.
-LaTeX Info: Redefining \addtolength on input line 81.
+LaTeX Info: Redefining \setlength on input_ line 80.
+LaTeX Info: Redefining \addtolength on input_ line 81.
 \calc@Ccount=\count90
 \calc@Cskip=\skip45
 ) (./doxygen.sty
@@ -73,7 +73,7 @@ Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 Package: verbatim 2014/10/28 v1.5q LaTeX2e package for verbatim enhancements
 \every@verbatim=\toks17
 \verbatim@line=\toks18
-\verbatim@input@stream=\read1
+\verbatim@input_@stream=\read1
 )
 (/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
@@ -81,7 +81,7 @@ Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
 (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
-Package xcolor Info: Driver file: pdftex.def on input line 225.
+Package xcolor Info: Driver file: pdftex.def on input_ line 225.
 
 (/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
 File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
@@ -100,15 +100,15 @@ Package: colortbl 2012/02/13 v1.0a Color table columns (DPC)
 \minrowclearance=\skip48
 )
 \rownum=\count93
-Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
-Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1341.
-Package xcolor Info: Model `RGB' extended on input line 1353.
-Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
-Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
-Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
-Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
-Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
-Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input_ line 1337.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input_ line 1341.
+Package xcolor Info: Model `RGB' extended on input_ line 1353.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input_ line 1355.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input_ line 1356.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input_ line 1357.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input_ line 1358.
+Package xcolor Info: Model `Gray' substituted by `gray' on input_ line 1359.
+Package xcolor Info: Model `wave' substituted by `hsb' on input_ line 1360.
 )
 (/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty
 Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)
@@ -211,7 +211,7 @@ Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
 (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
 File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
 )
-Package graphics Info: Driver file: pdftex.def on input line 95.
+Package graphics Info: Driver file: pdftex.def on input_ line 95.
 )
 \Gin@req@height=\dimen125
 \Gin@req@width=\dimen126
@@ -613,7 +613,7 @@ Package textcomp Info: Sub-encoding information:
 (textcomp)             only a restricted character set as indicated.
 (textcomp)             Family '?' is the default used for unknown fonts.
 (textcomp)             See the documentation for details.
-Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 79.
+Package textcomp Info: Setting ? sub-encoding to TS1/1 on input_ line 79.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.def
 File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
@@ -692,82 +692,82 @@ File: ts1enc.dfu 2015/12/03 v1.1r UTF-8 support for inputenc
    defining Unicode char U+25EF (decimal 9711)
    defining Unicode char U+266A (decimal 9834)
 ))
-LaTeX Info: Redefining \oldstylenums on input line 334.
-Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 349.
-Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 350.
-Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input line 351.
-Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input line 352.
-Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input line 353.
-Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input line 354.
-Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input line 355.
-Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input line 356.
-Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input line 357.
-Package textcomp Info: Setting phv sub-encoding to TS1/4 on input line 358.
-Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input line 359.
-Package textcomp Info: Setting pag sub-encoding to TS1/4 on input line 360.
-Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input line 361.
-Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input line 362.
-Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input line 363.
-Package textcomp Info: Setting bch sub-encoding to TS1/4 on input line 364.
-Package textcomp Info: Setting put sub-encoding to TS1/5 on input line 365.
-Package textcomp Info: Setting uag sub-encoding to TS1/5 on input line 366.
-Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input line 367.
-Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input line 368.
-Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 369.
-Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 370.
-Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 371.
-Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 372.
+LaTeX Info: Redefining \oldstylenums on input_ line 334.
+Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input_ line 349.
+Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input_ line 350.
+Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input_ line 351.
+Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input_ line 352.
+Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input_ line 353.
+Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input_ line 354.
+Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input_ line 355.
+Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input_ line 356.
+Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input_ line 357.
+Package textcomp Info: Setting phv sub-encoding to TS1/4 on input_ line 358.
+Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input_ line 359.
+Package textcomp Info: Setting pag sub-encoding to TS1/4 on input_ line 360.
+Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input_ line 361.
+Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input_ line 362.
+Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input_ line 363.
+Package textcomp Info: Setting bch sub-encoding to TS1/4 on input_ line 364.
+Package textcomp Info: Setting put sub-encoding to TS1/5 on input_ line 365.
+Package textcomp Info: Setting uag sub-encoding to TS1/5 on input_ line 366.
+Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input_ line 367.
+Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input_ line 368.
+Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input_ line 369.
+Package textcomp Info: Setting augie sub-encoding to TS1/5 on input_ line 370.
+Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input_ line 371.
+Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input_ line 372.
 
-Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 373.
-Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 374.
-Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 375.
-Package textcomp Info: Setting txr sub-encoding to TS1/0 on input line 376.
-Package textcomp Info: Setting txss sub-encoding to TS1/0 on input line 377.
-Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input line 378.
-Package textcomp Info: Setting lmr sub-encoding to TS1/0 on input line 379.
-Package textcomp Info: Setting lmdh sub-encoding to TS1/0 on input line 380.
-Package textcomp Info: Setting lmss sub-encoding to TS1/0 on input line 381.
-Package textcomp Info: Setting lmssq sub-encoding to TS1/0 on input line 382.
-Package textcomp Info: Setting lmvtt sub-encoding to TS1/0 on input line 383.
-Package textcomp Info: Setting lmtt sub-encoding to TS1/0 on input line 384.
-Package textcomp Info: Setting qhv sub-encoding to TS1/0 on input line 385.
-Package textcomp Info: Setting qag sub-encoding to TS1/0 on input line 386.
-Package textcomp Info: Setting qbk sub-encoding to TS1/0 on input line 387.
-Package textcomp Info: Setting qcr sub-encoding to TS1/0 on input line 388.
-Package textcomp Info: Setting qcs sub-encoding to TS1/0 on input line 389.
-Package textcomp Info: Setting qpl sub-encoding to TS1/0 on input line 390.
-Package textcomp Info: Setting qtm sub-encoding to TS1/0 on input line 391.
-Package textcomp Info: Setting qzc sub-encoding to TS1/0 on input line 392.
-Package textcomp Info: Setting qhvc sub-encoding to TS1/0 on input line 393.
-Package textcomp Info: Setting futs sub-encoding to TS1/4 on input line 394.
-Package textcomp Info: Setting futx sub-encoding to TS1/4 on input line 395.
-Package textcomp Info: Setting futj sub-encoding to TS1/4 on input line 396.
-Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input line 397.
-Package textcomp Info: Setting hls sub-encoding to TS1/3 on input line 398.
-Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input line 399.
-Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input line 400.
-Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input line 401.
-Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input line 402.
-Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input line 403.
-Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input line 404.
-Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input line 405.
-Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 406.
-Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 407.
-Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 408.
-Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 409.
+Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input_ line 373.
+Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input_ line 374.
+Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input_ line 375.
+Package textcomp Info: Setting txr sub-encoding to TS1/0 on input_ line 376.
+Package textcomp Info: Setting txss sub-encoding to TS1/0 on input_ line 377.
+Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input_ line 378.
+Package textcomp Info: Setting lmr sub-encoding to TS1/0 on input_ line 379.
+Package textcomp Info: Setting lmdh sub-encoding to TS1/0 on input_ line 380.
+Package textcomp Info: Setting lmss sub-encoding to TS1/0 on input_ line 381.
+Package textcomp Info: Setting lmssq sub-encoding to TS1/0 on input_ line 382.
+Package textcomp Info: Setting lmvtt sub-encoding to TS1/0 on input_ line 383.
+Package textcomp Info: Setting lmtt sub-encoding to TS1/0 on input_ line 384.
+Package textcomp Info: Setting qhv sub-encoding to TS1/0 on input_ line 385.
+Package textcomp Info: Setting qag sub-encoding to TS1/0 on input_ line 386.
+Package textcomp Info: Setting qbk sub-encoding to TS1/0 on input_ line 387.
+Package textcomp Info: Setting qcr sub-encoding to TS1/0 on input_ line 388.
+Package textcomp Info: Setting qcs sub-encoding to TS1/0 on input_ line 389.
+Package textcomp Info: Setting qpl sub-encoding to TS1/0 on input_ line 390.
+Package textcomp Info: Setting qtm sub-encoding to TS1/0 on input_ line 391.
+Package textcomp Info: Setting qzc sub-encoding to TS1/0 on input_ line 392.
+Package textcomp Info: Setting qhvc sub-encoding to TS1/0 on input_ line 393.
+Package textcomp Info: Setting futs sub-encoding to TS1/4 on input_ line 394.
+Package textcomp Info: Setting futx sub-encoding to TS1/4 on input_ line 395.
+Package textcomp Info: Setting futj sub-encoding to TS1/4 on input_ line 396.
+Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input_ line 397.
+Package textcomp Info: Setting hls sub-encoding to TS1/3 on input_ line 398.
+Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input_ line 399.
+Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input_ line 400.
+Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input_ line 401.
+Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input_ line 402.
+Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input_ line 403.
+Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input_ line 404.
+Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input_ line 405.
+Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input_ line 406.
+Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input_ line 407.
+Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input_ line 408.
+Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input_ line 409.
 )
 (/usr/share/texlive/texmf-dist/tex/latex/wasysym/wasysym.sty
 Package: wasysym 2003/10/30 v2.0 Wasy-2 symbol support package
 \symwasy=\mathgroup4
-LaTeX Font Info:    Overwriting symbol font `wasy' input version `bold'
-(Font)                  U/wasy/m/n --> U/wasy/b/n on input line 90.
+LaTeX Font Info:    Overwriting symbol font `wasy' input_ version `bold'
+(Font)                  U/wasy/m/n --> U/wasy/b/n on input_ line 90.
 )
 (/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.def
 File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
-LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
+LaTeX Font Info:    Redeclaring font encoding T1 on input_ line 48.
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/helvet.sty
 Package: helvet 2005/04/12 PSNFSS-v9.2a (WaS) 
@@ -783,8 +783,8 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \@emptytoks=\toks28
 \symAMSa=\mathgroup5
 \symAMSb=\mathgroup6
-LaTeX Font Info:    Overwriting math alphabet `\mathfrak' input version `bold'
-(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' input_ version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input_ line 106.
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/sectsty/sectsty.sty
 Package: sectsty 2002/02/25 v2.0.2 Commands to change all sectional heading sty
@@ -795,7 +795,7 @@ Package: geometry 2010/09/12 v5.6 Page Geometry
 
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
 Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
-Package ifpdf Info: pdfTeX input PDF mode is detected.
+Package ifpdf Info: pdfTeX input_ PDF mode is detected.
 )
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifvtex.sty
 Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
@@ -832,12 +832,12 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip66
 \bibsep=\skip67
-LaTeX Info: Redefining \cite on input line 694.
+LaTeX Info: Redefining \cite on input_ line 694.
 \c@NAT@ctr=\count121
 )
 (/usr/share/texlive/texmf-dist/tex/latex/tocloft/tocloft.sty
 Package: tocloft 2013/05/02 v2.3f parameterised ToC, etc., typesetting
-Package tocloft Info: The document has chapter divisions on input line 44.
+Package tocloft Info: The document has chapter divisions on input_ line 44.
 \cftparskip=\skip68
 \cftbeforetoctitleskip=\skip69
 \cftaftertoctitleskip=\skip70
@@ -946,20 +946,20 @@ Now handling font encoding PD1 ...
 (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/hyperref.cfg
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
-Package hyperref Info: Hyper figures OFF on input line 4443.
-Package hyperref Info: Link nesting OFF on input line 4448.
-Package hyperref Info: Hyper index ON on input line 4451.
-Package hyperref Info: Plain pages OFF on input line 4458.
-Package hyperref Info: Backreferencing ON on input line 4461.
+Package hyperref Info: Hyper figures OFF on input_ line 4443.
+Package hyperref Info: Link nesting OFF on input_ line 4448.
+Package hyperref Info: Hyper index ON on input_ line 4451.
+Package hyperref Info: Plain pages OFF on input_ line 4458.
+Package hyperref Info: Backreferencing ON on input_ line 4461.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
-Package hyperref Info: Bookmarks ON on input line 4688.
+Package hyperref Info: Bookmarks ON on input_ line 4688.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/backref.sty
 Package: backref 2012/07/25 v1.38 Bibliographical back referencing
 
 (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
 Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
-Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input_ line 2
 82.
 ))
 \c@Hy@tempcnt=\count127
@@ -968,20 +968,20 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 \Urlmuskip=\muskip10
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
-LaTeX Info: Redefining \url on input line 5041.
+LaTeX Info: Redefining \url on input_ line 5041.
 \XeTeXLinkMargin=\dimen153
 \Fld@menulength=\count128
 \Field@Width=\dimen154
 \Fld@charsize=\dimen155
-Package hyperref Info: Hyper figures OFF on input line 6295.
-Package hyperref Info: Link nesting OFF on input line 6300.
-Package hyperref Info: Hyper index ON on input line 6303.
-Package hyperref Info: backreferencing ON on input line 6308.
-Package hyperref Info: Link coloring OFF on input line 6315.
-Package hyperref Info: Link coloring with OCG OFF on input line 6320.
-Package hyperref Info: PDF/A mode OFF on input line 6325.
-LaTeX Info: Redefining \ref on input line 6365.
-LaTeX Info: Redefining \pageref on input line 6369.
+Package hyperref Info: Hyper figures OFF on input_ line 6295.
+Package hyperref Info: Link nesting OFF on input_ line 6300.
+Package hyperref Info: Hyper index ON on input_ line 6303.
+Package hyperref Info: backreferencing ON on input_ line 6308.
+Package hyperref Info: Link coloring OFF on input_ line 6315.
+Package hyperref Info: Link coloring with OCG OFF on input_ line 6320.
+Package hyperref Info: PDF/A mode OFF on input_ line 6325.
+LaTeX Info: Redefining \ref on input_ line 6365.
+LaTeX Info: Redefining \pageref on input_ line 6369.
 \Hy@abspage=\count129
 \c@Item=\count130
 \c@Hfootnote=\count131
@@ -995,8 +995,8 @@ File: hpdftex.def 2012/11/06 v6.83m Hyperref driver for pdfTeX
 \c@bookmark@seq@number=\count133
 \Hy@SectionHShift=\skip102
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 105.
-Package hyperref Info: Option `unicode' set `true' on input line 105.
+Package hyperref Info: Option `colorlinks' set `true' on input_ line 105.
+Package hyperref Info: Option `unicode' set `true' on input_ line 105.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/puenc.def
 File: puenc.def 2012/11/06 v6.83m Hyperref: PDF Unicode definition (HO)
@@ -1008,7 +1008,7 @@ Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
 
 (/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2016/02/04 v1.7-139 caption3 kernel (AR)
-Package caption3 Info: TeX engine: e-TeX on input line 67.
+Package caption3 Info: TeX engine: e-TeX on input_ line 67.
 \captionmargin=\dimen156
 \captionmargin@=\dimen157
 \captionwidth=\dimen158
@@ -1027,36 +1027,36 @@ Package: ltcaption 2013/06/09 v1.4-94 longtable captions (AR)
 )) (./refman.aux)
 \openout1 = `refman.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 117.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 117.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input_ line 117.
+LaTeX Font Info:    ... okay on input_ line 117.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input_ line 117.
+LaTeX Font Info:    ... okay on input_ line 117.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input_ line 117.
+LaTeX Font Info:    ... okay on input_ line 117.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input_ line 117.
+LaTeX Font Info:    ... okay on input_ line 117.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input_ line 117.
+LaTeX Font Info:    ... okay on input_ line 117.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input_ line 117.
+LaTeX Font Info:    ... okay on input_ line 117.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input_ line 117.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input_ line 117.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Try loading font information for T1+phv on input line 117.
+LaTeX Font Info:    ... okay on input_ line 117.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input_ line 117.
+LaTeX Font Info:    ... okay on input_ line 117.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input_ line 117.
+LaTeX Font Info:    ... okay on input_ line 117.
+LaTeX Font Info:    Try loading font information for T1+phv on input_ line 117.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd
 File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
 )
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 8.99994pt on input line 117.
+(Font)              scaled to size 8.99994pt on input_ line 117.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -1080,7 +1080,7 @@ Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
 Package grfext Info: Graphics extension search list:
 (grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
 G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 452.
+(grfext)             \AppendGraphicsExtensions on input_ line 452.
 
 (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
@@ -1121,8 +1121,8 @@ e
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 \AtBeginShipoutBox=\box66
-Package backref Info: ** backref set up for natbib ** on input line 117.
-Package hyperref Info: Link coloring ON on input line 117.
+Package backref Info: ** backref set up for natbib ** on input_ line 117.
+Package hyperref Info: Link coloring ON on input_ line 117.
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
@@ -1131,41 +1131,41 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count141
 )
-LaTeX Info: Redefining \ref on input line 117.
-LaTeX Info: Redefining \pageref on input line 117.
-LaTeX Info: Redefining \nameref on input line 117.
+LaTeX Info: Redefining \ref on input_ line 117.
+LaTeX Info: Redefining \pageref on input_ line 117.
+LaTeX Info: Redefining \nameref on input_ line 117.
 
-(./refman.output) (./refman.output)
+(./refman.output_) (./refman.output_)
 \@outlinefile=\write4
-\openout4 = `refman.output'.
+\openout4 = `refman.output_'.
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Option `pageanchor' set `false' on input line 123.
-Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 123.
+Package hyperref Info: Option `pageanchor' set `false' on input_ line 123.
+Package hyperref Info: Option `bookmarksnumbered' set `true' on input_ line 123.
 
-Package hyperref Info: Option `unicode' set `true' on input line 123.
+Package hyperref Info: Option `unicode' set `true' on input_ line 123.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 12.9599pt on input line 128.
+(Font)              scaled to size 12.9599pt on input_ line 128.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 6.29996pt on input line 128.
-LaTeX Font Info:    Try loading font information for U+wasy on input line 128.
+(Font)              scaled to size 6.29996pt on input_ line 128.
+LaTeX Font Info:    Try loading font information for U+wasy on input_ line 128.
 
 (/usr/share/texlive/texmf-dist/tex/latex/wasysym/uwasy.fd
 File: uwasy.fd 2003/10/30 v2.0 Wasy-2 symbol font definitions
 )
-LaTeX Font Info:    Try loading font information for U+msa on input line 128.
+LaTeX Font Info:    Try loading font information for U+msa on input_ line 128.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 128.
+LaTeX Font Info:    Try loading font information for U+msb on input_ line 128.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 10.79993pt on input line 130.
+(Font)              scaled to size 10.79993pt on input_ line 130.
  [1
 
 
@@ -1173,22 +1173,22 @@ LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 
 ]
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 22.39185pt on input line 134.
-LaTeX Font Info:    Font shape `T1/phv/bx/n' input size <24.88> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 134.
+(Font)              scaled to size 22.39185pt on input_ line 134.
+LaTeX Font Info:    Font shape `T1/phv/bx/n' input_ size <24.88> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input_ line 134.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 22.39185pt on input line 134.
+(Font)              scaled to size 22.39185pt on input_ line 134.
 LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
-(Font)              scaled to size 22.39185pt on input line 134.
+(Font)              scaled to size 22.39185pt on input_ line 134.
  (./refman.toc
-LaTeX Font Info:    Font shape `T1/phv/bx/n' input size <10> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 1.
+LaTeX Font Info:    Font shape `T1/phv/bx/n' input_ size <10> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input_ line 1.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 8.99994pt on input line 1.
-LaTeX Font Info:    Font shape `T1/phv/bx/n' input size <7> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 1.
+(Font)              scaled to size 8.99994pt on input_ line 1.
+LaTeX Font Info:    Font shape `T1/phv/bx/n' input_ size <7> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input_ line 1.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 6.29996pt on input line 1.
+(Font)              scaled to size 6.29996pt on input_ line 1.
  [3
 
 ])
@@ -1196,27 +1196,27 @@ LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 \openout5 = `refman.toc'.
 
  [4]
-Package hyperref Info: Option `pageanchor' set `true' on input line 137.
+Package hyperref Info: Option `pageanchor' set `true' on input_ line 137.
 
 Chapter 1.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 18.66588pt on input line 140.
-LaTeX Font Info:    Font shape `T1/phv/bx/n' input size <20.74> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 140.
+(Font)              scaled to size 18.66588pt on input_ line 140.
+LaTeX Font Info:    Font shape `T1/phv/bx/n' input_ size <20.74> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input_ line 140.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 18.66588pt on input line 140.
+(Font)              scaled to size 18.66588pt on input_ line 140.
 LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
-(Font)              scaled to size 18.66588pt on input line 140.
+(Font)              scaled to size 18.66588pt on input_ line 140.
 LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
-(Font)              scaled to size 6.29996pt on input line 140.
+(Font)              scaled to size 6.29996pt on input_ line 140.
 (./md__mnt_c_Users_Jesse_Dropbox_Git_CProp_README.tex
-LaTeX Font Info:    Try loading font information for TS1+phv on input line 5.
+LaTeX Font Info:    Try loading font information for TS1+phv on input_ line 5.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1phv.fd
 File: ts1phv.fd 2001/06/04 scalable font definitions for TS1/phv.
 )
 LaTeX Font Info:    Font shape `TS1/phv/m/n' will be
-(Font)              scaled to size 8.99994pt on input line 5.
+(Font)              scaled to size 8.99994pt on input_ line 5.
 ) [1
 
 
@@ -1225,12 +1225,12 @@ LaTeX Font Info:    Font shape `TS1/phv/m/n' will be
 ]
 Chapter 2.
 (./annotated.tex
-LaTeX Font Info:    Font shape `T1/phv/bx/n' input size <14.4> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 1.
+LaTeX Font Info:    Font shape `T1/phv/bx/n' input_ size <14.4> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input_ line 1.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 12.9599pt on input line 1.
+(Font)              scaled to size 12.9599pt on input_ line 1.
 LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
-(Font)              scaled to size 12.9599pt on input line 1.
+(Font)              scaled to size 12.9599pt on input_ line 1.
 ) [3] [4
 
 ]
@@ -1240,41 +1240,41 @@ Chapter 3.
 ]
 Chapter 4.
 (./structpropinfo.tex
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 10.
+LaTeX Font Info:    Try loading font information for T1+pcr on input_ line 10.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
-LaTeX Font Info:    Font shape `T1/phv/bx/n' input size <12> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 12.
+LaTeX Font Info:    Font shape `T1/phv/bx/n' input_ size <12> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input_ line 12.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 10.79993pt on input line 12.
+(Font)              scaled to size 10.79993pt on input_ line 12.
 LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
-(Font)              scaled to size 10.79993pt on input line 12.
+(Font)              scaled to size 10.79993pt on input_ line 12.
 LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
-(Font)              scaled to size 8.99994pt on input line 41.
+(Font)              scaled to size 8.99994pt on input_ line 41.
 [7]
 
-Package hyperref Warning: Token not allowed input a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 50.
+Package hyperref Warning: Token not allowed input_ a PDF string (Unicode):
+(hyperref)                removing `subscript' on input_ line 50.
 
 ) (./structthreetuple.tex) (./classXfoilInterface.tex
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 8.09995pt on input line 17.
+(Font)              scaled to size 8.09995pt on input_ line 17.
  [8]
-LaTeX Font Info:    Font shape `T1/phv/m/it' input size <9> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 17.
+LaTeX Font Info:    Font shape `T1/phv/m/it' input_ size <9> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input_ line 17.
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 8.09995pt on input line 17.
-LaTeX Font Info:    Font shape `T1/phv/m/it' input size <7> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 17.
+(Font)              scaled to size 8.09995pt on input_ line 17.
+LaTeX Font Info:    Font shape `T1/phv/m/it' input_ size <7> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input_ line 17.
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 6.29996pt on input line 17.
-LaTeX Font Info:    Font shape `T1/phv/bc/it' input size <10> not available
-(Font)              Font shape `T1/phv/bc/sl' tried instead on input line 46.
+(Font)              scaled to size 6.29996pt on input_ line 17.
+LaTeX Font Info:    Font shape `T1/phv/bc/it' input_ size <10> not available
+(Font)              Font shape `T1/phv/bc/sl' tried instead on input_ line 46.
 LaTeX Font Info:    Font shape `T1/phv/bc/sl' will be
-(Font)              scaled to size 8.99994pt on input line 46.
+(Font)              scaled to size 8.99994pt on input_ line 46.
 
-Overfull \vbox (21.25899pt too high) has occurred while \output is active []
+Overfull \vbox (21.25899pt too high) has occurred while \output_ is active []
 
 
 [9]
@@ -1285,7 +1285,7 @@ Underfull \hbox (badness 10000) detected at line 118
 ) [10]
 Chapter 5.
 (./inducedvelocities_8h.tex
-Underfull \hbox (badness 3884) input paragraph at lines 1--1
+Underfull \hbox (badness 3884) input_ paragraph at lines 1--1
 []\T1/phv/bc/n/14.4 /mnt/c/[]Users/[]Jesse/[]Dropbox/[]Git/[]C[]Prop/libs/heade
 rs/inducedvelocities.h File Ref-er-
  []
@@ -1317,13 +1317,13 @@ Underfull \hbox (badness 10000) detected at line 156
 [][][]
  []
 
-LaTeX Font Info:    Font shape `T1/phv/bc/it' input size <7> not available
-(Font)              Font shape `T1/phv/bc/sl' tried instead on input line 172.
+LaTeX Font Info:    Font shape `T1/phv/bc/it' input_ size <7> not available
+(Font)              Font shape `T1/phv/bc/sl' tried instead on input_ line 172.
 LaTeX Font Info:    Font shape `T1/phv/bc/sl' will be
-(Font)              scaled to size 6.29996pt on input line 172.
+(Font)              scaled to size 6.29996pt on input_ line 172.
 
-Package hyperref Warning: Token not allowed input a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 172.
+Package hyperref Warning: Token not allowed input_ a PDF string (Unicode):
+(hyperref)                removing `subscript' on input_ line 172.
 
 
 Underfull \hbox (badness 10000) detected at line 196
@@ -1331,7 +1331,7 @@ Underfull \hbox (badness 10000) detected at line 196
  []
 
 
-Overfull \vbox (23.48119pt too high) has occurred while \output is active []
+Overfull \vbox (23.48119pt too high) has occurred while \output_ is active []
 
 
 [13]
@@ -1340,8 +1340,8 @@ Underfull \hbox (badness 10000) detected at line 224
  []
 
 
-Package hyperref Warning: Token not allowed input a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 240.
+Package hyperref Warning: Token not allowed input_ a PDF string (Unicode):
+(hyperref)                removing `subscript' on input_ line 240.
 
 
 Underfull \hbox (badness 10000) detected at line 264
@@ -1361,19 +1361,19 @@ Underfull \hbox (badness 10000) detected at line 26
 ) [15] [16
 
 ] (./refman.ind
-Overfull \hbox (65.31827pt too wide) input paragraph at lines 3--5
+Overfull \hbox (65.31827pt too wide) input_ paragraph at lines 3--5
 []\T1/phv/m/n/10 /mnt/c/[]Users/[]Jesse/[]Dropbox/[]Git/[]C[]Prop/libs/headers/
 inducedvelocities.[]
  []
 
 
-Overfull \hbox (45.11343pt too wide) input paragraph at lines 5--7
+Overfull \hbox (45.11343pt too wide) input_ paragraph at lines 5--7
 []\T1/phv/m/n/10 /mnt/c/[]Users/[]Jesse/[]Dropbox/[]Git/[]C[]Prop/libs/headers/
 matrixsolver.[]
  []
 
 
-Overfull \hbox (46.99449pt too wide) input paragraph at lines 7--9
+Overfull \hbox (46.99449pt too wide) input_ paragraph at lines 7--9
 []\T1/phv/m/n/10 /mnt/c/[]Users/[]Jesse/[]Dropbox/[]Git/[]C[]Prop/libs/headers/
 xfoilinterface.[]
  []
@@ -1382,23 +1382,23 @@ xfoilinterface.[]
 
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 166.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 166.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input_ line 166.
+Package atveryend Info: Empty hook `AfterLastShipout' on input_ line 166.
  (./refman.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 166.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 166.
-Package rerunfilecheck Info: File `refman.output' has not changed.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input_ line 166.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input_ line 166.
+Package rerunfilecheck Info: File `refman.output_' has not changed.
 (rerunfilecheck)             Checksum: 11E94C4F7A6EF5F24499F6C3567D9415;10929.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 166.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input_ line 166.
  ) 
 Here is how much of TeX's memory you used:
- 14966 strings output of 493029
- 213889 string characters output of 6136234
- 311574 words of memory output of 5000000
- 18128 multiletter control sequences output of 15000+600000
- 63279 words of font info for 67 fonts, output of 8000000 for 9000
- 1141 hyphenation exceptions output of 8191
- 53i,15n,92p,1383b,628s stack positions output of 5000i,500n,10000p,200000b,80000s
+ 14966 strings output_ of 493029
+ 213889 string characters output_ of 6136234
+ 311574 words of memory output_ of 5000000
+ 18128 multiletter control sequences output_ of 15000+600000
+ 63279 words of font info for 67 fonts, output_ of 8000000 for 9000
+ 1141 hyphenation exceptions output_ of 8191
+ 53i,15n,92p,1383b,628s stack positions output_ of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/
@@ -1411,8 +1411,8 @@ hvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8ac.pfb><
 mf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb>
 Output written on refman.pdf (21 pages, 123985 bytes).
 PDF statistics:
- 527 PDF objects output of 1000 (max. 8388607)
+ 527 PDF objects output_ of 1000 (max. 8388607)
  489 compressed objects within 5 object streams
- 116 named destinations output of 1000 (max. 500000)
- 345 words of extra memory for PDF output output of 10000 (max. 10000000)
+ 116 named destinations output_ of 1000 (max. 500000)
+ 345 words of extra memory for PDF output_ output_ of 10000 (max. 10000000)
 

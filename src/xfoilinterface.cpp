@@ -9,15 +9,15 @@
 // * get pressure coeff, Cd, Cm, etc TODO
 
 Xfoil::Xfoil() {
-  xfoil_state.G = false;
-  xfoil_state.pacc_file = std::tmpnam(nullptr);
-  xfoil_state.Ncrit = 9;
-  xfoil_state.pacc = false;
-  line_number = POLAR_DATA_LINENR;
-  xfoil_state.iter = 20;
-  log.open("xfoil.log");
-  log_output = true;
-  input_log.open("input.log");
+  xfoil_state_.G = false;
+  xfoil_state_.pacc_file = std::tmpnam(nullptr);
+  xfoil_state_.Ncrit = 9;
+  xfoil_state_.pacc = false;
+  line_number_ = POLAR_DATA_LINENR;
+  xfoil_state_.iter = 20;
+  log_.open("xfoil.log_");
+  log_output_ = true;
+  input_log_.open("input_.log_");
   Start();
   Configure();
 }
@@ -27,38 +27,38 @@ Xfoil::~Xfoil() {
 }
 
 bool Xfoil::Start() {
-  if (!(pipe(inpipe) || pipe(outpipe))) {
-    process = fork();
-    if (process == 0) { /* child process */
+  if (!(pipe(inpipe_) || pipe(outpipe_))) {
+    process_ = fork();
+    if (process_ == 0) { /* child process_ */
       dup2(ChildRead, STDIN_FILENO);
       dup2(ChildWrite, STDOUT_FILENO);
       execl("/bin/xfoil", "xfoil", NULL);
       exit(1);
-    } else if (process == -1) { // fork failure
+    } else if (process_ == -1) { // fork failure
       return false;
-    } else { /* parent process */
-      input = fdopen(ParentWrite, "w");
-      output = fdopen(ParentRead, "r");
+    } else { /* parent process_ */
+      input_ = fdopen(ParentWrite, "w");
+      output_ = fdopen(ParentRead, "r");
       close(ChildRead);
       close(ChildWrite);
-      reading = std::thread(&Xfoil::ReadOutput, this);
+      reading_ = std::thread(&Xfoil::ReadOutput, this);
       return true;
     }
   }
 }
 
 int Xfoil::Configure() {
-  if (!xfoil_state.G) {
+  if (!xfoil_state_.G) {
     Command("plop\n");
     Command("G\n");
     Newline();
   }
-  SetNcrit(xfoil_state.Ncrit);
-  if (!EnablePACC(xfoil_state.pacc_file))
+  SetNcrit(xfoil_state_.Ncrit);
+  if (!EnablePACC(xfoil_state_.pacc_file))
     return PACC_FAIL;
-  if (!SetViscosity(xfoil_state.Reynolds))
+  if (!SetViscosity(xfoil_state_.Reynolds))
     return VISC_FAIL;
-  if (!SetIterations(xfoil_state.iter))
+  if (!SetIterations(xfoil_state_.iter))
     return ITER_FAIL;
   Newline();
   return 0;
@@ -67,14 +67,14 @@ int Xfoil::Configure() {
 bool Xfoil::Quit() {
   Newline();
   Command("Quit\n");
-  log_output = false;
-  reading.detach();
-  int stopped  = kill(process, SIGTERM);
+  log_output_ = false;
+  reading_.detach();
+  int stopped  = kill(process_, SIGTERM);
   int status;
-  waitpid(process, &status, 0);
-  log.close();
-  remove(xfoil_state.pacc_file.c_str());
-  input_log.close();
+  waitpid(process_, &status, 0);
+  log_.close();
+  remove(xfoil_state_.pacc_file.c_str());
+  input_log_.close();
   if (stopped == 0) {
     return true;
   } else if (stopped == -1) {
@@ -87,7 +87,7 @@ void Xfoil::SetNcrit(double Ncrit) {
   Command("oper\n");
   Command("vpar\n");
   Command("N %f\n", Ncrit);
-  xfoil_state.Ncrit = Ncrit;
+  xfoil_state_.Ncrit = Ncrit;
   Newline();
   Newline();
 }
@@ -95,20 +95,20 @@ void Xfoil::SetNcrit(double Ncrit) {
 void Xfoil::LoadFoilFile(char *fpath, char *foilname) {
   Command("load %s\n", fpath);
   Command("%s\n", foilname);
-  xfoil_state.foil_name = foilname;
+  xfoil_state_.foil_name = foilname;
 }
 
 void Xfoil::NACA(const char code[5]) {
   Command("naca\n");
   Command("%s\n", code);
-  xfoil_state.foil_loaded = true;
-  xfoil_state.foil_name = code;
+  xfoil_state_.foil_loaded = true;
+  xfoil_state_.foil_name = code;
 }
 
 bool Xfoil::SetViscosity(unsigned int Reynolds) {
   bool success = false;
   LoadDummyFoil();
-  if (xfoil_state.pacc) {
+  if (xfoil_state_.pacc) {
     DisablePACC();
   }
   if (Reynolds != 0) {
@@ -118,20 +118,20 @@ bool Xfoil::SetViscosity(unsigned int Reynolds) {
     Newline();
     wait_ms(SETTINGS_PROCESS_TIME);
     if (OutputContains("Re = ")) {
-      xfoil_state.viscous = true;
+      xfoil_state_.viscous = true;
       success = true;
     }
-  } else if (Reynolds == 0 && xfoil_state.viscous) { // TODO resolve warning here
+  } else if (Reynolds == 0 && xfoil_state_.viscous) { // TODO resolve warning here
     Command("oper\n");
     Command("v\n");
-    xfoil_state.viscous = false;
+    xfoil_state_.viscous = false;
     success = true;
   } else {
     success = true;
   }
-  xfoil_state.Reynolds = Reynolds;
-  if (!xfoil_state.pacc) {
-    EnablePACC(xfoil_state.pacc_file);
+  xfoil_state_.Reynolds = Reynolds;
+  if (!xfoil_state_.pacc) {
+    EnablePACC(xfoil_state_.pacc_file);
   }
   return success;
 }
@@ -144,8 +144,8 @@ std::vector<double> Xfoil::AngleOfAttack(double angle) {
   do {
     wait_ms(10);
   } while (!WaitingForInput());
-  result = ReadLineFromPolar(line_number);
-  line_number++;
+  result = ReadLineFromPolar(line_number_);
+  line_number_++;
   if (OutputContains("VISCAL:  Convergence failed")) {
     throw ConvergenceException();
   }
@@ -166,8 +166,8 @@ polar Xfoil::AngleOfAttack(double angle_start, double angle_end, double angle_in
       wait_ms(10);
   } while(!WaitingForInput());
   for (int i = 0; i < len; i++) {
-    result.contents[i] = ReadLineFromPolar(line_number);
-    line_number++;
+    result.contents[i] = ReadLineFromPolar(line_number_);
+    line_number_++;
   }
   if (OutputContains("VISCAL:  Convergence failed")) {
     throw ConvergenceException();
@@ -185,8 +185,8 @@ std::vector<double> Xfoil::LiftCoefficient(double lift_coefficient) {
   do {
     wait_ms(10);
   } while (!WaitingForInput());
-  result = ReadLineFromPolar(line_number);
-  line_number++;
+  result = ReadLineFromPolar(line_number_);
+  line_number_++;
   if (OutputContains("VISCAL:  Convergence failed")) {
     throw ConvergenceException();
   }
@@ -208,8 +208,8 @@ polar Xfoil::LiftCoefficient(double cl_start, double cl_end, double cl_increment
     wait_ms(10);
   } while (!WaitingForInput());
   for (size_t i=0; i<len; i++) {
-    result.contents[i] = ReadLineFromPolar(line_number);
-    line_number++;
+    result.contents[i] = ReadLineFromPolar(line_number_);
+    line_number_++;
   }
   if (OutputContains("VISCAL:  Convergence failed")) {
     throw ConvergenceException();
@@ -227,17 +227,17 @@ bool Xfoil::EnablePACC(std::string paccfile) {
     Command("n\n");
     Newline();
     Command("pacc\n");
-    remove(xfoil_state.pacc_file.c_str());
-    xfoil_state.pacc_file = std::tmpnam(nullptr);
+    remove(xfoil_state_.pacc_file.c_str());
+    xfoil_state_.pacc_file = std::tmpnam(nullptr);
     Command("pacc\n");
-    Command("%s\n", xfoil_state.pacc_file.c_str());
-    line_number = POLAR_DATA_LINENR;
+    Command("%s\n", xfoil_state_.pacc_file.c_str());
+    line_number_ = POLAR_DATA_LINENR;
   }
   Newline();
   wait_ms(SETTINGS_PROCESS_TIME);
   if (OutputContains("Polar accumulation enabled")) {
     Newline();
-    xfoil_state.pacc = true;
+    xfoil_state_.pacc = true;
     return true;
   }
   Newline();
@@ -248,7 +248,7 @@ void Xfoil::DisablePACC() {
   Command("oper\n");
   Command("pacc\n");
   Newline();
-  xfoil_state.pacc = false;
+  xfoil_state_.pacc = false;
 }
 
 bool Xfoil::SetIterations(unsigned int iterations) {
@@ -258,7 +258,7 @@ bool Xfoil::SetIterations(unsigned int iterations) {
   wait_ms(SETTINGS_PROCESS_TIME);
   Newline();
   if (OutputContains("iteration")) {
-    xfoil_state.iter = iterations;
+    xfoil_state_.iter = iterations;
     return true;
   }
   return false;
@@ -269,7 +269,7 @@ bool Xfoil::SetIterations(unsigned int iterations) {
  */
 double Xfoil::ReadFromPolar(int linenr, size_t start, size_t end) {
   int i = 0; std::ifstream polar_file; std::string linebuf; std::string valuestr;
-  polar_file.open(xfoil_state.pacc_file.c_str());
+  polar_file.open(xfoil_state_.pacc_file.c_str());
   while(getline(polar_file, linebuf)) {
     if (i == linenr) {
      valuestr = linebuf.substr(start, end);
@@ -284,7 +284,7 @@ double Xfoil::ReadFromPolar(int linenr, size_t start, size_t end) {
 
 std::vector<double> Xfoil::ReadLineFromPolar(int linenr) {
   int i = 0; std::ifstream polar_file; std::string linebuf;
-  polar_file.open(xfoil_state.pacc_file.c_str());
+  polar_file.open(xfoil_state_.pacc_file.c_str());
   std::vector<double> line;
   while(getline(polar_file, linebuf)) {
     if (i == linenr) {
@@ -307,23 +307,23 @@ void Xfoil::wait_ms(unsigned int milliseconds) {
 }
 
 void Xfoil::ReadOutput() {
-  outp[OUTPUT_BUFF_SIZE-1] = '\0';
-  while (log_output) {
-    output_buffer = (char) fgetc(output);
-    log << output_buffer;
-    mutex_output.lock();
-    for (int i = 1; i<OUTPUT_BUFF_SIZE-1; i++) { // shift output buffer
-        outp[i-1] = outp[i];
+  outp_[OUTPUT_BUFF_SIZE-1] = '\0';
+  while (log_output_) {
+    output_buffer_ = (char) fgetc(output_);
+    log_ << output_buffer_;
+    mutex_output_.lock();
+    for (int i = 1; i<OUTPUT_BUFF_SIZE-1; i++) { // shift output_ buffer
+        outp_[i-1] = outp_[i];
     }
-    outp[OUTPUT_BUFF_SIZE-2] = output_buffer;
-    mutex_output.unlock();
+    outp_[OUTPUT_BUFF_SIZE-2] = output_buffer_;
+    mutex_output_.unlock();
   }
 }
 
 bool Xfoil::WaitingForInput() {
-  mutex_output.lock();
-  std::string output_buffer(outp);
-  mutex_output.unlock();
+  mutex_output_.lock();
+  std::string output_buffer(outp_);
+  mutex_output_.unlock();
   std::string last_four = output_buffer.substr(OUTPUT_BUFF_SIZE-5);
   return last_four == "c>  ";
 }
@@ -334,9 +334,9 @@ void Xfoil::Command(const char *cmd, ...) {
   va_start(vl, cmd);
   vsnprintf(buf, sizeof(buf), cmd, vl);
   va_end(vl);
-  input_log << buf;
-  fprintf(input, buf);
-  fflush(input);
+  input_log_ << buf;
+  fprintf(input_, buf);
+  fflush(input_);
 }
 
 void Xfoil::Newline() {
@@ -344,15 +344,15 @@ void Xfoil::Newline() {
 }
 
 void Xfoil::LoadDummyFoil() {
-  if (!xfoil_state.foil_loaded) {
+  if (!xfoil_state_.foil_loaded) {
     NACA("1111");
-    xfoil_state.foil_loaded = true;
+    xfoil_state_.foil_loaded = true;
   }
 }
 
 bool Xfoil::OutputContains(std::string substr) {
-  mutex_output.lock();
-  std::string output_string(outp);
-  mutex_output.unlock();
+  mutex_output_.lock();
+  std::string output_string(outp_);
+  mutex_output_.unlock();
   return (output_string.find(substr) != (std::string::npos));
 }

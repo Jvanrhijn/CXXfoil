@@ -7,7 +7,7 @@ refman.pdf: clean refman.tex
 	makeindex refman.idx
 	pdflatex refman
 	latex_count=8 ; \
-	while egrep -s 'Rerun (LaTeX|to get cross-references right)' refman.log && [ $$latex_count -gt 0 ] ;\
+	while egrep -s 'Rerun (LaTeX|to get cross-references right)' refman.log_ && [ $$latex_count -gt 0 ] ;\
 	    do \
 	      echo "Rerunning latex...." ;\
 	      pdflatex refman ;\
@@ -18,4 +18,4 @@ refman.pdf: clean refman.tex
 
 
 clean:
-	rm -f *.ps *.dvi *.aux *.toc *.idx *.ind *.ilg *.log *.output *.brf *.blg *.bbl refman.pdf
+	rm -f *.ps *.dvi *.aux *.toc *.idx *.ind *.ilg *.log_ *.output_ *.brf *.blg *.bbl refman.pdf
