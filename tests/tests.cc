@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../headers/xfoilinterface.h"
+#include "../headers/cxxfoil.h"
 #include "gtest/gtest.h"
 
 Xfoil xfoil;
