@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED YES)
 
 # include headers into project
 add_library(CXXfoil src/cxxfoil.cc)
-target_include_directories(CXXFOIL PUBLIC headers)
+target_include_directories(CXXfoil PUBLIC headers)
 
 # add threading library
 find_package(Threads REQUIRED)
