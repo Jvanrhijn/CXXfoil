@@ -1,27 +1,12 @@
-cmake_minimum_required (VERSION 2.6)
 project (CXXfoil)
+cmake_minimum_required (VERSION 2.6)
 
-# set C++ standard
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED YES)
+set (CMAKE_CXX_STANDARD 11)
+set (CMAKE_CXX_STANDARD_REQUIRED YES)
 
-# include headers into project
-include_directories(headers)
+include_directories (headers)
+add_subdirectory (src)
 
-# add sources
-file(GLOB SOURCES "src/*.c*" "tests/*.c*" "headers/*.h")
-
-# add the executable
-add_executable(test ${SOURCES})
-
-# add threading library
-find_package(Threads REQUIRED)
-target_link_libraries(test Threads::Threads)
-
-# enable testing framework
+add_subdirectory (tests)
 enable_testing()
-find_package(GTest REQUIRED)
-include_directories(${GTEST_INCLUDE_DIRS})
-target_link_libraries(test ${GTEST_BOTH_LIBRARIES})
-
-add_test(XfoilTest test)
+add_test (NAME XfoilTest COMMAND Test)
