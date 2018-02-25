@@ -1,4 +1,4 @@
-#include "xfoilinterface.h"
+#include "cxxfoil.h"
 
 // contains class Xfoil, which interacts with xfoil via the Command line
 // the interface is instantiated in an empty state, optionally with parameters that set options in xfoil
