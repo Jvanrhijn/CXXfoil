@@ -32,170 +32,171 @@
  */
 class XfoilInterface {
 
-    private:
-        FRIEND_TEST(XfoilTest, OutputTest);
 
-        struct state {
-            bool visc;
-            bool G;
-            bool foilloaded;
-            bool pacc;
-            unsigned int Reynolds;
-            double Ncrit;
-            unsigned int iter;
-            std::string paccfile;
-            std::string foilname;
-        };
+  private:
+    FRIEND_TEST(XfoilTest, OutputTest);
+    struct state {
+      bool visc;
+      bool G;
+      bool foilloaded;
+      bool pacc;
+      unsigned int Reynolds;
+      double Ncrit;
+      unsigned int iter;
+      std::string paccfile;
+      std::string foilname;
+    };
 
-        //! struct containing xfoil settings current values
-        state xfoilstate;
+    //! struct containing xfoil settings current values
+    state xfoilstate;
 
-        //! Filestream to write into xfoil
-        FILE* in;
+    //! Filestream to write into xfoil
+    FILE* in;
 
-        //! Filestream to get xfoil output
-        FILE* out;
+    //! Filestream to get xfoil output
+    FILE* out;
 
-        //! pid of xfoil child process
-        pid_t proc;
+    //! pid of xfoil child process
+    pid_t proc;
 
-        //! input pipe file descriptors
-        int inpipe[2];
+    //! input pipe file descriptors
+    int inpipe[2];
 
-        //! output pipe file descriptors
-        int outpipe[2];
+    //! output pipe file descriptors
+    int outpipe[2];
 
-        //! mutex for locking output buffer
-        std::mutex mutex1;
+    //! mutex for locking output buffer
+    std::mutex mutex1;
 
-        //! buffer for xfoil last char output
-        char outbuff;
+    //! buffer for xfoil last char output
+    char outbuff;
 
-        char outp[OUTPUT_BUFF_SIZE];
+    char outp[OUTPUT_BUFF_SIZE];
 
-        //! xfoil log file
-        std::ofstream log;
+    //! xfoil log file
+    std::ofstream log;
 
 #ifdef INPUT_LOG
-        std::ofstream inplog;
+    std::ofstream inplog;
 #endif
 
-        //! thread for reading xfoil output
-        std::thread reading;
+    //! thread for reading xfoil output
+    std::thread reading;
 
-        //! bool to stop output logging thread
-        volatile bool logoutput;
+    //! bool to stop output logging thread
+    volatile bool logoutput;
 
-        //! line number to read from polar file
-        int linenr;
+    //! line number to read from polar file
+    int linenr;
 
-        //! Writes a single newline to xfoil
-        void newline();
+    //! Writes a single newline to xfoil
+    void newline();
 
-        //! Enable polar accumulation
-        bool enablePACC(std::string paccfile);
+    //! Enable polar accumulation
+    bool enablePACC(std::string paccfile);
 
-        //! Disable polar accumulation
-        void disablePACC();
+    //! Disable polar accumulation
+    void disablePACC();
         
-        //! sets Ncrit
-        void setNcrit(double Ncrit);
+    //! sets Ncrit
+    void setNcrit(double Ncrit);
 
-        //! Read value from location in polar file
-        double readFromPolar(int linenr, size_t start, size_t end);
+    //! Read value from location in polar file
+    double readFromPolar(int linenr, size_t start, size_t end);
 
-        //! Read line from polar file
-        std::vector<double> readLineFromPolar(int linenr);
+    //! Read line from polar file
+    std::vector<double> readLineFromPolar(int linenr);
 
-        //! let current thread sleep for milliseconds
-        void wait_ms(unsigned int milliseconds);
+    //! let current thread sleep for milliseconds
+    void wait_ms(unsigned int milliseconds);
 
-        //! enter command into xfoil and flush buffer
-        void command(const char* cmd, ...);
+    //! enter command into xfoil and flush buffer
+    void command(const char* cmd, ...);
 
-        //! Read xfoil output
-        void readOutput();
+    //! Read xfoil output
+    void readOutput();
 
-        //! Checks whether Xfoil is currently waiting for input
-        bool waitingForInput();
+    //! Checks whether Xfoil is currently waiting for input
+    bool waitingForInput();
 
-        //!
-        bool outputContains(std::string substr);
+    //!
+    bool outputContains(std::string substr);
 
-        //! Loads NACA 1111 if no foil is currently loaded
-        void loadDummyFoil();
+    //! Loads NACA 1111 if no foil is currently loaded
+    void loadDummyFoil();
 
-    public:
-        //! Constructor for XfoilInterface class
-        explicit XfoilInterface(bool plot, double Ncrit = 9);
+  public:
+    //! Constructor for XfoilInterface class
+    explicit XfoilInterface(bool plot, double Ncrit = 9);
 
-        //! Destructor for XfoilInterface class
-        ~XfoilInterface();
+    //! Destructor for XfoilInterface class
+    ~XfoilInterface();
 
-        /**
-         * @brief Starts xfoil interface
-         * @return Whether XFoil was initialized succesfully
-         */
-        bool start();
+    /**
+     * @brief Starts xfoil interface
+     * @return Whether XFoil was initialized succesfully
+     */
+    bool start();
 
-        //! Configures xfoil with constructor parameters
-        int configure();
+    //! Configures xfoil with constructor parameters
+    int configure();
 
-        //! Quits xfoil
-        bool quit();
+    //! Quits xfoil
+    bool quit();
 
-        //! sets number of iterations
-        bool setIter(unsigned int iterations);
+    //! sets number of iterations
+    bool setIter(unsigned int iterations);
 
-        /**
-         * @brief Loads airfoil coordinates from file
-         * @param fpath File to load coordinates from
-         * @param foilname Airfoil name
-         */
-        void loadFoilFile(char fpath[], char foilname[]);
+    /**
+     * @brief Loads airfoil coordinates from file
+     * @param fpath File to load coordinates from
+     * @param foilname Airfoil name
+     */
+    void loadFoilFile(char fpath[], char foilname[]);
 
-        /**
-         * @brief Selects a NACA airfoil to input to xfoil
-         * @param input 4-digit naca airfoil code
-         */
-        void NACA(const char code[5]);
+    /**
+     * @brief Selects a NACA airfoil to input to xfoil
+     * @param input 4-digit naca airfoil code
+     */
+    void NACA(const char code[5]);
 
-        /**
-         * @brief Starts Xfoil analysis of single angle of attack
-         * @param angle angle of attack to analyze
-         * @returns vector containing calculation results, same order as in xfoil polar files
-         */
-        std::vector<double> angleOfAttack(double angle);
+    /**
+     * @brief Starts Xfoil analysis of single angle of attack
+     * @param angle angle of attack to analyze
+     * @returns vector containing calculation results, same order as in xfoil polar files
+     */
+    std::vector<double> angleOfAttack(double angle);
 
-        /**
-         * @brief Starts Xfoil analysis of sequence of angles
-         * @param anglest starting angle of sequence
-         * @param anglee ending angle of sequence
-         * @param angleinc angle increment
-         * @param liftcoeffs array to store results in
-         * @returns polar file data structure
-         */
-        polar angleOfAttack(double anglest, double anglee, double angleinc);
-        /**
-         * @brief Starts Xfoil analysis of single lift coefficient
-         * @param liftcoeff Lift coefficient to analyze
-         * @returns vector containing calculation results, same order as in xfoil polar files
-         */
-        std::vector<double> liftCoefficient(double liftcoeff);
+    /**
+     * @brief Starts Xfoil analysis of sequence of angles
+     * @param anglest starting angle of sequence
+     * @param anglee ending angle of sequence
+     * @param angleinc angle increment
+     * @param liftcoeffs array to store results in
+     * @returns polar file data structure
+    * */
+    polar angleOfAttack(double anglest, double anglee, double angleinc);
 
-        /**
-         * @brief Starts Xfoil analysis of sequence of lift coefficients
-         * @param clstart starting lift coefficient
-         * @param clend ending lift coefficient
-         * @param clinc lift coefficient increment
-         * @param angles array to store results in
-         * @returns Polar file data structure
-         */
-        polar liftCoefficient(double clstart, double clend, double clinc);
+    /**
+   * @brief Starts Xfoil analysis of single lift coefficient
+     * @param liftcoeff Lift coefficient to analyze
+     * @returns vector containing calculation results, same order as in xfoil polar files
+     */
+    std::vector<double> liftCoefficient(double liftcoeff);
 
-        //! Enables viscous mode
-        bool setViscosity(unsigned int Reynolds);
+    /**
+     * @brief Starts Xfoil analysis of sequence of lift coefficients
+     * @param clstart starting lift coefficient
+     * @param clend ending lift coefficient
+     * @param clinc lift coefficient increment
+     * @param angles array to store results in
+     * @returns Polar file data structure
+     */
+    polar liftCoefficient(double clstart, double clend, double clinc);
+
+    //! Enables viscous mode
+    bool setViscosity(unsigned int Reynolds);
 
 };
 
-#endif
+#endif // XFOIL_H
