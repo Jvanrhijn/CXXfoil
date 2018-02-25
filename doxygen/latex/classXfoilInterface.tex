@@ -21,15 +21,15 @@ Class that interfaces with X\+Foil.
 bool \hyperlink{classXfoilInterface_aba502bd5accaf23d3bdf342a82d5fb7f}{start} ()
 \begin{DoxyCompactList}\small\item\em Starts xfoil interface. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classXfoilInterface_aedc0b9716eb07c623b9577c69ad2cc97}\label{classXfoilInterface_aedc0b9716eb07c623b9577c69ad2cc97}} 
-int \hyperlink{classXfoilInterface_aedc0b9716eb07c623b9577c69ad2cc97}{configure} ()
+int \hyperlink{classXfoilInterface_aedc0b9716eb07c623b9577c69ad2cc97}{Configure} ()
 \begin{DoxyCompactList}\small\item\em Configures xfoil with constructor parameters. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classXfoilInterface_a7225d1f5817cb79f9f938c8dc616a360}\label{classXfoilInterface_a7225d1f5817cb79f9f938c8dc616a360}} 
-bool \hyperlink{classXfoilInterface_a7225d1f5817cb79f9f938c8dc616a360}{quit} ()
+bool \hyperlink{classXfoilInterface_a7225d1f5817cb79f9f938c8dc616a360}{Quit} ()
 \begin{DoxyCompactList}\small\item\em Quits xfoil. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classXfoilInterface_a21659717b7901562e97d25460e8c4f42}\label{classXfoilInterface_a21659717b7901562e97d25460e8c4f42}} 
 bool \hyperlink{classXfoilInterface_a21659717b7901562e97d25460e8c4f42}{set\+Iter} (unsigned int iterations)
 \begin{DoxyCompactList}\small\item\em sets number of iterations \end{DoxyCompactList}\item 
-void \hyperlink{classXfoilInterface_ae6be41dc3be9e28cd36ed5e9a40b0854}{load\+Foil\+File} (char fpath\mbox{[}$\,$\mbox{]}, char foilname\mbox{[}$\,$\mbox{]})
+void \hyperlink{classXfoilInterface_ae6be41dc3be9e28cd36ed5e9a40b0854}{load\+Foil\+File} (char fpath\mbox{[}$\,$\mbox{]}, char foil_name\mbox{[}$\,$\mbox{]})
 \begin{DoxyCompactList}\small\item\em Loads airfoil coordinates from file. \end{DoxyCompactList}\item 
 void \hyperlink{classXfoilInterface_a202072a14053054a55501c45a296bce7}{N\+A\+CA} (const char code\mbox{[}5\mbox{]})
 \begin{DoxyCompactList}\small\item\em Selects a N\+A\+CA airfoil to input to xfoil. \end{DoxyCompactList}\item 
@@ -53,7 +53,7 @@ Class that interfaces with X\+Foil.
 \mbox{\Hypertarget{classXfoilInterface_a7937559afde3fe6880b64b4d8b278256}\label{classXfoilInterface_a7937559afde3fe6880b64b4d8b278256}} 
 \index{Xfoil\+Interface@{Xfoil\+Interface}!angle\+Of\+Attack@{angle\+Of\+Attack}}
 \index{angle\+Of\+Attack@{angle\+Of\+Attack}!Xfoil\+Interface@{Xfoil\+Interface}}
-\subsubsection{\texorpdfstring{angle\+Of\+Attack()}{angleOfAttack()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+\subsubsection{\texorpdfstring{angle\+Of\+Attack()}{AngleOfAttack()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily std\+::vector$<$ double $>$ Xfoil\+Interface\+::angle\+Of\+Attack (\begin{DoxyParamCaption}\item[{double}]{angle }\end{DoxyParamCaption})}
 
 
@@ -66,12 +66,12 @@ Starts Xfoil analysis of single angle of attack.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-vector containing calculation results, same order as in xfoil polar files 
+vector containing calculation results, same order as input xfoil polar files
 \end{DoxyReturn}
 \mbox{\Hypertarget{classXfoilInterface_ac2b547ba157afbb666ddf5f3eff271e2}\label{classXfoilInterface_ac2b547ba157afbb666ddf5f3eff271e2}} 
 \index{Xfoil\+Interface@{Xfoil\+Interface}!angle\+Of\+Attack@{angle\+Of\+Attack}}
 \index{angle\+Of\+Attack@{angle\+Of\+Attack}!Xfoil\+Interface@{Xfoil\+Interface}}
-\subsubsection{\texorpdfstring{angle\+Of\+Attack()}{angleOfAttack()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+\subsubsection{\texorpdfstring{angle\+Of\+Attack()}{AngleOfAttack()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \hyperlink{classpolar}{polar} Xfoil\+Interface\+::angle\+Of\+Attack (\begin{DoxyParamCaption}\item[{double}]{anglest,  }\item[{double}]{anglee,  }\item[{double}]{angleinc }\end{DoxyParamCaption})}
 
 
@@ -86,7 +86,7 @@ Starts Xfoil analysis of sequence of angles.
 \hline
 {\em angleinc} & angle increment \\
 \hline
-{\em liftcoeffs} & array to store results in \\
+{\em liftcoeffs} & array to store results input \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -95,7 +95,7 @@ polar file data structure
 \mbox{\Hypertarget{classXfoilInterface_a7dbc26399dc54c42d5e71d0d7cbb2d07}\label{classXfoilInterface_a7dbc26399dc54c42d5e71d0d7cbb2d07}} 
 \index{Xfoil\+Interface@{Xfoil\+Interface}!lift\+Coefficient@{lift\+Coefficient}}
 \index{lift\+Coefficient@{lift\+Coefficient}!Xfoil\+Interface@{Xfoil\+Interface}}
-\subsubsection{\texorpdfstring{lift\+Coefficient()}{liftCoefficient()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+\subsubsection{\texorpdfstring{lift\+Coefficient()}{LiftCoefficient()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily std\+::vector$<$ double $>$ Xfoil\+Interface\+::lift\+Coefficient (\begin{DoxyParamCaption}\item[{double}]{liftcoeff }\end{DoxyParamCaption})}
 
 
@@ -108,12 +108,12 @@ Starts Xfoil analysis of single lift coefficient.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-vector containing calculation results, same order as in xfoil polar files 
+vector containing calculation results, same order as input xfoil polar files
 \end{DoxyReturn}
 \mbox{\Hypertarget{classXfoilInterface_a04e40003487d76af5f29be2a26103fd3}\label{classXfoilInterface_a04e40003487d76af5f29be2a26103fd3}} 
 \index{Xfoil\+Interface@{Xfoil\+Interface}!lift\+Coefficient@{lift\+Coefficient}}
 \index{lift\+Coefficient@{lift\+Coefficient}!Xfoil\+Interface@{Xfoil\+Interface}}
-\subsubsection{\texorpdfstring{lift\+Coefficient()}{liftCoefficient()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+\subsubsection{\texorpdfstring{lift\+Coefficient()}{LiftCoefficient()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \hyperlink{classpolar}{polar} Xfoil\+Interface\+::lift\+Coefficient (\begin{DoxyParamCaption}\item[{double}]{clstart,  }\item[{double}]{clend,  }\item[{double}]{clinc }\end{DoxyParamCaption})}
 
 
@@ -128,7 +128,7 @@ Starts Xfoil analysis of sequence of lift coefficients.
 \hline
 {\em clinc} & lift coefficient increment \\
 \hline
-{\em angles} & array to store results in \\
+{\em angles} & array to store results input \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -137,8 +137,8 @@ Polar file data structure
 \mbox{\Hypertarget{classXfoilInterface_ae6be41dc3be9e28cd36ed5e9a40b0854}\label{classXfoilInterface_ae6be41dc3be9e28cd36ed5e9a40b0854}} 
 \index{Xfoil\+Interface@{Xfoil\+Interface}!load\+Foil\+File@{load\+Foil\+File}}
 \index{load\+Foil\+File@{load\+Foil\+File}!Xfoil\+Interface@{Xfoil\+Interface}}
-\subsubsection{\texorpdfstring{load\+Foil\+File()}{loadFoilFile()}}
-{\footnotesize\ttfamily void Xfoil\+Interface\+::load\+Foil\+File (\begin{DoxyParamCaption}\item[{char}]{fpath\mbox{[}$\,$\mbox{]},  }\item[{char}]{foilname\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+\subsubsection{\texorpdfstring{load\+Foil\+File()}{LoadFoilFile()}}
+{\footnotesize\ttfamily void Xfoil\+Interface\+::load\+Foil\+File (\begin{DoxyParamCaption}\item[{char}]{fpath\mbox{[}$\,$\mbox{]},  }\item[{char}]{foil_name\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
 
 
 
@@ -148,7 +148,7 @@ Loads airfoil coordinates from file.
 \begin{DoxyParams}{Parameters}
 {\em fpath} & File to load coordinates from \\
 \hline
-{\em foilname} & Airfoil name \\
+{\em foil_name} & Airfoil name \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{classXfoilInterface_a202072a14053054a55501c45a296bce7}\label{classXfoilInterface_a202072a14053054a55501c45a296bce7}} 
@@ -169,7 +169,7 @@ Selects a N\+A\+CA airfoil to input to xfoil.
 \mbox{\Hypertarget{classXfoilInterface_aba502bd5accaf23d3bdf342a82d5fb7f}\label{classXfoilInterface_aba502bd5accaf23d3bdf342a82d5fb7f}} 
 \index{Xfoil\+Interface@{Xfoil\+Interface}!start@{start}}
 \index{start@{start}!Xfoil\+Interface@{Xfoil\+Interface}}
-\subsubsection{\texorpdfstring{start()}{start()}}
+\subsubsection{\texorpdfstring{start()}{Start()}}
 {\footnotesize\ttfamily bool Xfoil\+Interface\+::start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 

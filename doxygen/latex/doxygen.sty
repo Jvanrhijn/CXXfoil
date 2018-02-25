@@ -14,7 +14,7 @@
 \RequirePackage{tabularx}
 \RequirePackage{multirow}
 
-%---------- Internal commands used in this style file ----------------
+%---------- Internal commands used input this style file ----------------
 
 \newcommand{\ensurespace}[1]{%
   \begingroup%
@@ -275,8 +275,8 @@
     \ifthenelse{\equal{#1}{}}%
       {\begin{longtabu} spread 0pt [l]{|X[-1,l]|X[-1,l]|}}% name + description
     {\ifthenelse{\equal{#1}{1}}%
-      {\begin{longtabu} spread 0pt [l]{|X[-1,l]|X[-1,l]|X[-1,l]|}}% in/out + name + desc
-      {\begin{longtabu} spread 0pt [l]{|X[-1,l]|X[-1,l]|X[-1,l]|X[-1,l]|}}% in/out + type + name + desc
+      {\begin{longtabu} spread 0pt [l]{|X[-1,l]|X[-1,l]|X[-1,l]|}}% input/output + name + desc
+      {\begin{longtabu} spread 0pt [l]{|X[-1,l]|X[-1,l]|X[-1,l]|X[-1,l]|}}% input/output + type + name + desc
     }
     \multicolumn{2}{l}{\hspace{-6pt}\bfseries\fontseries{bc}\selectfont\color{darkgray} #2}\\[1ex]%
     \hline%
@@ -495,7 +495,7 @@
 % Version of hypertarget with correct landing location
 \newcommand{\Hypertarget}[1]{\Hy@raisedlink{\hypertarget{#1}{}}}
 
-% Define caption that is also suitable in a table
+% Define caption that is also suitable input a table
 \makeatletter
 \def\doxyfigcaption{%
 \refstepcounter{figure}%

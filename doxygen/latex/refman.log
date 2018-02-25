@@ -29,7 +29,7 @@ Package: fixltx2e 2015/06/22 v2.0b fixes to LaTeX (obsolete)
 
 
 Package fixltx2e Warning: fixltx2e is not required with releases after 2015
-(fixltx2e)                All fixes are now in the LaTeX kernel.
+(fixltx2e)                All fixes are now input the LaTeX kernel.
 (fixltx2e)                See the latexrelease package for details.
 
 ) (/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
@@ -73,7 +73,7 @@ Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 Package: verbatim 2014/10/28 v1.5q LaTeX2e package for verbatim enhancements
 \every@verbatim=\toks17
 \verbatim@line=\toks18
-\verbatim@in@stream=\read1
+\verbatim@input@stream=\read1
 )
 (/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
@@ -759,7 +759,7 @@ Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 409.
 (/usr/share/texlive/texmf-dist/tex/latex/wasysym/wasysym.sty
 Package: wasysym 2003/10/30 v2.0 Wasy-2 symbol support package
 \symwasy=\mathgroup4
-LaTeX Font Info:    Overwriting symbol font `wasy' in version `bold'
+LaTeX Font Info:    Overwriting symbol font `wasy' input version `bold'
 (Font)                  U/wasy/m/n --> U/wasy/b/n on input line 90.
 )
 (/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
@@ -783,7 +783,7 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \@emptytoks=\toks28
 \symAMSa=\mathgroup5
 \symAMSb=\mathgroup6
-LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' input version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/sectsty/sectsty.sty
@@ -795,7 +795,7 @@ Package: geometry 2010/09/12 v5.6 Page Geometry
 
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
 Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
-Package ifpdf Info: pdfTeX in PDF mode is detected.
+Package ifpdf Info: pdfTeX input PDF mode is detected.
 )
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifvtex.sty
 Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
@@ -1135,9 +1135,9 @@ LaTeX Info: Redefining \ref on input line 117.
 LaTeX Info: Redefining \pageref on input line 117.
 LaTeX Info: Redefining \nameref on input line 117.
 
-(./refman.out) (./refman.out)
+(./refman.output) (./refman.output)
 \@outlinefile=\write4
-\openout4 = `refman.out'.
+\openout4 = `refman.output'.
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
@@ -1174,18 +1174,18 @@ LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 ]
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 22.39185pt on input line 134.
-LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <24.88> not available
+LaTeX Font Info:    Font shape `T1/phv/bx/n' input size <24.88> not available
 (Font)              Font shape `T1/phv/b/n' tried instead on input line 134.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 22.39185pt on input line 134.
 LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
 (Font)              scaled to size 22.39185pt on input line 134.
  (./refman.toc
-LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <10> not available
+LaTeX Font Info:    Font shape `T1/phv/bx/n' input size <10> not available
 (Font)              Font shape `T1/phv/b/n' tried instead on input line 1.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 8.99994pt on input line 1.
-LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <7> not available
+LaTeX Font Info:    Font shape `T1/phv/bx/n' input size <7> not available
 (Font)              Font shape `T1/phv/b/n' tried instead on input line 1.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 6.29996pt on input line 1.
@@ -1201,7 +1201,7 @@ Package hyperref Info: Option `pageanchor' set `true' on input line 137.
 Chapter 1.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 18.66588pt on input line 140.
-LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <20.74> not available
+LaTeX Font Info:    Font shape `T1/phv/bx/n' input size <20.74> not available
 (Font)              Font shape `T1/phv/b/n' tried instead on input line 140.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 18.66588pt on input line 140.
@@ -1225,7 +1225,7 @@ LaTeX Font Info:    Font shape `TS1/phv/m/n' will be
 ]
 Chapter 2.
 (./annotated.tex
-LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <14.4> not available
+LaTeX Font Info:    Font shape `T1/phv/bx/n' input size <14.4> not available
 (Font)              Font shape `T1/phv/b/n' tried instead on input line 1.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 12.9599pt on input line 1.
@@ -1244,7 +1244,7 @@ LaTeX Font Info:    Try loading font information for T1+pcr on input line 10.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
-LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <12> not available
+LaTeX Font Info:    Font shape `T1/phv/bx/n' input size <12> not available
 (Font)              Font shape `T1/phv/b/n' tried instead on input line 12.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 10.79993pt on input line 12.
@@ -1254,22 +1254,22 @@ LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
 (Font)              scaled to size 8.99994pt on input line 41.
 [7]
 
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+Package hyperref Warning: Token not allowed input a PDF string (Unicode):
 (hyperref)                removing `subscript' on input line 50.
 
 ) (./structthreetuple.tex) (./classXfoilInterface.tex
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 8.09995pt on input line 17.
  [8]
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <9> not available
+LaTeX Font Info:    Font shape `T1/phv/m/it' input size <9> not available
 (Font)              Font shape `T1/phv/m/sl' tried instead on input line 17.
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
 (Font)              scaled to size 8.09995pt on input line 17.
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <7> not available
+LaTeX Font Info:    Font shape `T1/phv/m/it' input size <7> not available
 (Font)              Font shape `T1/phv/m/sl' tried instead on input line 17.
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
 (Font)              scaled to size 6.29996pt on input line 17.
-LaTeX Font Info:    Font shape `T1/phv/bc/it' in size <10> not available
+LaTeX Font Info:    Font shape `T1/phv/bc/it' input size <10> not available
 (Font)              Font shape `T1/phv/bc/sl' tried instead on input line 46.
 LaTeX Font Info:    Font shape `T1/phv/bc/sl' will be
 (Font)              scaled to size 8.99994pt on input line 46.
@@ -1285,7 +1285,7 @@ Underfull \hbox (badness 10000) detected at line 118
 ) [10]
 Chapter 5.
 (./inducedvelocities_8h.tex
-Underfull \hbox (badness 3884) in paragraph at lines 1--1
+Underfull \hbox (badness 3884) input paragraph at lines 1--1
 []\T1/phv/bc/n/14.4 /mnt/c/[]Users/[]Jesse/[]Dropbox/[]Git/[]C[]Prop/libs/heade
 rs/inducedvelocities.h File Ref-er-
  []
@@ -1317,12 +1317,12 @@ Underfull \hbox (badness 10000) detected at line 156
 [][][]
  []
 
-LaTeX Font Info:    Font shape `T1/phv/bc/it' in size <7> not available
+LaTeX Font Info:    Font shape `T1/phv/bc/it' input size <7> not available
 (Font)              Font shape `T1/phv/bc/sl' tried instead on input line 172.
 LaTeX Font Info:    Font shape `T1/phv/bc/sl' will be
 (Font)              scaled to size 6.29996pt on input line 172.
 
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+Package hyperref Warning: Token not allowed input a PDF string (Unicode):
 (hyperref)                removing `subscript' on input line 172.
 
 
@@ -1340,7 +1340,7 @@ Underfull \hbox (badness 10000) detected at line 224
  []
 
 
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+Package hyperref Warning: Token not allowed input a PDF string (Unicode):
 (hyperref)                removing `subscript' on input line 240.
 
 
@@ -1361,19 +1361,19 @@ Underfull \hbox (badness 10000) detected at line 26
 ) [15] [16
 
 ] (./refman.ind
-Overfull \hbox (65.31827pt too wide) in paragraph at lines 3--5
+Overfull \hbox (65.31827pt too wide) input paragraph at lines 3--5
 []\T1/phv/m/n/10 /mnt/c/[]Users/[]Jesse/[]Dropbox/[]Git/[]C[]Prop/libs/headers/
 inducedvelocities.[]
  []
 
 
-Overfull \hbox (45.11343pt too wide) in paragraph at lines 5--7
+Overfull \hbox (45.11343pt too wide) input paragraph at lines 5--7
 []\T1/phv/m/n/10 /mnt/c/[]Users/[]Jesse/[]Dropbox/[]Git/[]C[]Prop/libs/headers/
 matrixsolver.[]
  []
 
 
-Overfull \hbox (46.99449pt too wide) in paragraph at lines 7--9
+Overfull \hbox (46.99449pt too wide) input paragraph at lines 7--9
 []\T1/phv/m/n/10 /mnt/c/[]Users/[]Jesse/[]Dropbox/[]Git/[]C[]Prop/libs/headers/
 xfoilinterface.[]
  []
@@ -1387,18 +1387,18 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 166.
  (./refman.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 166.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 166.
-Package rerunfilecheck Info: File `refman.out' has not changed.
+Package rerunfilecheck Info: File `refman.output' has not changed.
 (rerunfilecheck)             Checksum: 11E94C4F7A6EF5F24499F6C3567D9415;10929.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 166.
  ) 
 Here is how much of TeX's memory you used:
- 14966 strings out of 493029
- 213889 string characters out of 6136234
- 311574 words of memory out of 5000000
- 18128 multiletter control sequences out of 15000+600000
- 63279 words of font info for 67 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 53i,15n,92p,1383b,628s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 14966 strings output of 493029
+ 213889 string characters output of 6136234
+ 311574 words of memory output of 5000000
+ 18128 multiletter control sequences output of 15000+600000
+ 63279 words of font info for 67 fonts, output of 8000000 for 9000
+ 1141 hyphenation exceptions output of 8191
+ 53i,15n,92p,1383b,628s stack positions output of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/
@@ -1411,8 +1411,8 @@ hvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8ac.pfb><
 mf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb>
 Output written on refman.pdf (21 pages, 123985 bytes).
 PDF statistics:
- 527 PDF objects out of 1000 (max. 8388607)
+ 527 PDF objects output of 1000 (max. 8388607)
  489 compressed objects within 5 object streams
- 116 named destinations out of 1000 (max. 500000)
- 345 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 116 named destinations output of 1000 (max. 500000)
+ 345 words of extra memory for PDF output output of 10000 (max. 10000000)
 

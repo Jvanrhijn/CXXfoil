@@ -18,4 +18,4 @@ refman.pdf: clean refman.tex
 
 
 clean:
-	rm -f *.ps *.dvi *.aux *.toc *.idx *.ind *.ilg *.log *.out *.brf *.blg *.bbl refman.pdf
+	rm -f *.ps *.dvi *.aux *.toc *.idx *.ind *.ilg *.log *.output *.brf *.blg *.bbl refman.pdf

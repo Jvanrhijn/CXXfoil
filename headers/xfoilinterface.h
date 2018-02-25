@@ -36,28 +36,28 @@ class XfoilInterface {
   private:
     FRIEND_TEST(XfoilTest, OutputTest);
     struct state {
-      bool visc;
+      bool viscous;
       bool G;
-      bool foilloaded;
+      bool foil_loaded;
       bool pacc;
       unsigned int Reynolds;
       double Ncrit;
       unsigned int iter;
-      std::string paccfile;
-      std::string foilname;
+      std::string pacc_file;
+      std::string foil_name;
     };
 
     //! struct containing xfoil settings current values
-    state xfoilstate;
+    state xfoil_state;
 
     //! Filestream to write into xfoil
-    FILE* in;
+    FILE* input;
 
     //! Filestream to get xfoil output
-    FILE* out;
+    FILE* output;
 
     //! pid of xfoil child process
-    pid_t proc;
+    pid_t process;
 
     //! input pipe file descriptors
     int inpipe[2];
@@ -66,64 +66,62 @@ class XfoilInterface {
     int outpipe[2];
 
     //! mutex for locking output buffer
-    std::mutex mutex1;
+    std::mutex mutex_output;
 
     //! buffer for xfoil last char output
-    char outbuff;
+    char output_buffer;
 
     char outp[OUTPUT_BUFF_SIZE];
 
     //! xfoil log file
     std::ofstream log;
 
-#ifdef INPUT_LOG
-    std::ofstream inplog;
-#endif
+    std::ofstream input_log;
 
     //! thread for reading xfoil output
     std::thread reading;
 
     //! bool to stop output logging thread
-    volatile bool logoutput;
+    volatile bool log_output;
 
     //! line number to read from polar file
-    int linenr;
+    int line_number;
 
     //! Writes a single newline to xfoil
-    void newline();
+    void Newline();
 
     //! Enable polar accumulation
-    bool enablePACC(std::string paccfile);
+    bool EnablePACC(std::string paccfile);
 
     //! Disable polar accumulation
-    void disablePACC();
+    void DisablePACC();
         
     //! sets Ncrit
-    void setNcrit(double Ncrit);
+    void SetNcrit(double Ncrit);
 
     //! Read value from location in polar file
-    double readFromPolar(int linenr, size_t start, size_t end);
+    double ReadFromPolar(int linenr, size_t start, size_t end);
 
     //! Read line from polar file
-    std::vector<double> readLineFromPolar(int linenr);
+    std::vector<double> ReadLineFromPolar(int linenr);
 
     //! let current thread sleep for milliseconds
     void wait_ms(unsigned int milliseconds);
 
     //! enter command into xfoil and flush buffer
-    void command(const char* cmd, ...);
+    void Command(const char *cmd, ...);
 
     //! Read xfoil output
-    void readOutput();
+    void ReadOutput();
 
     //! Checks whether Xfoil is currently waiting for input
-    bool waitingForInput();
+    bool WaitingForInput();
 
     //!
-    bool outputContains(std::string substr);
+    bool OutputContains(std::string substr);
 
     //! Loads NACA 1111 if no foil is currently loaded
-    void loadDummyFoil();
+    void LoadDummyFoil();
 
   public:
     //! Constructor for XfoilInterface class
@@ -136,23 +134,23 @@ class XfoilInterface {
      * @brief Starts xfoil interface
      * @return Whether XFoil was initialized succesfully
      */
-    bool start();
+    bool Start();
 
     //! Configures xfoil with constructor parameters
-    int configure();
+    int Configure();
 
     //! Quits xfoil
-    bool quit();
+    bool Quit();
 
     //! sets number of iterations
-    bool setIter(unsigned int iterations);
+    bool SetIterations(unsigned int iterations);
 
     /**
      * @brief Loads airfoil coordinates from file
      * @param fpath File to load coordinates from
      * @param foilname Airfoil name
      */
-    void loadFoilFile(char fpath[], char foilname[]);
+    void LoadFoilFile(char *fpath, char *foilname);
 
     /**
      * @brief Selects a NACA airfoil to input to xfoil
@@ -165,37 +163,37 @@ class XfoilInterface {
      * @param angle angle of attack to analyze
      * @returns vector containing calculation results, same order as in xfoil polar files
      */
-    std::vector<double> angleOfAttack(double angle);
+    std::vector<double> AngleOfAttack(double angle);
 
     /**
      * @brief Starts Xfoil analysis of sequence of angles
-     * @param anglest starting angle of sequence
-     * @param anglee ending angle of sequence
-     * @param angleinc angle increment
+     * @param angle_start starting angle of sequence
+     * @param angle_end ending angle of sequence
+     * @param angle_increment angle increment
      * @param liftcoeffs array to store results in
      * @returns polar file data structure
     * */
-    polar angleOfAttack(double anglest, double anglee, double angleinc);
+    polar AngleOfAttack(double angle_start, double angle_end, double angle_increment);
 
     /**
    * @brief Starts Xfoil analysis of single lift coefficient
-     * @param liftcoeff Lift coefficient to analyze
+     * @param lift_coefficient Lift coefficient to analyze
      * @returns vector containing calculation results, same order as in xfoil polar files
      */
-    std::vector<double> liftCoefficient(double liftcoeff);
+    std::vector<double> LiftCoefficient(double lift_coefficient);
 
     /**
      * @brief Starts Xfoil analysis of sequence of lift coefficients
-     * @param clstart starting lift coefficient
-     * @param clend ending lift coefficient
-     * @param clinc lift coefficient increment
+     * @param cl_start starting lift coefficient
+     * @param cl_end ending lift coefficient
+     * @param cl_increment lift coefficient increment
      * @param angles array to store results in
      * @returns Polar file data structure
      */
-    polar liftCoefficient(double clstart, double clend, double clinc);
+    polar LiftCoefficient(double cl_start, double cl_end, double cl_increment);
 
     //! Enables viscous mode
-    bool setViscosity(unsigned int Reynolds);
+    bool SetViscosity(unsigned int Reynolds);
 
 };
 
