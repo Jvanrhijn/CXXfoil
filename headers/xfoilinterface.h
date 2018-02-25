@@ -13,8 +13,6 @@
 #define VISC_FAIL (-2) //! Fail to set viscosity
 #define ITER_FAIL (-3) //! Fail to set maximum iterations
 
-#define INPUT_LOG
-
 #define CMD_BUFF_SIZE 1024 // this is ugly and needs a better implementation
 #define OUTPUT_BUFF_SIZE 200
 
@@ -30,105 +28,14 @@
 /**
  * @brief Class that interfaces with XFoil
  */
-class XfoilInterface {
-
-
-  private:
-    FRIEND_TEST(XfoilTest, OutputTest);
-    struct state {
-      bool viscous;
-      bool G;
-      bool foil_loaded;
-      bool pacc;
-      unsigned int Reynolds;
-      double Ncrit;
-      unsigned int iter;
-      std::string pacc_file;
-      std::string foil_name;
-    };
-
-    //! struct containing xfoil settings current values
-    state xfoil_state;
-
-    //! Filestream to write into xfoil
-    FILE* input;
-
-    //! Filestream to get xfoil output
-    FILE* output;
-
-    //! pid of xfoil child process
-    pid_t process;
-
-    //! input pipe file descriptors
-    int inpipe[2];
-
-    //! output pipe file descriptors
-    int outpipe[2];
-
-    //! mutex for locking output buffer
-    std::mutex mutex_output;
-
-    //! buffer for xfoil last char output
-    char output_buffer;
-
-    char outp[OUTPUT_BUFF_SIZE];
-
-    //! xfoil log file
-    std::ofstream log;
-
-    std::ofstream input_log;
-
-    //! thread for reading xfoil output
-    std::thread reading;
-
-    //! bool to stop output logging thread
-    volatile bool log_output;
-
-    //! line number to read from polar file
-    int line_number;
-
-    //! Writes a single newline to xfoil
-    void Newline();
-
-    //! Enable polar accumulation
-    bool EnablePACC(std::string paccfile);
-
-    //! Disable polar accumulation
-    void DisablePACC();
-        
-    //! sets Ncrit
-    void SetNcrit(double Ncrit);
-
-    //! Read value from location in polar file
-    double ReadFromPolar(int linenr, size_t start, size_t end);
-
-    //! Read line from polar file
-    std::vector<double> ReadLineFromPolar(int linenr);
-
-    //! let current thread sleep for milliseconds
-    void wait_ms(unsigned int milliseconds);
-
-    //! enter command into xfoil and flush buffer
-    void Command(const char *cmd, ...);
-
-    //! Read xfoil output
-    void ReadOutput();
-
-    //! Checks whether Xfoil is currently waiting for input
-    bool WaitingForInput();
-
-    //!
-    bool OutputContains(std::string substr);
-
-    //! Loads NACA 1111 if no foil is currently loaded
-    void LoadDummyFoil();
+class Xfoil {
 
   public:
-    //! Constructor for XfoilInterface class
-    explicit XfoilInterface(bool plot, double Ncrit = 9);
+    //! Constructor for Xfoil class
+    explicit Xfoil();
 
-    //! Destructor for XfoilInterface class
-    ~XfoilInterface();
+    //! Destructor for Xfoil class
+    ~Xfoil();
 
     /**
      * @brief Starts xfoil interface
@@ -194,6 +101,96 @@ class XfoilInterface {
 
     //! Enables viscous mode
     bool SetViscosity(unsigned int Reynolds);
+
+ private:
+  FRIEND_TEST(XfoilTest, OutputTest);
+  struct state {
+    bool viscous;
+    bool G;
+    bool foil_loaded;
+    bool pacc;
+    unsigned int Reynolds;
+    double Ncrit;
+    unsigned int iter;
+    std::string pacc_file;
+    std::string foil_name;
+  };
+
+  //! struct containing xfoil settings current values
+  state xfoil_state;
+
+  //! Filestream to write into xfoil
+  FILE* input;
+
+  //! Filestream to get xfoil output
+  FILE* output;
+
+  //! pid of xfoil child process
+  pid_t process;
+
+  //! input pipe file descriptors
+  int inpipe[2];
+
+  //! output pipe file descriptors
+  int outpipe[2];
+
+  //! mutex for locking output buffer
+  std::mutex mutex_output;
+
+  //! buffer for xfoil last char output
+  char output_buffer;
+
+  char outp[OUTPUT_BUFF_SIZE];
+
+  //! xfoil log file
+  std::ofstream log;
+
+  std::ofstream input_log;
+
+  //! thread for reading xfoil output
+  std::thread reading;
+
+  //! bool to stop output logging thread
+  volatile bool log_output;
+
+  //! line number to read from polar file
+  int line_number;
+
+  //! Writes a single newline to xfoil
+  void Newline();
+
+  //! Enable polar accumulation
+  bool EnablePACC(std::string paccfile);
+
+  //! Disable polar accumulation
+  void DisablePACC();
+
+  //! sets Ncrit
+  void SetNcrit(double Ncrit);
+
+  //! Read value from location in polar file
+  double ReadFromPolar(int linenr, size_t start, size_t end);
+
+  //! Read line from polar file
+  std::vector<double> ReadLineFromPolar(int linenr);
+
+  //! let current thread sleep for milliseconds
+  void wait_ms(unsigned int milliseconds);
+
+  //! enter command into xfoil and flush buffer
+  void Command(const char *cmd, ...);
+
+  //! Read xfoil output
+  void ReadOutput();
+
+  //! Checks whether Xfoil is currently waiting for input
+  bool WaitingForInput();
+
+  //!
+  bool OutputContains(std::string substr);
+
+  //! Loads NACA 1111 if no foil is currently loaded
+  void LoadDummyFoil();
 
 };
 

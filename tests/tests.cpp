@@ -2,12 +2,7 @@
 #include "../headers/xfoilinterface.h"
 #include "gtest/gtest.h"
 
-XfoilInterface xfoil(false, 9);
-
-TEST(XfoilTest, Start) {
-  ASSERT_TRUE (xfoil.Start());
-  ASSERT_EQ(0, xfoil.Configure());
-}
+Xfoil xfoil;
 
 TEST(XfoilTest, Naca) {
   xfoil.NACA("0015");
@@ -108,8 +103,11 @@ TEST(XfoilTest, OutputTest) {
   ASSERT_TRUE(xfoil.WaitingForInput());
 }
 
-TEST(XfoilTest, Quit) {
-  ASSERT_TRUE (xfoil.Quit());
+TEST(XfoilTest, SecondInstance) {
+  Xfoil xfoil_second;
+  xfoil_second.NACA("0015");
+  std::vector<double> result = {8.115, 1, 0, -0.00145, -0.0151};
+  EXPECT_EQ(result, xfoil_second.LiftCoefficient(1.0));
 }
 
 int main(int argc, char **argv) {
