@@ -32,22 +32,13 @@ class Xfoil {
 
   public:
     //! Constructor for Xfoil class
-    explicit Xfoil();
+    explicit Xfoil(const std::string& path);
 
     //! Destructor for Xfoil class
     ~Xfoil();
 
-    /**
-     * @brief Starts xfoil interface
-     * @return Whether XFoil was initialized succesfully
-     */
-    bool Start();
-
     //! Configures xfoil with constructor parameters
     int Configure();
-
-    //! Quits xfoil
-    bool Quit();
 
     //! sets number of iterations
     bool SetIterations(unsigned int iterations);
@@ -155,6 +146,15 @@ class Xfoil {
 
   //! line number to read from polar file
   int line_number_;
+
+  /**
+   * @brief Starts xfoil interface
+   * @return Whether XFoil was initialized succesfully
+   */
+  bool Start(const std::string& path);
+
+  //! Quits xfoil
+  bool Quit();
 
   //! Writes a single newline to xfoil
   void Newline();

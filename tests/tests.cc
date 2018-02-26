@@ -2,7 +2,7 @@
 #include "../headers/cxxfoil.h"
 #include "gtest/gtest.h"
 
-Xfoil xfoil;
+Xfoil xfoil("/bin/xfoil");
 
 TEST(XfoilTest, Naca) {
   xfoil.NACA("0015");
@@ -104,7 +104,7 @@ TEST(XfoilTest, OutputTest) {
 }
 
 TEST(XfoilTest, SecondInstance) {
-  Xfoil xfoil_second;
+  Xfoil xfoil_second("/bin/xfoil");
   xfoil_second.NACA("0015");
   std::vector<double> result = {8.115, 1, 0, -0.00145, -0.0151};
   EXPECT_EQ(result, xfoil_second.LiftCoefficient(1.0));

@@ -8,7 +8,7 @@
 // * set all different options in xfoil TODO
 // * get pressure coeff, Cd, Cm, etc TODO
 
-Xfoil::Xfoil() {
+Xfoil::Xfoil(const std::string& path) {
   xfoil_state_.G = false;
   xfoil_state_.pacc_file = std::tmpnam(nullptr);
   xfoil_state_.Ncrit = 9;
@@ -18,7 +18,7 @@ Xfoil::Xfoil() {
   log_.open("xfoil.log_");
   log_output_ = true;
   input_log_.open("input_.log_");
-  Start();
+  Start(path);
   Configure();
 }
 
@@ -26,13 +26,13 @@ Xfoil::~Xfoil() {
   Quit();
 }
 
-bool Xfoil::Start() {
+bool Xfoil::Start(const std::string& path) {
   if (!(pipe(inpipe_) || pipe(outpipe_))) {
     process_ = fork();
     if (process_ == 0) { /* child process_ */
       dup2(ChildRead, STDIN_FILENO);
       dup2(ChildWrite, STDOUT_FILENO);
-      execl("/bin/xfoil", "xfoil", NULL);
+      execl(path.c_str(), "xfoil", NULL);
       exit(1);
     } else if (process_ == -1) { // fork failure
       return false;
