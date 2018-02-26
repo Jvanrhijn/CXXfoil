@@ -7,103 +7,93 @@
 #define XFOIL_H
 
 #include "include.h"
+
+namespace cxxfoil{
+
 #include "types.h"
 
-#define PACC_FAIL (-1) //! Fail to open pacc file
-#define VISC_FAIL (-2) //! Fail to set viscosity
-#define ITER_FAIL (-3) //! Fail to set maximum iterations
+inline constexpr int kOutputBufferSize = 200;
+inline constexpr int kCommandBufferSize = 1024;
+inline constexpr int kSettingsProcessTime = 10;
+inline constexpr int kPolarLineNr = 12;
 
-#define CMD_BUFF_SIZE 1024 // this is ugly and needs a better implementation
-#define OUTPUT_BUFF_SIZE 200
-
-#define SETTINGS_PROCESS_TIME 10
-
-#define POLAR_DATA_LINENR  12
-
-#define ParentRead inpipe_[0]
-#define ParentWrite outpipe_[1]
-#define ChildRead outpipe_[0]
-#define ChildWrite inpipe_[1]
+typedef enum {
+  Success,
+  FailPaccOpen,
+  FailViscSet,
+  FailIterSet
+} XfoilError;
 
 /**
  * @brief Class that interfaces with XFoil
  */
 class Xfoil {
 
-  public:
-    //! Constructor for Xfoil class
-    explicit Xfoil();
+ public:
+  //! Constructor for Xfoil class
+  explicit Xfoil(const std::string &path);
 
-    //! Destructor for Xfoil class
-    ~Xfoil();
+  //! Destructor for Xfoil class
+  ~Xfoil();
 
-    /**
-     * @brief Starts xfoil interface
-     * @return Whether XFoil was initialized succesfully
-     */
-    bool Start();
+  //! Configures xfoil with constructor parameters
+  XfoilError Configure();
 
-    //! Configures xfoil with constructor parameters
-    int Configure();
+  //! sets number of iterations
+  XfoilError SetIterations(unsigned int iterations);
 
-    //! Quits xfoil
-    bool Quit();
+  /**
+   * @brief Loads airfoil coordinates from file
+   * @param fpath File to load coordinates from
+   * @param foilname Airfoil name
+   */
+  void LoadFoilFile(char *fpath, char *foilname);
 
-    //! sets number of iterations
-    bool SetIterations(unsigned int iterations);
+  /**
+   * @brief Selects a NACA airfoil to input to xfoil
+   * @param input 4-digit naca airfoil code
+   */
+  void NACA(const char code[5]);
 
-    /**
-     * @brief Loads airfoil coordinates from file
-     * @param fpath File to load coordinates from
-     * @param foilname Airfoil name
-     */
-    void LoadFoilFile(char *fpath, char *foilname);
+  /**
+   * @brief Starts Xfoil analysis of single angle of attack
+   * @param angle angle of attack to analyze
+   * @returns vector containing calculation results, same order as in xfoil polar files
+   */
+  std::vector<double> AngleOfAttack(double angle);
 
-    /**
-     * @brief Selects a NACA airfoil to input to xfoil
-     * @param input 4-digit naca airfoil code
-     */
-    void NACA(const char code[5]);
+  /**
+   * @brief Starts Xfoil analysis of sequence of angles
+   * @param angle_start starting angle of sequence
+   * @param angle_end ending angle of sequence
+   * @param angle_increment angle increment
+   * @param liftcoeffs array to store results in
+   * @returns polar file data structure
+  * */
+  polar AngleOfAttack(double angle_start, double angle_end, double angle_increment);
 
-    /**
-     * @brief Starts Xfoil analysis of single angle of attack
-     * @param angle angle of attack to analyze
-     * @returns vector containing calculation results, same order as in xfoil polar files
-     */
-    std::vector<double> AngleOfAttack(double angle);
+  /**
+ * @brief Starts Xfoil analysis of single lift coefficient
+   * @param lift_coefficient Lift coefficient to analyze
+   * @returns vector containing calculation results, same order as in xfoil polar files
+   */
+  std::vector<double> LiftCoefficient(double lift_coefficient);
 
-    /**
-     * @brief Starts Xfoil analysis of sequence of angles
-     * @param angle_start starting angle of sequence
-     * @param angle_end ending angle of sequence
-     * @param angle_increment angle increment
-     * @param liftcoeffs array to store results in
-     * @returns polar file data structure
-    * */
-    polar AngleOfAttack(double angle_start, double angle_end, double angle_increment);
+  /**
+   * @brief Starts Xfoil analysis of sequence of lift coefficients
+   * @param cl_start starting lift coefficient
+   * @param cl_end ending lift coefficient
+   * @param cl_increment lift coefficient increment
+   * @param angles array to store results in
+   * @returns Polar file data structure
+   */
+  polar LiftCoefficient(double cl_start, double cl_end, double cl_increment);
 
-    /**
-   * @brief Starts Xfoil analysis of single lift coefficient
-     * @param lift_coefficient Lift coefficient to analyze
-     * @returns vector containing calculation results, same order as in xfoil polar files
-     */
-    std::vector<double> LiftCoefficient(double lift_coefficient);
-
-    /**
-     * @brief Starts Xfoil analysis of sequence of lift coefficients
-     * @param cl_start starting lift coefficient
-     * @param cl_end ending lift coefficient
-     * @param cl_increment lift coefficient increment
-     * @param angles array to store results in
-     * @returns Polar file data structure
-     */
-    polar LiftCoefficient(double cl_start, double cl_end, double cl_increment);
-
-    //! Enables viscous mode
-    bool SetViscosity(unsigned int Reynolds);
+  //! Enables viscous mode
+  XfoilError SetViscosity(unsigned int Reynolds);
 
  private:
-  FRIEND_TEST(XfoilTest, OutputTest);
+
   struct state {
     bool viscous;
     bool G;
@@ -120,10 +110,10 @@ class Xfoil {
   state xfoil_state_;
 
   //! Filestream to write into xfoil
-  FILE* input_;
+  FILE *input_;
 
   //! Filestream to get xfoil output
-  FILE* output_;
+  FILE *output_;
 
   //! pid of xfoil child process
   pid_t process_;
@@ -140,7 +130,7 @@ class Xfoil {
   //! buffer for xfoil last char output
   char output_buffer_;
 
-  char outp_[OUTPUT_BUFF_SIZE];
+  char outp_[kOutputBufferSize];
 
   //! xfoil log file
   std::ofstream log_;
@@ -155,6 +145,15 @@ class Xfoil {
 
   //! line number to read from polar file
   int line_number_;
+
+  /**
+   * @brief Starts xfoil interface
+   * @return Whether XFoil was initialized succesfully
+   */
+  bool Start(const std::string &path);
+
+  //! Quits xfoil
+  bool Quit();
 
   //! Writes a single newline to xfoil
   void Newline();
@@ -193,5 +192,7 @@ class Xfoil {
   void LoadDummyFoil();
 
 };
+
+} // namespace cxxfoil
 
 #endif // XFOIL_g

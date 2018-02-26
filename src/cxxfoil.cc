@@ -1,5 +1,6 @@
 #include "cxxfoil.h"
 
+namespace cxxfoil {
 // contains class Xfoil, which interacts with xfoil via the Command line
 // the interface is instantiated in an empty state, optionally with parameters that set options in xfoil
 // methods contained by the class should:
@@ -8,17 +9,17 @@
 // * set all different options in xfoil TODO
 // * get pressure coeff, Cd, Cm, etc TODO
 
-Xfoil::Xfoil() {
+Xfoil::Xfoil(const std::string &path) {
   xfoil_state_.G = false;
   xfoil_state_.pacc_file = std::tmpnam(nullptr);
   xfoil_state_.Ncrit = 9;
   xfoil_state_.pacc = false;
-  line_number_ = POLAR_DATA_LINENR;
+  line_number_ = kPolarLineNr;
   xfoil_state_.iter = 20;
   log_.open("xfoil.log_");
   log_output_ = true;
   input_log_.open("input_.log_");
-  Start();
+  Start(path);
   Configure();
 }
 
@@ -26,28 +27,28 @@ Xfoil::~Xfoil() {
   Quit();
 }
 
-bool Xfoil::Start() {
+bool Xfoil::Start(const std::string &path) {
   if (!(pipe(inpipe_) || pipe(outpipe_))) {
     process_ = fork();
-    if (process_ == 0) { /* child process_ */
-      dup2(ChildRead, STDIN_FILENO);
-      dup2(ChildWrite, STDOUT_FILENO);
-      execl("/bin/xfoil", "xfoil", NULL);
+    if (process_==0) { /* child process_ */
+      dup2(outpipe_[0], STDIN_FILENO);
+      dup2(inpipe_[1], STDOUT_FILENO);
+      execl(path.c_str(), "xfoil", NULL);
       exit(1);
-    } else if (process_ == -1) { // fork failure
+    } else if (process_==-1) { // fork failure
       return false;
     } else { /* parent process_ */
-      input_ = fdopen(ParentWrite, "w");
-      output_ = fdopen(ParentRead, "r");
-      close(ChildRead);
-      close(ChildWrite);
+      input_ = fdopen(outpipe_[1], "w");
+      output_ = fdopen(inpipe_[0], "r");
+      close(outpipe_[0]);
+      close(inpipe_[1]);
       reading_ = std::thread(&Xfoil::ReadOutput, this);
       return true;
     }
   }
 }
 
-int Xfoil::Configure() {
+XfoilError Xfoil::Configure() {
   if (!xfoil_state_.G) {
     Command("plop\n");
     Command("G\n");
@@ -55,13 +56,13 @@ int Xfoil::Configure() {
   }
   SetNcrit(xfoil_state_.Ncrit);
   if (!EnablePACC(xfoil_state_.pacc_file))
-    return PACC_FAIL;
+    return FailPaccOpen;
   if (!SetViscosity(xfoil_state_.Reynolds))
-    return VISC_FAIL;
+    return FailViscSet;
   if (!SetIterations(xfoil_state_.iter))
-    return ITER_FAIL;
+    return FailIterSet;
   Newline();
-  return 0;
+  return Success;
 }
 
 bool Xfoil::Quit() {
@@ -69,15 +70,15 @@ bool Xfoil::Quit() {
   Command("Quit\n");
   log_output_ = false;
   reading_.detach();
-  int stopped  = kill(process_, SIGTERM);
+  int stopped = kill(process_, SIGTERM);
   int status;
   waitpid(process_, &status, 0);
   log_.close();
   remove(xfoil_state_.pacc_file.c_str());
   input_log_.close();
-  if (stopped == 0) {
+  if (stopped==0) {
     return true;
-  } else if (stopped == -1) {
+  } else if (stopped==-1) {
     return false;
   }
 }
@@ -105,29 +106,29 @@ void Xfoil::NACA(const char code[5]) {
   xfoil_state_.foil_name = code;
 }
 
-bool Xfoil::SetViscosity(unsigned int Reynolds) {
-  bool success = false;
+XfoilError Xfoil::SetViscosity(unsigned int Reynolds) {
+  XfoilError success = FailViscSet;
   LoadDummyFoil();
   if (xfoil_state_.pacc) {
     DisablePACC();
   }
-  if (Reynolds != 0) {
+  if (Reynolds!=0) {
     Command("oper\n");
     Command("v\n");
     Command("%d\n", Reynolds);
     Newline();
-    wait_ms(SETTINGS_PROCESS_TIME);
+    wait_ms(kSettingsProcessTime);
     if (OutputContains("Re = ")) {
       xfoil_state_.viscous = true;
-      success = true;
+      success = Success;
     }
-  } else if (Reynolds == 0 && xfoil_state_.viscous) { // TODO resolve warning here
+  } else if (xfoil_state_.viscous) { // TODO resolve warning here
     Command("oper\n");
     Command("v\n");
     xfoil_state_.viscous = false;
-    success = true;
+    success = Success;
   } else {
-    success = true;
+    success = Success;
   }
   xfoil_state_.Reynolds = Reynolds;
   if (!xfoil_state_.pacc) {
@@ -153,18 +154,19 @@ std::vector<double> Xfoil::AngleOfAttack(double angle) {
 }
 
 polar Xfoil::AngleOfAttack(double angle_start, double angle_end, double angle_increment) {
-  size_t len = 1 + (size_t) ceil((angle_end - angle_start) / angle_increment);
+  size_t len = 1 + (size_t) ceil((angle_end - angle_start)/angle_increment);
   std::thread execute([&](float st, float e, float inc) {
     Command("oper\n");
     Command("aseq\n");
     Command("%f\n", st);
     Command("%f\n", e);
-    Command("%f\n", inc); }, angle_start, angle_end, angle_increment);
+    Command("%f\n", inc);
+  }, angle_start, angle_end, angle_increment);
   polar result(len);
   execute.join();
   do {
-      wait_ms(10);
-  } while(!WaitingForInput());
+    wait_ms(10);
+  } while (!WaitingForInput());
   for (int i = 0; i < len; i++) {
     result.contents[i] = ReadLineFromPolar(line_number_);
     line_number_++;
@@ -180,7 +182,8 @@ std::vector<double> Xfoil::LiftCoefficient(double lift_coefficient) {
   std::vector<double> result;
   std::thread execute([&](float cl) {
     Command("oper\n");
-    Command("cl %f\n", cl); }, lift_coefficient);
+    Command("cl %f\n", cl);
+  }, lift_coefficient);
   execute.join();
   do {
     wait_ms(10);
@@ -195,19 +198,20 @@ std::vector<double> Xfoil::LiftCoefficient(double lift_coefficient) {
 }
 
 polar Xfoil::LiftCoefficient(double cl_start, double cl_end, double cl_increment) {
-  size_t len = 1 + (size_t) ceil((cl_end - cl_start) / cl_increment);
+  size_t len = 1 + (size_t) ceil((cl_end - cl_start)/cl_increment);
   std::thread execute([&](float start, float end, float inc) {
     Command("oper\n");
     Command("cseq\n");
     Command("%f\n", start);
     Command("%f\n", end);
-    Command("%f\n", inc); }, cl_start, cl_end, cl_increment);
+    Command("%f\n", inc);
+  }, cl_start, cl_end, cl_increment);
   polar result(len);
   execute.join();
   do {
     wait_ms(10);
   } while (!WaitingForInput());
-  for (size_t i=0; i<len; i++) {
+  for (size_t i = 0; i < len; i++) {
     result.contents[i] = ReadLineFromPolar(line_number_);
     line_number_++;
   }
@@ -222,7 +226,7 @@ bool Xfoil::EnablePACC(std::string paccfile) {
   Command("oper\n");
   Command("pacc\n");
   Command("%s\n", paccfile.c_str());
-  wait_ms(SETTINGS_PROCESS_TIME);
+  wait_ms(kSettingsProcessTime);
   if (OutputContains("different from old")) { // deals with the case where old save file values differ from new
     Command("n\n");
     Newline();
@@ -231,10 +235,10 @@ bool Xfoil::EnablePACC(std::string paccfile) {
     xfoil_state_.pacc_file = std::tmpnam(nullptr);
     Command("pacc\n");
     Command("%s\n", xfoil_state_.pacc_file.c_str());
-    line_number_ = POLAR_DATA_LINENR;
+    line_number_ = kPolarLineNr;
   }
   Newline();
-  wait_ms(SETTINGS_PROCESS_TIME);
+  wait_ms(kSettingsProcessTime);
   if (OutputContains("Polar accumulation enabled")) {
     Newline();
     xfoil_state_.pacc = true;
@@ -251,28 +255,31 @@ void Xfoil::DisablePACC() {
   xfoil_state_.pacc = false;
 }
 
-bool Xfoil::SetIterations(unsigned int iterations) {
+XfoilError Xfoil::SetIterations(unsigned int iterations) {
   Command("oper\n");
   Command("iter\n");
   Command("%d\n", iterations);
-  wait_ms(SETTINGS_PROCESS_TIME);
+  wait_ms(kSettingsProcessTime);
   Newline();
   if (OutputContains("iteration")) {
     xfoil_state_.iter = iterations;
-    return true;
+    return Success;
   }
-  return false;
+  return FailIterSet;
 }
 
 /*
  * LOW LEVEL CODE
  */
 double Xfoil::ReadFromPolar(int linenr, size_t start, size_t end) {
-  int i = 0; std::ifstream polar_file; std::string linebuf; std::string valuestr;
+  int i = 0;
+  std::ifstream polar_file;
+  std::string linebuf;
+  std::string valuestr;
   polar_file.open(xfoil_state_.pacc_file.c_str());
-  while(getline(polar_file, linebuf)) {
-    if (i == linenr) {
-     valuestr = linebuf.substr(start, end);
+  while (getline(polar_file, linebuf)) {
+    if (i==linenr) {
+      valuestr = linebuf.substr(start, end);
       break;
     }
     i++;
@@ -283,11 +290,13 @@ double Xfoil::ReadFromPolar(int linenr, size_t start, size_t end) {
 }
 
 std::vector<double> Xfoil::ReadLineFromPolar(int linenr) {
-  int i = 0; std::ifstream polar_file; std::string linebuf;
+  int i = 0;
+  std::ifstream polar_file;
+  std::string linebuf;
   polar_file.open(xfoil_state_.pacc_file.c_str());
   std::vector<double> line;
-  while(getline(polar_file, linebuf)) {
-    if (i == linenr) {
+  while (getline(polar_file, linebuf)) {
+    if (i==linenr) {
       std::string alpha = linebuf.substr(2, 8);
       std::string CL = linebuf.substr(10, 8);
       std::string CD = linebuf.substr(20, 7);
@@ -307,15 +316,15 @@ void Xfoil::wait_ms(unsigned int milliseconds) {
 }
 
 void Xfoil::ReadOutput() {
-  outp_[OUTPUT_BUFF_SIZE-1] = '\0';
+  outp_[kOutputBufferSize- 1] = '\0';
   while (log_output_) {
     output_buffer_ = (char) fgetc(output_);
     log_ << output_buffer_;
     mutex_output_.lock();
-    for (int i = 1; i<OUTPUT_BUFF_SIZE-1; i++) { // shift output_ buffer
-        outp_[i-1] = outp_[i];
+    for (int i = 1; i < kOutputBufferSize - 1; i++) { // shift output_ buffer
+      outp_[i - 1] = outp_[i];
     }
-    outp_[OUTPUT_BUFF_SIZE-2] = output_buffer_;
+    outp_[kOutputBufferSize - 2] = output_buffer_;
     mutex_output_.unlock();
   }
 }
@@ -324,12 +333,12 @@ bool Xfoil::WaitingForInput() {
   mutex_output_.lock();
   std::string output_buffer(outp_);
   mutex_output_.unlock();
-  std::string last_four = output_buffer.substr(OUTPUT_BUFF_SIZE-5);
-  return last_four == "c>  ";
+  std::string last_four = output_buffer.substr(kOutputBufferSize - 5);
+  return last_four=="c>  ";
 }
 
 void Xfoil::Command(const char *cmd, ...) {
-  char buf[CMD_BUFF_SIZE];
+  char buf[kCommandBufferSize];
   va_list vl;
   va_start(vl, cmd);
   vsnprintf(buf, sizeof(buf), cmd, vl);
@@ -354,5 +363,7 @@ bool Xfoil::OutputContains(std::string substr) {
   mutex_output_.lock();
   std::string output_string(outp_);
   mutex_output_.unlock();
-  return (output_string.find(substr) != (std::string::npos));
+  return (output_string.find(substr)!=(std::string::npos));
 }
+
+} // namespace cxxfoil
