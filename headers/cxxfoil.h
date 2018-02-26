@@ -12,20 +12,13 @@ namespace cxxfoil{
 
 #include "types.h"
 
-#define CMD_BUFF_SIZE 1024 // this is ugly and needs a better implementation
-#define OUTPUT_BUFF_SIZE 200
-
-#define SETTINGS_PROCESS_TIME 10
-
-#define POLAR_DATA_LINENR  12
-
-#define ParentRead inpipe_[0]
-#define ParentWrite outpipe_[1]
-#define ChildRead outpipe_[0]
-#define ChildWrite inpipe_[1]
+inline constexpr int kOutputBufferSize = 200;
+inline constexpr int kCommandBufferSize = 1024;
+inline constexpr int kSettingsProcessTime = 10;
+inline constexpr int kPolarLineNr = 12;
 
 typedef enum {
-  Sucess,
+  Success,
   FailPaccOpen,
   FailViscSet,
   FailIterSet
@@ -137,7 +130,7 @@ class Xfoil {
   //! buffer for xfoil last char output
   char output_buffer_;
 
-  char outp_[OUTPUT_BUFF_SIZE];
+  char outp_[kOutputBufferSize];
 
   //! xfoil log file
   std::ofstream log_;
