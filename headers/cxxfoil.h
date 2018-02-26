@@ -7,6 +7,9 @@
 #define XFOIL_H
 
 #include "include.h"
+
+namespace cxxfoil{
+
 #include "types.h"
 
 #define PACC_FAIL (-1) //! Fail to open pacc file
@@ -30,71 +33,71 @@
  */
 class Xfoil {
 
-  public:
-    //! Constructor for Xfoil class
-    explicit Xfoil(const std::string& path);
+ public:
+  //! Constructor for Xfoil class
+  explicit Xfoil(const std::string &path);
 
-    //! Destructor for Xfoil class
-    ~Xfoil();
+  //! Destructor for Xfoil class
+  ~Xfoil();
 
-    //! Configures xfoil with constructor parameters
-    int Configure();
+  //! Configures xfoil with constructor parameters
+  int Configure();
 
-    //! sets number of iterations
-    bool SetIterations(unsigned int iterations);
+  //! sets number of iterations
+  bool SetIterations(unsigned int iterations);
 
-    /**
-     * @brief Loads airfoil coordinates from file
-     * @param fpath File to load coordinates from
-     * @param foilname Airfoil name
-     */
-    void LoadFoilFile(char *fpath, char *foilname);
+  /**
+   * @brief Loads airfoil coordinates from file
+   * @param fpath File to load coordinates from
+   * @param foilname Airfoil name
+   */
+  void LoadFoilFile(char *fpath, char *foilname);
 
-    /**
-     * @brief Selects a NACA airfoil to input to xfoil
-     * @param input 4-digit naca airfoil code
-     */
-    void NACA(const char code[5]);
+  /**
+   * @brief Selects a NACA airfoil to input to xfoil
+   * @param input 4-digit naca airfoil code
+   */
+  void NACA(const char code[5]);
 
-    /**
-     * @brief Starts Xfoil analysis of single angle of attack
-     * @param angle angle of attack to analyze
-     * @returns vector containing calculation results, same order as in xfoil polar files
-     */
-    std::vector<double> AngleOfAttack(double angle);
+  /**
+   * @brief Starts Xfoil analysis of single angle of attack
+   * @param angle angle of attack to analyze
+   * @returns vector containing calculation results, same order as in xfoil polar files
+   */
+  std::vector<double> AngleOfAttack(double angle);
 
-    /**
-     * @brief Starts Xfoil analysis of sequence of angles
-     * @param angle_start starting angle of sequence
-     * @param angle_end ending angle of sequence
-     * @param angle_increment angle increment
-     * @param liftcoeffs array to store results in
-     * @returns polar file data structure
-    * */
-    polar AngleOfAttack(double angle_start, double angle_end, double angle_increment);
+  /**
+   * @brief Starts Xfoil analysis of sequence of angles
+   * @param angle_start starting angle of sequence
+   * @param angle_end ending angle of sequence
+   * @param angle_increment angle increment
+   * @param liftcoeffs array to store results in
+   * @returns polar file data structure
+  * */
+  polar AngleOfAttack(double angle_start, double angle_end, double angle_increment);
 
-    /**
-   * @brief Starts Xfoil analysis of single lift coefficient
-     * @param lift_coefficient Lift coefficient to analyze
-     * @returns vector containing calculation results, same order as in xfoil polar files
-     */
-    std::vector<double> LiftCoefficient(double lift_coefficient);
+  /**
+ * @brief Starts Xfoil analysis of single lift coefficient
+   * @param lift_coefficient Lift coefficient to analyze
+   * @returns vector containing calculation results, same order as in xfoil polar files
+   */
+  std::vector<double> LiftCoefficient(double lift_coefficient);
 
-    /**
-     * @brief Starts Xfoil analysis of sequence of lift coefficients
-     * @param cl_start starting lift coefficient
-     * @param cl_end ending lift coefficient
-     * @param cl_increment lift coefficient increment
-     * @param angles array to store results in
-     * @returns Polar file data structure
-     */
-    polar LiftCoefficient(double cl_start, double cl_end, double cl_increment);
+  /**
+   * @brief Starts Xfoil analysis of sequence of lift coefficients
+   * @param cl_start starting lift coefficient
+   * @param cl_end ending lift coefficient
+   * @param cl_increment lift coefficient increment
+   * @param angles array to store results in
+   * @returns Polar file data structure
+   */
+  polar LiftCoefficient(double cl_start, double cl_end, double cl_increment);
 
-    //! Enables viscous mode
-    bool SetViscosity(unsigned int Reynolds);
+  //! Enables viscous mode
+  bool SetViscosity(unsigned int Reynolds);
 
  private:
-  FRIEND_TEST(XfoilTest, OutputTest);
+
   struct state {
     bool viscous;
     bool G;
@@ -111,10 +114,10 @@ class Xfoil {
   state xfoil_state_;
 
   //! Filestream to write into xfoil
-  FILE* input_;
+  FILE *input_;
 
   //! Filestream to get xfoil output
-  FILE* output_;
+  FILE *output_;
 
   //! pid of xfoil child process
   pid_t process_;
@@ -151,7 +154,7 @@ class Xfoil {
    * @brief Starts xfoil interface
    * @return Whether XFoil was initialized succesfully
    */
-  bool Start(const std::string& path);
+  bool Start(const std::string &path);
 
   //! Quits xfoil
   bool Quit();
@@ -193,5 +196,7 @@ class Xfoil {
   void LoadDummyFoil();
 
 };
+
+} // namespace cxxfoil
 
 #endif // XFOIL_g

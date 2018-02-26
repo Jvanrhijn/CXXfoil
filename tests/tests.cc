@@ -2,7 +2,7 @@
 #include "../headers/cxxfoil.h"
 #include "gtest/gtest.h"
 
-Xfoil xfoil("/bin/xfoil");
+cxxfoil::Xfoil xfoil("/bin/xfoil");
 
 TEST(XfoilTest, Naca) {
   xfoil.NACA("0015");
@@ -29,11 +29,11 @@ TEST(XfoilTest, SingleCL) {
 TEST(XfoilTest, CLInc) {
   double clstart = 0; double clend = 0.6; double clinc = 0.3;
   size_t len = 1 + (size_t) ceil((clend - clstart) / clinc);
-  polar exp_result(len);
+  cxxfoil::polar exp_result(len);
   exp_result.contents[0] = {0, 0, 0, -0.00138, 0};
   exp_result.contents[1] = {2.427, 0.3, 0, -0.00139, -0.0046};
   exp_result.contents[2] = {4.859, 0.6, 0, -0.00141, -0.0091};
-  polar result = xfoil.LiftCoefficient(clstart, clend, clinc);
+  cxxfoil::polar result = xfoil.LiftCoefficient(clstart, clend, clinc);
   for (size_t i = 0; i<len; i++) {
     EXPECT_EQ(exp_result.contents[i], result.contents[i]);
   }
@@ -42,11 +42,11 @@ TEST(XfoilTest, CLInc) {
 TEST(XfoilTest, AlphaInc) {
   double anglest = 0; double anglee = 6; double angleinc = 3;
   size_t len = 1 + (size_t) ceil((anglee - anglest) / angleinc);
-  polar exp_result(len);
+  cxxfoil::polar exp_result(len);
   exp_result.contents[0] = {0, 0, 0, -0.00138, 0};
   exp_result.contents[1] = {3, 0.3707, 0, -0.00139, -0.0056};
   exp_result.contents[2] = {6, 0.7405, 0, -0.00142, -0.0112};
-  polar result = xfoil.AngleOfAttack(anglest, anglee, angleinc);
+  cxxfoil::polar result = xfoil.AngleOfAttack(anglest, anglee, angleinc);
   for (size_t i = 0; i<len; i++) {
     EXPECT_EQ(exp_result.contents[i], result.contents[i]);
   }
@@ -81,11 +81,11 @@ TEST(XfoilTest, SingleCLVisc) {
 TEST(XfoilTest, CLIncVisc) {
   double clstart = 0; double clend = 0.6; double clinc = 0.3;
   size_t len = 1 + (size_t) ceil((clend - clstart) / clinc);
-  polar exp_result(len);
+  cxxfoil::polar exp_result(len);
   exp_result.contents[0] = {0, 0, 0.01327, 0.00563, 0};
   exp_result.contents[1] = {2.141, 0.3, 0.01438, 0.00588, -0.0047};
   exp_result.contents[2] = {3.912, 0.6, 0.01520, 0.00530, -0.0253};
-  polar result = xfoil.LiftCoefficient(clstart, clend, clinc);
+  cxxfoil::polar result = xfoil.LiftCoefficient(clstart, clend, clinc);
   for(size_t i=0; i<len; i++) {
     EXPECT_EQ(exp_result.contents[i], result.contents[i]);
   }
@@ -99,12 +99,8 @@ TEST(XfoilTest, ConvergenceCheck) {
   EXPECT_ANY_THROW(xfoil.LiftCoefficient(0, 200, 100));
 }
 
-TEST(XfoilTest, OutputTest) {
-  ASSERT_TRUE(xfoil.WaitingForInput());
-}
-
 TEST(XfoilTest, SecondInstance) {
-  Xfoil xfoil_second("/bin/xfoil");
+  cxxfoil::Xfoil xfoil_second("/bin/xfoil");
   xfoil_second.NACA("0015");
   std::vector<double> result = {8.115, 1, 0, -0.00145, -0.0151};
   EXPECT_EQ(result, xfoil_second.LiftCoefficient(1.0));
