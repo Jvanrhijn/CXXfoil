@@ -48,7 +48,7 @@ bool Xfoil::Start(const std::string &path) {
   }
 }
 
-int Xfoil::Configure() {
+XfoilError Xfoil::Configure() {
   if (!xfoil_state_.G) {
     Command("plop\n");
     Command("G\n");
@@ -56,13 +56,13 @@ int Xfoil::Configure() {
   }
   SetNcrit(xfoil_state_.Ncrit);
   if (!EnablePACC(xfoil_state_.pacc_file))
-    return PACC_FAIL;
+    return FailPaccOpen;
   if (!SetViscosity(xfoil_state_.Reynolds))
-    return VISC_FAIL;
+    return FailViscSet;
   if (!SetIterations(xfoil_state_.iter))
-    return ITER_FAIL;
+    return FailIterSet;
   Newline();
-  return 0;
+  return Sucess;
 }
 
 bool Xfoil::Quit() {
@@ -106,8 +106,8 @@ void Xfoil::NACA(const char code[5]) {
   xfoil_state_.foil_name = code;
 }
 
-bool Xfoil::SetViscosity(unsigned int Reynolds) {
-  bool success = false;
+XfoilError Xfoil::SetViscosity(unsigned int Reynolds) {
+  XfoilError success = FailViscSet;
   LoadDummyFoil();
   if (xfoil_state_.pacc) {
     DisablePACC();
@@ -120,15 +120,15 @@ bool Xfoil::SetViscosity(unsigned int Reynolds) {
     wait_ms(SETTINGS_PROCESS_TIME);
     if (OutputContains("Re = ")) {
       xfoil_state_.viscous = true;
-      success = true;
+      success = Sucess;
     }
-  } else if (Reynolds==0 && xfoil_state_.viscous) { // TODO resolve warning here
+  } else if (xfoil_state_.viscous) { // TODO resolve warning here
     Command("oper\n");
     Command("v\n");
     xfoil_state_.viscous = false;
-    success = true;
+    success = Sucess;
   } else {
-    success = true;
+    success = Sucess;
   }
   xfoil_state_.Reynolds = Reynolds;
   if (!xfoil_state_.pacc) {
@@ -255,7 +255,7 @@ void Xfoil::DisablePACC() {
   xfoil_state_.pacc = false;
 }
 
-bool Xfoil::SetIterations(unsigned int iterations) {
+XfoilError Xfoil::SetIterations(unsigned int iterations) {
   Command("oper\n");
   Command("iter\n");
   Command("%d\n", iterations);
@@ -263,9 +263,9 @@ bool Xfoil::SetIterations(unsigned int iterations) {
   Newline();
   if (OutputContains("iteration")) {
     xfoil_state_.iter = iterations;
-    return true;
+    return Sucess;
   }
-  return false;
+  return FailIterSet;
 }
 
 /*

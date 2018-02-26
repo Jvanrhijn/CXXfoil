@@ -12,10 +12,6 @@ namespace cxxfoil{
 
 #include "types.h"
 
-#define PACC_FAIL (-1) //! Fail to open pacc file
-#define VISC_FAIL (-2) //! Fail to set viscosity
-#define ITER_FAIL (-3) //! Fail to set maximum iterations
-
 #define CMD_BUFF_SIZE 1024 // this is ugly and needs a better implementation
 #define OUTPUT_BUFF_SIZE 200
 
@@ -27,6 +23,13 @@ namespace cxxfoil{
 #define ParentWrite outpipe_[1]
 #define ChildRead outpipe_[0]
 #define ChildWrite inpipe_[1]
+
+typedef enum {
+  Sucess,
+  FailPaccOpen,
+  FailViscSet,
+  FailIterSet
+} XfoilError;
 
 /**
  * @brief Class that interfaces with XFoil
@@ -41,10 +44,10 @@ class Xfoil {
   ~Xfoil();
 
   //! Configures xfoil with constructor parameters
-  int Configure();
+  XfoilError Configure();
 
   //! sets number of iterations
-  bool SetIterations(unsigned int iterations);
+  XfoilError SetIterations(unsigned int iterations);
 
   /**
    * @brief Loads airfoil coordinates from file
@@ -94,7 +97,7 @@ class Xfoil {
   polar LiftCoefficient(double cl_start, double cl_end, double cl_increment);
 
   //! Enables viscous mode
-  bool SetViscosity(unsigned int Reynolds);
+  XfoilError SetViscosity(unsigned int Reynolds);
 
  private:
 

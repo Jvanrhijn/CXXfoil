@@ -53,11 +53,11 @@ TEST(XfoilTest, AlphaInc) {
 }
 
 TEST(XfoilTest, Iter) {
-  ASSERT_TRUE(xfoil.SetIterations(200));
+  ASSERT_EQ(cxxfoil::Sucess, xfoil.SetIterations(200));
 }
 
 TEST(XfoilTest, Viscosity) {
-  ASSERT_TRUE(xfoil.SetViscosity(150000));
+  ASSERT_EQ(cxxfoil::Sucess, xfoil.SetViscosity(150000));
 }
 
 TEST(XfoilTest, singleAlphaVisc) {
