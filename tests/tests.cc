@@ -5,7 +5,9 @@
 cxxfoil::Xfoil xfoil("/bin/xfoil");
 
 TEST(XfoilTest, Naca) {
-  xfoil.NACA("0015");
+  ASSERT_EQ(xfoil.NACA("1234567890"), cxxfoil::FailNaca);
+  ASSERT_EQ(xfoil.NACA("some string"), cxxfoil::FailNaca);
+  ASSERT_EQ(xfoil.NACA("0015"), cxxfoil::Success);
 }
 
 TEST(XfoilTest, SingleAlpha) {

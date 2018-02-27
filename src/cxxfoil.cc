@@ -99,11 +99,17 @@ void Xfoil::LoadFoilFile(char *fpath, char *foilname) {
   xfoil_state_.foil_name = foilname;
 }
 
-void Xfoil::NACA(const char code[5]) {
+XfoilError Xfoil::NACA(const char code[5]) {
   Command("naca\n");
   Command("%s\n", code);
+  wait_ms(kSettingsProcessTime);
+  if (OutputContains("not implemented") || !WaitingForInput()) {
+    Newline();
+    return FailNaca;
+  }
   xfoil_state_.foil_loaded = true;
   xfoil_state_.foil_name = code;
+  return Success;
 }
 
 XfoilError Xfoil::SetViscosity(unsigned int Reynolds) {

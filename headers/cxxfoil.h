@@ -12,16 +12,17 @@ namespace cxxfoil{
 
 #include "types.h"
 
-inline constexpr int kOutputBufferSize = 200;
-inline constexpr int kCommandBufferSize = 1024;
-inline constexpr int kSettingsProcessTime = 10;
-inline constexpr int kPolarLineNr = 12;
+constexpr int kOutputBufferSize = 200;
+constexpr int kCommandBufferSize = 1024;
+constexpr int kSettingsProcessTime = 10;
+constexpr int kPolarLineNr = 12;
 
 typedef enum {
   Success,
   FailPaccOpen,
   FailViscSet,
-  FailIterSet
+  FailIterSet,
+  FailNaca,
 } XfoilError;
 
 /**
@@ -53,7 +54,7 @@ class Xfoil {
    * @brief Selects a NACA airfoil to input to xfoil
    * @param input 4-digit naca airfoil code
    */
-  void NACA(const char code[5]);
+  XfoilError NACA(const char code[5]);
 
   /**
    * @brief Starts Xfoil analysis of single angle of attack
