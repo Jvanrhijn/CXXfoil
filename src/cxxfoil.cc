@@ -16,9 +16,9 @@ Xfoil::Xfoil(const std::string &path) {
   xfoil_state_.pacc = false;
   line_number_ = kPolarLineNr;
   xfoil_state_.iter = 20;
-  log_.open("xfoil.log_");
+  log_.open("xfoil.log");
   log_output_ = true;
-  input_log_.open("input_.log_");
+  input_log_.open("input.log");
   Start(path);
   Configure();
 }
@@ -46,6 +46,7 @@ bool Xfoil::Start(const std::string &path) {
       return true;
     }
   }
+  return false;
 }
 
 XfoilError Xfoil::Configure() {
@@ -76,11 +77,10 @@ bool Xfoil::Quit() {
   log_.close();
   remove(xfoil_state_.pacc_file.c_str());
   input_log_.close();
-  if (stopped==0) {
+  if (stopped==0)
     return true;
-  } else if (stopped==-1) {
+  else if (stopped==-1)
     return false;
-  }
 }
 
 void Xfoil::SetNcrit(double Ncrit) {
@@ -93,10 +93,14 @@ void Xfoil::SetNcrit(double Ncrit) {
   Newline();
 }
 
-void Xfoil::LoadFoilFile(char *fpath, char *foilname) {
-  Command("load %s\n", fpath);
+XfoilError Xfoil::LoadFoilFile(const std::string& fpath, const std::string& foilname) {
+  Command("load %s\n", fpath.c_str());
+  wait_ms(kSettingsProcessTime);
+  if (OutputContains("LOAD NOT COMPLETED") && WaitingForInput())
+    return FailDatFile;
   Command("%s\n", foilname);
   xfoil_state_.foil_name = foilname;
+  return Success;
 }
 
 XfoilError Xfoil::NACA(const char code[5]) {

@@ -4,6 +4,10 @@
 
 cxxfoil::Xfoil xfoil("/bin/xfoil");
 
+TEST(XfoilTest, DatFile) {
+  ASSERT_EQ(xfoil.LoadFoilFile("foo", "None"), cxxfoil::FailDatFile);
+}
+
 TEST(XfoilTest, Naca) {
   ASSERT_EQ(xfoil.NACA("1234567890"), cxxfoil::FailNaca);
   ASSERT_EQ(xfoil.NACA("some string"), cxxfoil::FailNaca);

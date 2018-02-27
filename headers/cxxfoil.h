@@ -23,6 +23,7 @@ typedef enum {
   FailViscSet,
   FailIterSet,
   FailNaca,
+  FailDatFile,
 } XfoilError;
 
 /**
@@ -48,7 +49,7 @@ class Xfoil {
    * @param fpath File to load coordinates from
    * @param foilname Airfoil name
    */
-  void LoadFoilFile(char *fpath, char *foilname);
+  XfoilError LoadFoilFile(const std::string& fpath, const std::string& foilname);
 
   /**
    * @brief Selects a NACA airfoil to input to xfoil
