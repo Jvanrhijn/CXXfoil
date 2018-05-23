@@ -3,8 +3,8 @@
  * @author Jesse van Rhijn
  * @brief Library for calling XFoil from a C++ program.
  */
-#ifndef XFOIL_H
-#define XFOIL_H
+#ifndef __CXXFOIL_H
+#define __CXXFOIL_H
 
 #include "include.h"
 
@@ -197,4 +197,4 @@ class Xfoil {
 
 } // namespace cxxfoil
 
-#endif // XFOIL_g
+#endif // __CXXFOIL_H

@@ -2,8 +2,8 @@
 // Created by jesse on 12/26/17.
 //
 
-#ifndef CPROP_INCLUDE_H
-#define CPROP_INCLUDE_H
+#ifndef __CXXFOIL_INCLUDE_H
+#define __CXXFOIL_INCLUDE_H
 
 #include <iostream>
 #include <fstream>
@@ -23,4 +23,4 @@
 #include <vector>
 
 #include <gtest/gtest_prod.h>
-#endif //CPROP_INCLUDE_H
+#endif //__CXXFOIL_INCLUDE_H

@@ -2,8 +2,8 @@
 // Created by jesse on 12/26/17.
 //
 
-#ifndef CPROP_TYPES_H
-#define CPROP_TYPES_H
+#ifndef __CXXFOIL_TYPES_H
+#define __CXXFOIL_TYPES_H
 
 #include "include.h"
 
@@ -34,4 +34,4 @@ class ConvergenceException : public std::exception {
   }
 };
 
-#endif //CPROP_TYPES_H
+#endif //__CXXFOIL_TYPES_H
