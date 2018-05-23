@@ -1,13 +1,6 @@
 #include "cxxfoil.h"
 
 namespace cxxfoil {
-// contains class Xfoil, which interacts with xfoil via the Command line
-// the interface is instantiated in an empty state, optionally with parameters that set options in xfoil
-// methods contained by the class should:
-// * Start xfoil from Command line
-// * load a file containing airfoil coordinates
-// * set all different options in xfoil TODO
-// * get pressure coeff, Cd, Cm, etc TODO
 
 Xfoil::Xfoil(const std::string &path) {
   xfoil_state_.G = false;
@@ -20,6 +13,9 @@ Xfoil::Xfoil(const std::string &path) {
   log_output_ = true;
   input_log_.open("input.log");
   Start(path);
+  do {
+    wait_ms(kSettingsProcessTime);
+  } while (!WaitingForInput());
   Configure();
 }
 
@@ -77,10 +73,7 @@ bool Xfoil::Quit() {
   log_.close();
   remove(xfoil_state_.pacc_file.c_str());
   input_log_.close();
-  if (stopped==0)
-    return true;
-  else if (stopped==-1)
-    return false;
+  return stopped == 0;
 }
 
 void Xfoil::SetNcrit(double Ncrit) {

@@ -108,6 +108,7 @@ TEST(XfoilTest, ConvergenceCheck) {
 TEST(XfoilTest, SecondInstance) {
   cxxfoil::Xfoil xfoil_second("/bin/xfoil");
   xfoil_second.NACA("0015");
+  xfoil_second.SetViscosity(0);
   std::vector<double> result = {8.115, 1, 0, -0.00145, -0.0151};
   EXPECT_EQ(result, xfoil_second.LiftCoefficient(1.0));
 }
