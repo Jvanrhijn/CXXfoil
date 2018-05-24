@@ -21,6 +21,7 @@
 #include <ctgmath>
 #include <mutex>
 #include <vector>
+#include <tuple>
 
 #include <gtest/gtest_prod.h>
 #endif //__CXXFOIL_INCLUDE_H

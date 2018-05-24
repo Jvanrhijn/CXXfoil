@@ -94,6 +94,13 @@ class Xfoil {
   //! Enables viscous mode
   XfoilError SetViscosity(unsigned int Reynolds);
 
+  /**
+   * @brief Calculate pressure distribution for given angle of attack
+   * @param angle The angle of attack for which to calculate the pressure distribution
+   * @returns Vector of tuples (x, Cp)
+   */
+   std::vector<std::tuple<double, double>> PressureDistribution(double angle);
+
  private:
 
   struct state {
@@ -186,6 +193,9 @@ class Xfoil {
 
   //! Checks whether Xfoil is currently waiting for input
   bool WaitingForInput();
+
+  //! Read x, Cp values from file fname
+  std::vector<std::tuple<double, double>> ReadPressureFile(const std::string &fname);
 
   //!
   bool OutputContains(std::string substr);

@@ -125,7 +125,7 @@ XfoilError Xfoil::SetViscosity(unsigned int Reynolds) {
       xfoil_state_.viscous = true;
       success = Success;
     }
-  } else if (xfoil_state_.viscous) { // TODO resolve warning here
+  } else if (xfoil_state_.viscous) {
     Command("oper\n");
     Command("v\n");
     xfoil_state_.viscous = false;
@@ -153,6 +153,7 @@ std::vector<double> Xfoil::AngleOfAttack(double angle) {
   if (OutputContains("VISCAL:  Convergence failed")) {
     throw ConvergenceException();
   }
+  Newline();
   return result;
 }
 
@@ -271,15 +272,44 @@ XfoilError Xfoil::SetIterations(unsigned int iterations) {
   return FailIterSet;
 }
 
+std::vector<std::tuple<double, double>> Xfoil::PressureDistribution(double angle) {
+  const std::string fname = std::tmpnam(nullptr);
+  Newline();
+  AngleOfAttack(angle);
+  Command("oper\n");
+  Command("cpwr test\n");
+  return ReadPressureFile(fname);
+}
+
 /*
  * LOW LEVEL CODE
  */
+std::vector<std::tuple<double, double>> Xfoil::ReadPressureFile(const std::string &fname) {
+  std::ifstream cp_file;
+  cp_file.open(fname.c_str());
+  if (!cp_file)
+    throw std::runtime_error("Could not open cp_file");
+  cp_file.ignore(256, '\n');
+  std::string linebuf;
+  std::vector<std::tuple<double, double>> result;
+  while (getline(cp_file, linebuf)) {
+    double x = std::stod(linebuf.substr(5, 7));
+    double cp = std::stod(linebuf.substr(16, 7));
+    if (linebuf.substr(15, 1) == std::string(1, '-'))
+      cp *= -1;
+    result.emplace_back(std::make_tuple(x, cp));
+  }
+  return result;
+};
+
 double Xfoil::ReadFromPolar(int linenr, size_t start, size_t end) {
   int i = 0;
   std::ifstream polar_file;
   std::string linebuf;
   std::string valuestr;
   polar_file.open(xfoil_state_.pacc_file.c_str());
+  if (!polar_file)
+    throw std::runtime_error("Could not open polar file");
   while (getline(polar_file, linebuf)) {
     if (i==linenr) {
       valuestr = linebuf.substr(start, end);
@@ -297,6 +327,8 @@ std::vector<double> Xfoil::ReadLineFromPolar(int linenr) {
   std::ifstream polar_file;
   std::string linebuf;
   polar_file.open(xfoil_state_.pacc_file.c_str());
+  if (!polar_file)
+    throw std::runtime_error("Could not open polar file");
   std::vector<double> line;
   while (getline(polar_file, linebuf)) {
     if (i==linenr) {
