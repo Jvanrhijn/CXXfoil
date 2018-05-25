@@ -106,22 +106,25 @@ TEST(XfoilTest, ConvergenceCheck) {
 }
 
 TEST(XfoilTest, PressureDist) {
-  xfoil.SetIterations(200);
+  xfoil.SetIterations(20);
+  xfoil.SetViscosity(0);
   std::vector<std::tuple<double, double>> result;
   result = xfoil.PressureDistribution(4.0);
-  std::vector<std::tuple<double, double>> exp_result = {std::make_tuple(1.0, 0.39728),
-                                                        std::make_tuple(0.99199, 0.21217)};
+  std::vector<std::tuple<double, double>> exp_result = {std::make_tuple(1.0, 0.47688),
+                                                        std::make_tuple(0.99081, 0.27496),
+                                                        std::make_tuple(0.97881, 0.21183)};
   EXPECT_EQ(exp_result[0], result[0]);
   EXPECT_EQ(exp_result[1], result[1]);
+  EXPECT_EQ(exp_result[2], result[2]);
 }
 
-/*TEST(XfoilTest, SecondInstance) {
+TEST(XfoilTest, SecondInstance) {
   cxxfoil::Xfoil xfoil_second("/bin/xfoil");
   xfoil_second.NACA("0015");
   xfoil_second.SetViscosity(0);
   std::vector<double> result = {8.115, 1, 0, -0.00145, -0.0151};
   EXPECT_EQ(result, xfoil_second.LiftCoefficient(1.0));
-}*/
+}
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);

@@ -277,7 +277,11 @@ std::vector<std::tuple<double, double>> Xfoil::PressureDistribution(double angle
   Newline();
   AngleOfAttack(angle);
   Command("oper\n");
-  Command("cpwr test\n");
+  Command("cpwr %s\n", fname.c_str());
+  do {
+    wait_ms(10);
+  } while (!WaitingForInput());
+  Newline();
   return ReadPressureFile(fname);
 }
 
