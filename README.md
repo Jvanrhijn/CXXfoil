@@ -16,7 +16,7 @@ Set parameters and perform a viscous lift coefficient calculation:
 ~~~cpp
 xfoil.SetIterations(100);
 xfoil.SetViscosity(1e5);
-auto result = xfoil.LiftCoefficient(0.5);)
+auto result = xfoil.LiftCoefficient(0.5);
 ~~~
 
 Access result from polar:
