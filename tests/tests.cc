@@ -15,7 +15,11 @@ TEST(XfoilTest, Naca) {
 }
 
 TEST(XfoilTest, SingleAlpha) {
+  ASSERT_EQ(xfoil.NACA("0015"), cxxfoil::Success);
+  xfoil.SetViscosity(0);
+  xfoil.SetIterations(20);
   std::vector<double> result = {5.00, 0.6174, 0.0, -0.00141, -0.0094};
+  EXPECT_EQ(5.00, result[cxxfoil::alpha]);
   EXPECT_EQ(result, xfoil.AngleOfAttack(5.0));
   result = {0, 0, 0, -0.00138, 0.0};
   EXPECT_EQ(result, xfoil.AngleOfAttack(0.0));
@@ -24,6 +28,9 @@ TEST(XfoilTest, SingleAlpha) {
 }
 
 TEST(XfoilTest, SingleCL) {
+  ASSERT_EQ(xfoil.NACA("0015"), cxxfoil::Success);
+  xfoil.SetViscosity(0);
+  xfoil.SetIterations(20);
   std::vector<double> result = {8.115, 1, 0, -0.00145, -0.0151};
   EXPECT_EQ(result, xfoil.LiftCoefficient(1.0));
   result = {0, 0, 0, -0.00138, 0};
@@ -33,6 +40,9 @@ TEST(XfoilTest, SingleCL) {
 }
 
 TEST(XfoilTest, CLInc) {
+  ASSERT_EQ(xfoil.NACA("0015"), cxxfoil::Success);
+  xfoil.SetViscosity(0);
+  xfoil.SetIterations(20);
   double clstart = 0; double clend = 0.6; double clinc = 0.3;
   size_t len = 1 + (size_t) ceil((clend - clstart) / clinc);
   cxxfoil::polar exp_result(len);
@@ -46,6 +56,9 @@ TEST(XfoilTest, CLInc) {
 }
 
 TEST(XfoilTest, AlphaInc) {
+  ASSERT_EQ(xfoil.NACA("0015"), cxxfoil::Success);
+  xfoil.SetViscosity(0);
+  xfoil.SetIterations(20);
   double anglest = 0; double anglee = 6; double angleinc = 3;
   size_t len = 1 + (size_t) ceil((anglee - anglest) / angleinc);
   cxxfoil::polar exp_result(len);
@@ -59,14 +72,19 @@ TEST(XfoilTest, AlphaInc) {
 }
 
 TEST(XfoilTest, Iter) {
+  ASSERT_EQ(xfoil.NACA("0015"), cxxfoil::Success);
   ASSERT_EQ(cxxfoil::Success, xfoil.SetIterations(200));
 }
 
 TEST(XfoilTest, Viscosity) {
+  ASSERT_EQ(xfoil.NACA("0015"), cxxfoil::Success);
   ASSERT_EQ(cxxfoil::Success, xfoil.SetViscosity(150000));
 }
 
 TEST(XfoilTest, singleAlphaVisc) {
+  ASSERT_EQ(xfoil.NACA("0015"), cxxfoil::Success);
+  xfoil.SetViscosity(150000);
+  xfoil.SetIterations(200);
   std::vector<double> result = {5, 0.688, 0.01586, 0.00505, -0.0207};
   EXPECT_EQ(result, xfoil.AngleOfAttack(5.0));
   result = {0, 0, 0.01327, 0.00563, 0};
@@ -76,6 +94,9 @@ TEST(XfoilTest, singleAlphaVisc) {
 }
 
 TEST(XfoilTest, SingleCLVisc) {
+  ASSERT_EQ(xfoil.NACA("0015"), cxxfoil::Success);
+  xfoil.SetViscosity(150000);
+  xfoil.SetIterations(200);
   std::vector<double> result = {9.889, 1, 0.02698, 0.01046, 0.0169};
   EXPECT_EQ(result, xfoil.LiftCoefficient(1.0));
   result = {0, 0, 0.01327, 0.00563, 0};
@@ -85,6 +106,9 @@ TEST(XfoilTest, SingleCLVisc) {
 }
 
 TEST(XfoilTest, CLIncVisc) {
+  ASSERT_EQ(xfoil.NACA("0015"), cxxfoil::Success);
+  xfoil.SetViscosity(150000);
+  xfoil.SetIterations(200);
   double clstart = 0; double clend = 0.6; double clinc = 0.3;
   size_t len = 1 + (size_t) ceil((clend - clstart) / clinc);
   cxxfoil::polar exp_result(len);
@@ -98,7 +122,9 @@ TEST(XfoilTest, CLIncVisc) {
 }
 
 TEST(XfoilTest, ConvergenceCheck) {
-  xfoil.SetIterations(20);
+  ASSERT_EQ(xfoil.NACA("0015"), cxxfoil::Success);
+  xfoil.SetViscosity(10);
+  xfoil.SetIterations(10);
   EXPECT_ANY_THROW(xfoil.AngleOfAttack(100));
   EXPECT_ANY_THROW(xfoil.LiftCoefficient(100));
   EXPECT_ANY_THROW(xfoil.AngleOfAttack(0, 200, 100));
@@ -106,6 +132,7 @@ TEST(XfoilTest, ConvergenceCheck) {
 }
 
 TEST(XfoilTest, PressureDist) {
+  ASSERT_EQ(xfoil.NACA("0015"), cxxfoil::Success);
   xfoil.SetIterations(20);
   xfoil.SetViscosity(0);
   std::vector<std::tuple<double, double>> result;
@@ -121,7 +148,7 @@ TEST(XfoilTest, PressureDist) {
                 std::make_tuple(0.99081, 0.27493),
                 std::make_tuple(0.97881, 0.21175)};
   EXPECT_ANY_THROW(xfoil.PressureDistribution(1.0, "foo"));
-  }
+}
 
 TEST(XfoilTest, SecondInstance) {
   cxxfoil::Xfoil xfoil_second("/bin/xfoil");

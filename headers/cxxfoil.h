@@ -17,6 +17,16 @@ constexpr int kCommandBufferSize = 1024;
 constexpr int kSettingsProcessTime = 10;
 constexpr int kPolarLineNr = 12;
 
+constexpr int alpha = 0;
+constexpr int CL = 1;
+constexpr int CD = 2;
+constexpr int CDp = 3;
+constexpr int CM = 4;
+constexpr int Top_Xtr = 5;
+constexpr int Bot_Xtr = 6;
+constexpr int Top_Itr = 7;
+constexpr int Bot_Itr = 8;
+
 typedef enum {
   Success,
   FailPaccOpen,

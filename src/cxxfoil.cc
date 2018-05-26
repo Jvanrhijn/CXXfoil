@@ -7,6 +7,7 @@ Xfoil::Xfoil(const std::string &path) {
   xfoil_state_.pacc_file = std::tmpnam(nullptr);
   xfoil_state_.Ncrit = 9;
   xfoil_state_.pacc = false;
+  xfoil_state_.viscous = false;
   line_number_ = kPolarLineNr;
   xfoil_state_.iter = 20;
   log_.open("xfoil.log");
@@ -115,7 +116,7 @@ XfoilError Xfoil::SetViscosity(unsigned int Reynolds) {
   if (xfoil_state_.pacc) {
     DisablePACC();
   }
-  if (Reynolds!=0) {
+  if (Reynolds != 0 && !xfoil_state_.viscous) {
     Command("oper\n");
     Command("v\n");
     Command("%d\n", Reynolds);
@@ -125,13 +126,20 @@ XfoilError Xfoil::SetViscosity(unsigned int Reynolds) {
       xfoil_state_.viscous = true;
       success = Success;
     }
-  } else if (xfoil_state_.viscous) {
+  } else if (Reynolds != 0 && xfoil_state_.viscous) {
+    Command("r\n");
+    Command("%d\n", Reynolds);
+    Newline();
+    wait_ms(kSettingsProcessTime);
+    if (OutputContains("OPERv"))
+      success = Success;
+  } else if (Reynolds == 0 && xfoil_state_.viscous) {
     Command("oper\n");
     Command("v\n");
     xfoil_state_.viscous = false;
     success = Success;
   } else {
-    success = Success;
+    success = FailViscSet;
   }
   xfoil_state_.Reynolds = Reynolds;
   if (!xfoil_state_.pacc) {
