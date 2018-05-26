@@ -99,7 +99,7 @@ class Xfoil {
    * @param angle The angle of attack for which to calculate the pressure distribution
    * @returns Vector of tuples (x, Cp)
    */
-   std::vector<std::tuple<double, double>> PressureDistribution(double angle);
+   std::vector<std::tuple<double, double>> PressureDistribution(double value, const std::string &type="aoa");
 
  private:
 

@@ -272,10 +272,15 @@ XfoilError Xfoil::SetIterations(unsigned int iterations) {
   return FailIterSet;
 }
 
-std::vector<std::tuple<double, double>> Xfoil::PressureDistribution(double angle) {
+std::vector<std::tuple<double, double>> Xfoil::PressureDistribution(double value, const std::string &type) {
   const std::string fname = std::tmpnam(nullptr);
   Newline();
-  AngleOfAttack(angle);
+  if (type == "aoa")
+    AngleOfAttack(value);
+  else if (type == "cl")
+    LiftCoefficient(value);
+  else
+    throw std::runtime_error("Unsupported calculation type in xfoil::PressureDistribution (must be 'aoa' or 'cl')");
   Command("oper\n");
   Command("cpwr %s\n", fname.c_str());
   do {
@@ -284,6 +289,7 @@ std::vector<std::tuple<double, double>> Xfoil::PressureDistribution(double angle
   Newline();
   return ReadPressureFile(fname);
 }
+
 
 /*
  * LOW LEVEL CODE

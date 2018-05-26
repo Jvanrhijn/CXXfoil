@@ -116,7 +116,12 @@ TEST(XfoilTest, PressureDist) {
   EXPECT_EQ(exp_result[0], result[0]);
   EXPECT_EQ(exp_result[1], result[1]);
   EXPECT_EQ(exp_result[2], result[2]);
-}
+  result = xfoil.PressureDistribution(0.5, "cl");
+  exp_result = {std::make_tuple(1.0, 0.47694),
+                std::make_tuple(0.99081, 0.27493),
+                std::make_tuple(0.97881, 0.21175)};
+  EXPECT_ANY_THROW(xfoil.PressureDistribution(1.0, "foo"));
+  }
 
 TEST(XfoilTest, SecondInstance) {
   cxxfoil::Xfoil xfoil_second("/bin/xfoil");
