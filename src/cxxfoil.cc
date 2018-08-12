@@ -92,7 +92,7 @@ XfoilError Xfoil::LoadFoilFile(const std::string& fpath, const std::string& foil
   wait_ms(kSettingsProcessTime);
   if (OutputContains("LOAD NOT COMPLETED") && WaitingForInput())
     return FailDatFile;
-  Command("%s\n", foilname);
+  Command("%s\n", foilname.c_str());
   xfoil_state_.foil_name = foilname;
   return Success;
 }
