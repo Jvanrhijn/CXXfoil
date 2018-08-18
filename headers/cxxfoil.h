@@ -43,7 +43,7 @@ class Xfoil {
 
  public:
   //! Constructor for Xfoil class
-  explicit Xfoil(const std::string &path);
+  explicit Xfoil(const std::string &path, bool log=false);
 
   //! Destructor for Xfoil class
   ~Xfoil();
@@ -159,8 +159,11 @@ class Xfoil {
   //! thread for reading xfoil output
   std::thread reading_;
 
-  //! bool to stop output logging thread
+  //! bool to stop output logging
   volatile bool log_output_;
+
+  //! bool to stop output read thread
+  volatile bool read_output_;
 
   //! line number to read from polar file
   int line_number_;

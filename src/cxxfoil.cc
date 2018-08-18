@@ -2,7 +2,7 @@
 
 namespace cxxfoil {
 
-Xfoil::Xfoil(const std::string &path) {
+Xfoil::Xfoil(const std::string &path, bool log) {
   xfoil_state_.G = false;
   xfoil_state_.pacc_file = std::tmpnam(nullptr);
   xfoil_state_.Ncrit = 9;
@@ -10,9 +10,12 @@ Xfoil::Xfoil(const std::string &path) {
   xfoil_state_.viscous = false;
   line_number_ = kPolarLineNr;
   xfoil_state_.iter = 20;
-  log_.open("xfoil.log");
-  log_output_ = true;
-  input_log_.open("input.log");
+  read_output_ = true;
+  if (log) {
+    log_.open("xfoil.log");
+    log_output_ = true;
+    input_log_.open("input.log");
+  }
   Start(path);
   do {
     wait_ms(kSettingsProcessTime);
@@ -66,14 +69,19 @@ XfoilError Xfoil::Configure() {
 bool Xfoil::Quit() {
   Newline();
   Command("Quit\n");
-  log_output_ = false;
+  if (log_output_) {
+    log_.close();
+    log_output_ = false;
+  }
+  read_output_ = false;
   reading_.detach();
   int stopped = kill(process_, SIGTERM);
   int status;
   waitpid(process_, &status, 0);
-  log_.close();
   remove(xfoil_state_.pacc_file.c_str());
-  input_log_.close();
+  if (log_output_)
+    input_log_.close();
+  std::remove(":00.bl");
   return stopped == 0;
 }
 
@@ -370,9 +378,10 @@ void Xfoil::wait_ms(unsigned int milliseconds) {
 
 void Xfoil::ReadOutput() {
   outp_[kOutputBufferSize- 1] = '\0';
-  while (log_output_) {
+  while (read_output_) {
     output_buffer_ = (char) fgetc(output_);
-    log_ << output_buffer_;
+    if (log_output_)
+      log_ << output_buffer_;
     mutex_output_.lock();
     for (int i = 1; i < kOutputBufferSize - 1; i++) { // shift output_ buffer
       outp_[i - 1] = outp_[i];
@@ -396,7 +405,8 @@ void Xfoil::Command(const char *cmd, ...) {
   va_start(vl, cmd);
   vsnprintf(buf, sizeof(buf), cmd, vl);
   va_end(vl);
-  input_log_ << buf;
+  if (log_output_)
+    input_log_ << buf;
   fprintf(input_, buf);
   fflush(input_);
 }
