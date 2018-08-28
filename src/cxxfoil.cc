@@ -40,6 +40,8 @@ bool Xfoil::Start(const std::string &path) {
     } else { /* parent process_ */
       input_ = fdopen(outpipe_[1], "w");
       output_ = fdopen(inpipe_[0], "r");
+      if (!input_ || !output_)
+        return false;
       close(outpipe_[0]);
       close(inpipe_[1]);
       reading_ = std::thread(&Xfoil::ReadOutput, this);
@@ -79,6 +81,8 @@ bool Xfoil::Quit() {
   int status;
   waitpid(process_, &status, 0);
   remove(xfoil_state_.pacc_file.c_str());
+  fclose(input_);
+  fclose(output_);
   if (log_output_)
     input_log_.close();
   std::remove(":00.bl");
@@ -380,10 +384,8 @@ void Xfoil::ReadOutput() {
   outp_[kOutputBufferSize- 1] = '\0';
   while (read_output_) {
     output_buffer_ = (char) fgetc(output_);
-    if (log_output_)
-      log_ << output_buffer_;
     mutex_output_.lock();
-    for (int i = 1; i < kOutputBufferSize - 1; i++) { // shift output_ buffer
+    for (int i = 1; i < kOutputBufferSize - 1; i++) { // shift output buffer
       outp_[i - 1] = outp_[i];
     }
     outp_[kOutputBufferSize - 2] = output_buffer_;

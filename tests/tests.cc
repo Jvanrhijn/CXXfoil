@@ -2,7 +2,7 @@
 #include "../headers/cxxfoil.h"
 #include "gtest/gtest.h"
 
-cxxfoil::Xfoil xfoil("/bin/xfoil");
+cxxfoil::Xfoil xfoil("/usr/local/bin/xfoil", "xfoil.log");
 
 TEST(XfoilTest, DatFile) {
   ASSERT_EQ(xfoil.LoadFoilFile("foo", "None"), cxxfoil::FailDatFile);
