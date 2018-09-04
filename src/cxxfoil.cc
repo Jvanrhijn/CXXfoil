@@ -330,7 +330,7 @@ std::vector<std::tuple<double, double>> Xfoil::ReadPressureFile(const std::strin
     result.emplace_back(std::make_tuple(x, cp));
   }
   return result;
-};
+}
 
 double Xfoil::ReadFromPolar(int linenr, size_t start, size_t end) {
   int i = 0;
