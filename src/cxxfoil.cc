@@ -122,6 +122,10 @@ XfoilError Xfoil::NACA(const char code[5]) {
   return Success;
 }
 
+void Xfoil::Pane() {
+  Command("pane\n");
+}
+
 XfoilError Xfoil::SetViscosity(unsigned int Reynolds) {
   XfoilError success = FailViscSet;
   LoadDummyFoil();

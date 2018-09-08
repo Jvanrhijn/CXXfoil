@@ -68,6 +68,11 @@ class Xfoil {
   XfoilError NACA(const char code[5]);
 
   /**
+   * @brief execute xfoil PANE command
+   */
+  void Pane();
+
+  /**
    * @brief Starts Xfoil analysis of single angle of attack
    * @param angle angle of attack to analyze
    * @returns vector containing calculation results, same order as in xfoil polar files
