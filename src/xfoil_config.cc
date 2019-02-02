@@ -38,7 +38,47 @@ XfoilConfig XfoilConfig::PaccRandom() noexcept {
 }
 
 XfoilRunner XfoilConfig::GetRunner() {
-  return XfoilRunner(binpath_); 
+  std::vector<std::string> command_sequence{"plop", "G", "\n"}; 
+  if (naca_.has_value()) {
+    command_sequence.push_back(naca_.value());
+  } else if (dat_file_.has_value()) {
+    command_sequence.push_back(dat_file_.value());
+  } else {
+    throw std::runtime_error("Xfoil cannot run without an airfoil");
+  }
+
+  if (reynolds_.has_value()) {
+    command_sequence.push_back("oper");
+    command_sequence.push_back(std::string("v ") + std::to_string(reynolds_.value()));
+    command_sequence.push_back("\n");
+  }
+
+  if (polar_.has_value()) {
+    command_sequence.push_back("oper");
+    command_sequence.push_back("pacc");
+    command_sequence.push_back(polar_.value());
+    command_sequence.push_back("\n");
+  }
+
+  switch (mode_) {
+    case Mode::ANGLE: {
+      command_sequence.push_back("oper");
+      command_sequence.push_back(std::string("a ") + std::to_string(aoa_.value()));
+      command_sequence.push_back("\n");
+      break;
+    }
+    case Mode::CL: {
+      command_sequence.push_back("oper");
+      command_sequence.push_back(std::string("cl ") + std::to_string(cl_.value()));
+      command_sequence.push_back("\n");
+    }
+    default:
+      break; 
+  }
+
+  command_sequence.push_back("quit");
+
+  return XfoilRunner(binpath_, command_sequence); 
 }
 
 } // namespace cxxfoil

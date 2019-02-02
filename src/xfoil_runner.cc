@@ -1,12 +1,13 @@
 #include <sstream>
 #include <iterator>
 #include "spawn.h"
+#include <iostream>
 #include "xfoil_runner.h"
 
 namespace cxxfoil {
 
-XfoilRunner::XfoilRunner(std::string path)
-  : path_(std::move(path))
+XfoilRunner::XfoilRunner(std::string path, std::vector<std::string> command_sequence)
+  : path_(std::move(path)), command_sequence_(std::move(command_sequence))
 {}
 
 polar XfoilRunner::Dispatch() const {
@@ -14,6 +15,7 @@ polar XfoilRunner::Dispatch() const {
   spawn process(argv);
 
   for (const auto& cmd: command_sequence_) {
+    std::cout << cmd << std::endl;
     process.stdin << cmd;
     process.stdin << '\n';
   }
