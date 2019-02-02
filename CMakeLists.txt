@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.9)
 
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 add_library(cxxfoil STATIC 
   src/xfoil_config.cc
 )
