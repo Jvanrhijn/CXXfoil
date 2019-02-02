@@ -38,7 +38,7 @@ XfoilConfig XfoilConfig::PaccRandom() noexcept {
 }
 
 XfoilRunner XfoilConfig::GetRunner() {
-  return XfoilRunner(); 
+  return XfoilRunner(binpath_); 
 }
 
 } // namespace cxxfoil

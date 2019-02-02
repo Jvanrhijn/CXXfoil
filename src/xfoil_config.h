@@ -29,7 +29,6 @@ class XfoilConfig {
 
   private:
     std::string binpath_;
-    std::vector<std::string> command_sequence_;
     Mode mode_;
 
     Optional<double> cl_;

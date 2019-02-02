@@ -5,19 +5,25 @@
 #include <string>
 #include <vector>
 
+#include "optional.h"
+
 namespace cxxfoil {
+
+using polar = std::unordered_map<std::string, std::vector<double>>;
 
 class XfoilRunner {
   public:
-    XfoilRunner() = default;
+    XfoilRunner(std::string path);
 
-    std::unordered_map<std::string, std::vector<double>> Dispatch() const;
+    polar Dispatch() const;
 
   private:
-    void ParsePolar(const std::string& path) const;
+    std::string path_;
+    Optional<std::string> polar_;
+    std::vector<std::string> command_sequence_;
 
-    static void WriteToXfoil(const std::string& command);
-
+  private:
+    polar ParsePolar(const std::string& path) const;
 };
 
 } // namespace cxxfoil
