@@ -1,4 +1,5 @@
 #include "gtest/gtest.h"
+#include "../src/xfoil_config.h"
 
 
 int main(int argc, char *argv[]) {
