@@ -22,7 +22,7 @@ addons:
       - cmake
 
 before_script: |
-  - cd tests && git clone https://github.com/google/googletest.git && mv googletest gtest && cd ..
+  cd tests && git clone https://github.com/google/googletest.git && mv googletest gtest && cd ..
   
 
 script:
