@@ -1,12 +1,10 @@
-project (CXXfoil)
-cmake_minimum_required (VERSION 2.6)
+cmake_minimum_required(VERSION 3.9)
 
-set (CMAKE_CXX_STANDARD 11)
-set (CMAKE_CXX_STANDARD_REQUIRED YES)
+add_library(cxxfoil STATIC 
+  src/xfoil_config.cc
+)
 
-include_directories (headers)
-add_subdirectory (src)
+if(TESTING)
+  add_subdirectory(tests)
+endif()
 
-add_subdirectory (tests)
-enable_testing()
-add_test (NAME XfoilTest COMMAND Test)

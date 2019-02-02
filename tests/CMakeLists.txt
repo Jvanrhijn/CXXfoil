@@ -1,15 +1,10 @@
-# add dependencies
-find_package(Threads REQUIRED)
-find_package(GTest REQUIRED)
-include_directories(
-                    ${GTEST_INCLUDE_DIRS}
-                    ${PROJECT_SOURCE_DIR}/headers
-                    )
+cmake_minimum_required(VERSION 3.9)
+set(UNIT_TESTS unit_tests)
 
-add_executable(Test tests.cc)
-target_link_libraries(
-                      Test 
-                      Threads::Threads
-                      ${GTEST_BOTH_LIBRARIES}
-                      CXXfoil
-                      )
+find_package(Threads REQUIRED)
+
+set(test_files
+  test.cc)
+
+add_executable(${UNIT_TESTS} ${test_files})
+target_link_libraries(${UNIT_TESTS} PRIVATE gtest Threads::Threads cxxfoil)

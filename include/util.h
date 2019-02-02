@@ -1,0 +1,6 @@
+#ifndef _CXXFOIL_INCLUDE_UTIL_H
+#define _CXXFOIL_INCLUDE_UTIL_H
+
+
+
+#endif // _CXXFOIL_INCLUDE_UTIL_H
