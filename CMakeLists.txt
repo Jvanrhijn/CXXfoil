@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_library(cxxfoil STATIC 
   src/xfoil_config.cc
+  src/xfoil_runner.cc
 )
 
 if(TESTING)

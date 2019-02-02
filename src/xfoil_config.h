@@ -2,6 +2,7 @@
 #include <string>
 
 #include "optional.h"
+#include "xfoil_runner.h"
 
 namespace cxxfoil {
 
@@ -18,7 +19,13 @@ class XfoilConfig {
 
     XfoilConfig LiftCoefficient(double cl) noexcept;
 
-    XfoilConfig PaccFromString(std::string path) noexcept;
+    XfoilConfig PaccFromString(const std::string& path) noexcept;
+
+    XfoilConfig Naca(const std::string& naca) noexcept;
+
+    XfoilConfig PaccRandom() noexcept;
+
+    XfoilRunner GetRunner();
 
   private:
     std::string binpath_;

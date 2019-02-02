@@ -1,4 +1,5 @@
 #include "xfoil_config.h"
+#include <cstdio>
 
 namespace cxxfoil {
 
@@ -20,9 +21,24 @@ XfoilConfig XfoilConfig::LiftCoefficient(double cl) noexcept {
   return *this;
 }
 
-XfoilConfig XfoilConfig::PaccFromString(std::string path) noexcept {
+XfoilConfig XfoilConfig::PaccFromString(const std::string& path) noexcept {
   polar_ = std::move(path);
   return *this;
+}
+
+XfoilConfig XfoilConfig::Naca(const std::string& naca) noexcept {
+  naca_ = naca;
+  return *this;
+}
+
+XfoilConfig XfoilConfig::PaccRandom() noexcept {
+  std::string polar = std::tmpnam(nullptr);
+  polar_ = polar;
+  return *this;
+}
+
+XfoilRunner XfoilConfig::GetRunner() {
+  return XfoilRunner(); 
 }
 
 } // namespace cxxfoil
