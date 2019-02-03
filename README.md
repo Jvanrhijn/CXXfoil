@@ -10,6 +10,9 @@ accumulated polar file, are then returned in an
 `std::unordered_map<std::string, std::vector<double>>`. The library provides a 
 convenient typedef for this (`cxxfoil::polar`).
 
+**NOTE:** This library uses some Unix-specific headers. It has not been tested under
+Windows, so I provide no guarantee that it will work on anything that is not Unix
+compatible.
 
 ## Example usage
 
