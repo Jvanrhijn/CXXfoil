@@ -6,8 +6,8 @@
 
 namespace cxxfoil {
 
-XfoilRunner::XfoilRunner(std::string path, std::vector<std::string> command_sequence)
-  : path_(std::move(path)), command_sequence_(std::move(command_sequence))
+XfoilRunner::XfoilRunner(std::string path, std::vector<std::string> command_sequence, std::string polar)
+  : path_(std::move(path)), command_sequence_(std::move(command_sequence)), polar_(polar)
 {}
 
 polar XfoilRunner::Dispatch() const {
@@ -15,13 +15,19 @@ polar XfoilRunner::Dispatch() const {
   spawn process(argv);
 
   for (const auto& cmd: command_sequence_) {
-    std::cout << cmd << std::endl;
     process.stdin << cmd;
     process.stdin << '\n';
   }
 
   process.send_eof();
   int child_status = process.wait();
+
+  std::string output;
+  while (std::getline(process.stdout, output)) {
+    if (output.find("VISCAL:  Convergence failed") != std::string::npos) {
+      throw std::runtime_error("Xfoil failed to converge");
+    }
+  }
 
   if (polar_.has_value()) {
     return ParsePolar(polar_.value());
@@ -37,7 +43,7 @@ polar XfoilRunner::ParsePolar(const std::string& path) const {
     table[key] = std::vector<double>();
   }
   // number of lines in polar before header
-  constexpr size_t kHeader = 14;
+  constexpr size_t kHeader = 12;
   std::string line;
   std::ifstream file;
   file.open(path);
@@ -45,6 +51,7 @@ polar XfoilRunner::ParsePolar(const std::string& path) const {
   while (std::getline(file, line)) {
     // skip the header
     if (line_nr < kHeader) {
+      line_nr++;
       continue;
     }
     // split the line by white spaces

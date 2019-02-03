@@ -13,7 +13,7 @@ using polar = std::unordered_map<std::string, std::vector<double>>;
 
 class XfoilRunner {
   public:
-    XfoilRunner(std::string path, std::vector<std::string> command_sequence);
+    XfoilRunner(std::string path, std::vector<std::string> command_sequence, std::string polar);
 
     polar Dispatch() const;
 

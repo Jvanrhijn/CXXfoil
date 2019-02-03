@@ -7,40 +7,40 @@ XfoilConfig::XfoilConfig(std::string binpath) noexcept
   : binpath_(std::move(binpath)), mode_(Mode::ANGLE), aoa_(0.0)
 {}
 
-XfoilConfig XfoilConfig::AngleOfAttack(double aoa) noexcept {
+void XfoilConfig::AngleOfAttack(double aoa) noexcept {
   mode_ = Mode::ANGLE;
   aoa_ = aoa;
   cl_ = Optional<double>();
-  return *this;
+  //return std::move(*this);
 }
 
-XfoilConfig XfoilConfig::LiftCoefficient(double cl) noexcept {
+void XfoilConfig::LiftCoefficient(double cl) noexcept {
   mode_ = Mode::CL;
   cl_ = cl;
   aoa_ = Optional<double>();
-  return *this;
+  //return std::move(*this);
 }
 
-XfoilConfig XfoilConfig::PaccFromString(const std::string& path) noexcept {
+void XfoilConfig::PaccFromString(const std::string& path) noexcept {
   polar_ = std::move(path);
-  return *this;
+  //return std::move(*this);
 }
 
-XfoilConfig XfoilConfig::Naca(const std::string& naca) noexcept {
+void XfoilConfig::Naca(const std::string& naca) noexcept {
   naca_ = naca;
-  return *this;
+  //return std::move(*this);
 }
 
-XfoilConfig XfoilConfig::PaccRandom() noexcept {
+void XfoilConfig::PaccRandom() noexcept {
   std::string polar = std::tmpnam(nullptr);
   polar_ = polar;
-  return *this;
+  //return std::move(*this);
 }
 
 XfoilRunner XfoilConfig::GetRunner() {
   std::vector<std::string> command_sequence{"plop", "G", "\n"}; 
   if (naca_.has_value()) {
-    command_sequence.push_back(naca_.value());
+    command_sequence.push_back(std::string("naca ") + naca_.value());
   } else if (dat_file_.has_value()) {
     command_sequence.push_back(dat_file_.value());
   } else {
@@ -78,7 +78,7 @@ XfoilRunner XfoilConfig::GetRunner() {
 
   command_sequence.push_back("quit");
 
-  return XfoilRunner(binpath_, command_sequence); 
+  return XfoilRunner(binpath_, command_sequence, polar_); 
 }
 
 } // namespace cxxfoil

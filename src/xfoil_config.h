@@ -15,15 +15,15 @@ class XfoilConfig {
   public:
     XfoilConfig(std::string binpath) noexcept;
 
-    XfoilConfig AngleOfAttack(double aoa) noexcept;
+    void AngleOfAttack(double aoa) noexcept;
 
-    XfoilConfig LiftCoefficient(double cl) noexcept;
+    void LiftCoefficient(double cl) noexcept;
 
-    XfoilConfig PaccFromString(const std::string& path) noexcept;
+    void PaccFromString(const std::string& path) noexcept;
 
-    XfoilConfig Naca(const std::string& naca) noexcept;
+    void Naca(const std::string& naca) noexcept;
 
-    XfoilConfig PaccRandom() noexcept;
+    void PaccRandom() noexcept;
 
     XfoilRunner GetRunner();
 

@@ -5,25 +5,43 @@ using namespace cxxfoil;
 
 constexpr char* kPolarKeys[] = {"alpha", "CL", "CD", "CDp", "CM", "Top_Xtr", "Bot_Xtr"};
 
+void checkPolarEqual(const polar& p, const std::vector<double> res) {
+ for (int i=0; i<res.size(); i++) {
+   auto value = p.at(kPolarKeys[i]);
+   ASSERT_DOUBLE_EQ(value[0], res[i]);
+ }
+}
+
 TEST(ConfigBuild, Config) {
-  auto config = XfoilConfig("/usr/local/bin/xfoil")
-    .AngleOfAttack(1.0)
-    .LiftCoefficient(1.0);
+  XfoilConfig config("/usr/local/bin/xfoil");
+  config.AngleOfAttack(1.0);
+  config.LiftCoefficient(1.0);
 }
 
 TEST(XfoilRun, AngleInertialSuccess) {
-  auto result = XfoilConfig("/usr/local/bin/xfoil")
-    .Naca("2414")
-    .AngleOfAttack(4.0)
-    .PaccRandom()
-    .GetRunner()
+  XfoilConfig config("/usr/local/bin/xfoil");
+  config.Naca("2414");
+  config.AngleOfAttack(4.0);
+  config.PaccRandom();
+  auto result = config.GetRunner()
     .Dispatch();
+
   std::vector<double> expect_results = {4.0, 0.7492, 0.0, -0.00131, -0.0633, 0.0, 0.0};
 
-  for (int i=0; i<expect_results.size(); i++) {
-    auto value = result[kPolarKeys[i]];
-    ASSERT_DOUBLE_EQ(value[0], expect_results[i]);
-  }
+  checkPolarEqual(result, expect_results);
+}
+
+TEST(XfoilRun, LiftCoefficientInertialSuccess) {
+  XfoilConfig config("/usr/local/bin/xfoil");
+  config.Naca("2414");
+  config.LiftCoefficient(1.0);
+  config.PaccRandom();
+  auto result = config.GetRunner().Dispatch();
+
+  std::vector<double> expect_results = {6.059, 1.0000, 0.00000, -0.00133, -0.0671, 0.0000, 0.0000};
+
+	checkPolarEqual(result, expect_results);
+
 }
 
 
