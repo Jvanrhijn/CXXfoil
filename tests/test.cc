@@ -3,7 +3,15 @@
 
 using namespace cxxfoil;
 
-constexpr char* kPolarKeys[] = {"alpha", "CL", "CD", "CDp", "CM", "Top_Xtr", "Bot_Xtr"};
+const std::vector<std::string> kPolarKeys = {
+	"alpha", 
+	"CL", 
+	"CD", 
+	"CDp", 
+	"CM", 
+	"Top_Xtr", 
+	"Bot_Xtr"
+};
 constexpr double eps = 1e-2;
 
 void checkPolarEqual(const polar& p, const std::vector<double> res) {
@@ -13,10 +21,9 @@ void checkPolarEqual(const polar& p, const std::vector<double> res) {
  }
 }
 
-TEST(ConfigBuild, Config) {
+TEST(ConfigBuild, NoFoil) {
   XfoilConfig config("/usr/local/bin/xfoil");
-  config.AngleOfAttack(1.0);
-  config.LiftCoefficient(1.0);
+	ASSERT_ANY_THROW(config.GetRunner());
 }
 
 TEST(XfoilRun, AngleInertialSuccess) {
