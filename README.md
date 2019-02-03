@@ -1,5 +1,7 @@
 # CXXfoil
 
+
+
 This library provides an easy to use C++ API for using Xfoil. It works by creating an
 Xfoil configuration, which can be used to configure a child process running Xfoil.
 This child process is then dispatched with either a lift coefficient or angle of attack
