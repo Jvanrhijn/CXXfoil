@@ -1,3 +1,6 @@
+#ifndef _CXXFOIL_SRC_XFOIL_CONFIG_H
+#define _CXXFOIL_SRC_XFOIL_CONFIG_H
+
 #include <vector>
 #include <string>
 
@@ -44,3 +47,5 @@ class XfoilConfig {
 };
 
 } // namespace cxxfoil
+
+#endif // _CXXFOIL_SRC_XFOIL_CONFIG_H

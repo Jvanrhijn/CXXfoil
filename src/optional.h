@@ -89,5 +89,4 @@ class Optional {
 
 } // namespace pie
 
-
 #endif // _CXXFOIL_SRC__OPTIONAL_H

@@ -3,6 +3,8 @@
 // Author: Konstantin Tretyakov
 // License: MIT
 //
+#ifndef _CXXFOIL_SRC_SPAWN
+#define _CXXFOIL_SRC_SPAWN
 
 #include <ext/stdio_filebuf.h> // NB: Specific to libstdc++
 #include <sys/wait.h>
@@ -10,6 +12,8 @@
 #include <iostream>
 #include <memory>
 #include <exception>
+
+namespace cxxfoil {
 
 // Wrapping pipe in a class makes sure they are closed when we leave scope
 class cpipe {
@@ -105,4 +109,6 @@ public:
     }
 };
 
+} // namespace cxxfoil
 
+#endif // _CXXFOIL_SRC_SPAWN

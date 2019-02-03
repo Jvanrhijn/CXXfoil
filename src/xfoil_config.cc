@@ -1,5 +1,7 @@
-#include "xfoil_config.h"
 #include <cstdio>
+
+#include "xfoil_config.h"
+#include "except.h"
 
 namespace cxxfoil {
 
@@ -44,7 +46,7 @@ XfoilRunner XfoilConfig::GetRunner() {
   } else if (dat_file_.has_value()) {
     command_sequence.push_back(dat_file_.value());
   } else {
-    throw std::runtime_error("Xfoil cannot run without an airfoil");
+    throw XfoilException("Xfoil cannot run without an airfoil");
   }
 
   if (reynolds_.has_value()) {

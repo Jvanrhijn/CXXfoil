@@ -2,11 +2,15 @@
 #include <iterator>
 #include "spawn.h"
 #include <iostream>
+
 #include "xfoil_runner.h"
+#include "except.h"
 
 namespace cxxfoil {
 
-XfoilRunner::XfoilRunner(std::string path, std::vector<std::string> command_sequence, std::string polar)
+XfoilRunner::XfoilRunner(std::string path, 
+                         std::vector<std::string> command_sequence, 
+                         std::string polar)
   : path_(std::move(path)), command_sequence_(std::move(command_sequence)), polar_(polar)
 {}
 
@@ -25,7 +29,7 @@ polar XfoilRunner::Dispatch() const {
   std::string output;
   while (std::getline(process.stdout, output)) {
     if (output.find("VISCAL:  Convergence failed") != std::string::npos) {
-      throw std::runtime_error("Xfoil failed to converge");
+      throw XfoilException("Xfoil failed to converge");
     }
   }
 
