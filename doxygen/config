@@ -32,7 +32,7 @@ DOXYFILE_ENCODING      = UTF-8
 # title of most generated pages and input_ a few other places.
 # The default value is: My Project.
 
-PROJECT_NAME           = "Xfoil-Interface"
+PROJECT_NAME           = "CXXfoil"
 
 # The PROJECT_NUMBER tag can be used to enter a project or revision number. This
 # could be handy for archiving the generated documentation or if some version
@@ -771,7 +771,7 @@ WARN_LOGFILE           =
 # spaces. See also FILE_PATTERNS and EXTENSION_MAPPING
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = ../
+INPUT                  = ../src
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internernally doxygen uses the UTF-8 encoding. Doxygen uses
@@ -898,7 +898,7 @@ INPUT_FILTER           =
 # need to set EXTENSION_MAPPING for the extension otherwise the files are not
 # properly processed by doxygen.
 
-FILTER_PATTERNS        =
+FILTER_PATTERNS        = 
 
 # If the FILTER_SOURCE_FILES tag is set to YES, the input_ filter (if set using
 # INPUT_FILTER) will also be used to filter the input_ files that are used for
