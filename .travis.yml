@@ -19,6 +19,10 @@ addons:
       - lcov
       - kcov
       - cmake-data
+      - gcc
+      - gfortran
+      - binutils-dev
+      - libiberty-dev
       - cmake
 
 before_script: |
