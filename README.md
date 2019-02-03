@@ -1,6 +1,6 @@
 # CXXfoil
 
-
+[![Build Status](https://travis-ci.com/Jvanrhijn/CXXfoil.svg?branch=master)](https://travis-ci.com/Jvanrhijn/CXXfoil)
 
 This library provides an easy to use C++ API for using Xfoil. It works by creating an
 Xfoil configuration, which can be used to configure a child process running Xfoil.
