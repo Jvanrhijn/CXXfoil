@@ -29,8 +29,8 @@ config.PaccRandom(); // generates a random file name under /tmp
 Build an `XfoilRunner` instance, and dispatch the child process:
 
 ~~~cpp
-cxxfoil::XfoilRunner config.GetRunner();
-cxxfoil::polar result = config.Dispatch();
+cxxfoil::XfoilRunner runner = config.GetRunner();
+cxxfoil::polar result = runner.Dispatch();
 ~~~
 
 Access result from polar:
