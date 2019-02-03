@@ -4,11 +4,12 @@
 using namespace cxxfoil;
 
 constexpr char* kPolarKeys[] = {"alpha", "CL", "CD", "CDp", "CM", "Top_Xtr", "Bot_Xtr"};
+constexpr double eps = 1e-2;
 
 void checkPolarEqual(const polar& p, const std::vector<double> res) {
  for (int i=0; i<res.size(); i++) {
    auto value = p.at(kPolarKeys[i]);
-   ASSERT_DOUBLE_EQ(value[0], res[i]);
+   ASSERT_NEAR(value[0], res[i], eps);
  }
 }
 
