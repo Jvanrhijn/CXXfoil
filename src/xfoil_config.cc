@@ -30,7 +30,13 @@ void XfoilConfig::PaccFromString(const std::string& path) noexcept {
 
 void XfoilConfig::Naca(const std::string& naca) noexcept {
   naca_ = naca;
+  dat_file_ = Optional<std::string>();
   //return std::move(*this);
+}
+
+void XfoilConfig::AirfoilPolarFile(const std::string& datfile) noexcept {
+  dat_file_ = datfile;
+  naca_ = Optional<std::string>();
 }
 
 void XfoilConfig::PaccRandom() noexcept {
@@ -39,12 +45,18 @@ void XfoilConfig::PaccRandom() noexcept {
   //return std::move(*this);
 }
 
+void XfoilConfig::Reynolds(size_t reynolds) noexcept {
+  reynolds_ = reynolds;
+}
+
 XfoilRunner XfoilConfig::GetRunner() {
   std::vector<std::string> command_sequence{"plop", "G", "\n"}; 
+
   if (naca_.has_value()) {
     command_sequence.push_back(std::string("naca ") + naca_.value());
   } else if (dat_file_.has_value()) {
-    command_sequence.push_back(dat_file_.value());
+    command_sequence.push_back(std::string("load ") + dat_file_.value());
+    command_sequence.push_back("");
   } else {
     throw XfoilException("Xfoil cannot run without an airfoil");
   }

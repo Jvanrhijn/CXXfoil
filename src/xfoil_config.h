@@ -16,7 +16,7 @@ enum class Mode {
 
 class XfoilConfig {
   public:
-    XfoilConfig(std::string binpath) noexcept;
+    explicit XfoilConfig(std::string binpath) noexcept;
 
     void AngleOfAttack(double aoa) noexcept;
 
@@ -26,7 +26,11 @@ class XfoilConfig {
 
     void Naca(const std::string& naca) noexcept;
 
+    void AirfoilPolarFile(const std::string& datfile) noexcept;
+
     void PaccRandom() noexcept;
+
+    void Reynolds(size_t reynolds) noexcept;
 
     XfoilRunner GetRunner();
 
