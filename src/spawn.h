@@ -20,8 +20,8 @@ class cpipe {
 private:
     int fd[2];
 public:
-    const inline int read_fd() const { return fd[0]; }
-    const inline int write_fd() const { return fd[1]; }
+    inline int read_fd() const { return fd[0]; }
+    inline int write_fd() const { return fd[1]; }
     cpipe() { if (pipe(fd)) throw std::runtime_error("Failed to create pipe"); }
     void close() { ::close(fd[0]); ::close(fd[1]); }
     ~cpipe() { close(); }

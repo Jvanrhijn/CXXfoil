@@ -11,7 +11,7 @@ namespace cxxfoil {
 XfoilRunner::XfoilRunner(std::string path, 
                          std::vector<std::string> command_sequence, 
                          std::string polar)
-  : path_(std::move(path)), command_sequence_(std::move(command_sequence)), polar_(polar)
+  : path_(std::move(path)), polar_(std::move(polar)), command_sequence_(std::move(command_sequence))
 {}
 
 polar XfoilRunner::Dispatch() const {
@@ -62,7 +62,7 @@ polar XfoilRunner::ParsePolar(const std::string& path) const {
     std::istringstream iss(line);
     std::vector<std::string> vec = std::vector<std::string>(std::istream_iterator<std::string>(iss), 
                                                             std::istream_iterator<std::string>());
-    for (int i=0; i<vec.size(); i++) {
+    for (size_t i=0; i<vec.size(); i++) {
       table[header[i]].push_back(std::stod(vec[i]));
     }
 
