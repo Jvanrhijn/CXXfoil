@@ -16,9 +16,13 @@ using polar = std::unordered_map<std::string, std::vector<double>>;
  * @brief Object to dispatch an Xfoil computation.
  */
 class XfoilRunner {
-  public:
-    XfoilRunner(std::string path, std::vector<std::string> command_sequence, std::string polar);
+  friend class XfoilConfig;
 
+  XfoilRunner(std::string path, 
+              std::vector<std::string> command_sequence, 
+              std::string polar);
+
+  public:
     /**
      * @brief Dispatch the Xfoil child process compuatation.
      * @return The polar file containing a table of results, as an unordered_map.

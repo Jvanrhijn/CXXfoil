@@ -11,7 +11,9 @@ namespace cxxfoil {
 XfoilRunner::XfoilRunner(std::string path, 
                          std::vector<std::string> command_sequence, 
                          std::string polar)
-  : path_(std::move(path)), polar_(std::move(polar)), command_sequence_(std::move(command_sequence))
+  : path_(std::move(path)), 
+    polar_(std::move(polar)), 
+    command_sequence_(std::move(command_sequence))
 {}
 
 polar XfoilRunner::Dispatch() const {
