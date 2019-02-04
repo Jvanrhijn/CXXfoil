@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <cstdio>
 
 #include "optional.h"
 #include "xfoil_runner.h"
@@ -29,38 +30,38 @@ class XfoilConfig {
      * coefficient based one. Setting one will overwrite the other.
      * @param aoa Angle of attack to perform computation at.
      */
-    void AngleOfAttack(double aoa) noexcept;
+    XfoilConfig& AngleOfAttack(double aoa) noexcept;
   
     /** You can perform either an angle of attack based computation, or a lift
      * coefficient based one. Setting one will overwrite the other.
      * @param cl Lift coefficient to perform computation at.
      */
-    void LiftCoefficient(double cl) noexcept;
+    XfoilConfig& LiftCoefficient(double cl) noexcept;
 
     /**
      * @brief Create a polar accumulation file at a given path.
      */
-    void PaccFromString(const std::string& path) noexcept;
+    XfoilConfig& PaccFromString(const std::string& path) noexcept;
 
     /**
      * @brief Use a NACA code to set the airfoil.
      */
-    void Naca(const std::string& naca) noexcept;
+    XfoilConfig& Naca(const std::string& naca) noexcept;
 
     /**
      * @brief Use the airfoil polar file located at the given path.
      */
-    void AirfoilPolarFile(const std::string& datfile) noexcept;
+    XfoilConfig& AirfoilPolarFile(const std::string& datfile) noexcept;
 
     /**
      * @brief Generate a random polar accumulation filename under /tmp.
      */
-    void PaccRandom() noexcept;
+    XfoilConfig& PaccRandom() noexcept;
 
     /**
      * @brief Set the Reynolds number for a viscous calculation
      */
-    void Reynolds(size_t reynolds) noexcept;
+    XfoilConfig& Reynolds(size_t reynolds) noexcept;
 
     /**
      * @brief Construct an XfoilRunner instance.
@@ -76,7 +77,7 @@ class XfoilConfig {
 
     Optional<size_t> reynolds_;
     
-    Optional<std::string> polar_;
+    Optional<std::string> polar_{tmpnam(nullptr)};
     Optional<std::string> dat_file_;
     
     Optional<std::string> naca_;
