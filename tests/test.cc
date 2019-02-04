@@ -28,11 +28,12 @@ TEST(ConfigBuild, NoFoil) {
 
 TEST(XfoilRun, AngleInertialSuccess) {
   XfoilConfig config("/usr/local/bin/xfoil");
-  config.Naca("2414");
-  config.AngleOfAttack(4.0);
-  config.PaccRandom();
-  auto result = config.GetRunner()
-    .Dispatch();
+  auto result = XfoilConfig("/usr/local/bin/xfoil")
+   .Naca("2414")
+   .AngleOfAttack(4.0)
+   .PaccRandom()
+   .GetRunner()
+   .Dispatch();
 
   std::vector<double> expect_results = {4.0, 0.7492, 0.0, -0.00131, -0.0633, 0.0, 0.0};
 
@@ -40,11 +41,12 @@ TEST(XfoilRun, AngleInertialSuccess) {
 }
 
 TEST(XfoilRun, LiftCoefficientInertialSuccess) {
-  XfoilConfig config("/usr/local/bin/xfoil");
-  config.Naca("2414");
-  config.LiftCoefficient(1.0);
-  config.PaccRandom();
-  auto result = config.GetRunner().Dispatch();
+  auto result = XfoilConfig("/usr/local/bin/xfoil")
+    .Naca("2414")
+    .LiftCoefficient(1.0)
+    .PaccRandom()
+    .GetRunner()
+    .Dispatch();
 
   std::vector<double> expect_results = {6.059, 1.0000, 0.00000, -0.00133, -0.0671, 0.0000, 0.0000};
 
@@ -53,12 +55,13 @@ TEST(XfoilRun, LiftCoefficientInertialSuccess) {
 }
 
 TEST(XfoilRun, AngleViscousSuccess) {
-  XfoilConfig config("/usr/local/bin/xfoil");
-  config.Naca("2414");
-  config.AngleOfAttack(4.0);
-  config.Reynolds(100000);
-  config.PaccRandom();
-  auto result = config.GetRunner().Dispatch();
+  auto result = XfoilConfig("/usr/local/bin/xfoil")
+    .Naca("2414")
+    .AngleOfAttack(4.0)
+    .Reynolds(100000)
+    .PaccRandom()
+    .GetRunner()
+    .Dispatch();
 
   std::vector<double> expect_results = {4.000, 0.7278, 0.01780, 0.00982, -0.0614, 0.6233, 1.0000};
 	
@@ -66,12 +69,13 @@ TEST(XfoilRun, AngleViscousSuccess) {
 }
 
 TEST(XfoilRun, LiftCoefficientViscousSuccess) {
-  XfoilConfig config("/usr/local/bin/xfoil");
-  config.Naca("2414");
-	config.LiftCoefficient(1.0);
-  config.Reynolds(100000);
-  config.PaccRandom();
-  auto result = config.GetRunner().Dispatch();
+  auto result = XfoilConfig("/usr/local/bin/xfoil")
+    .Naca("2414")
+	  .LiftCoefficient(1.0)
+    .Reynolds(100000)
+    .PaccRandom()
+    .GetRunner()
+    .Dispatch();
 
   std::vector<double> expect_results = {7.121, 1.0000, 0.02106, 0.01277, -0.0443, 0.4234, 1.0000};
 	
@@ -79,11 +83,12 @@ TEST(XfoilRun, LiftCoefficientViscousSuccess) {
 }
 
 TEST(XfoilRun, AirfoilFile) {
-	XfoilConfig config("/usr/local/bin/xfoil");
-	config.AirfoilPolarFile("../tests/clarky.dat");
-	config.AngleOfAttack(4.0);
-	config.PaccRandom();
-	auto result = config.GetRunner().Dispatch();
+	auto result = XfoilConfig("/usr/local/bin/xfoil")
+	  .AirfoilPolarFile("../tests/clarky.dat")
+	  .AngleOfAttack(4.0)
+	  .PaccRandom()
+	  .GetRunner()
+    .Dispatch();
 	std::vector<double> expect_results = {4.000, 0.8965, 0.00000, -0.00118, -0.0942, 0.0000, 0.0000};
 	
 	checkPolarEqual(result, expect_results);
@@ -91,11 +96,12 @@ TEST(XfoilRun, AirfoilFile) {
 
 
 TEST(XfoilRun, ConvergenceError) {
-  XfoilConfig config("/usr/local/bin/xfoil");
-  config.Naca("2414");
-  config.Reynolds(1);
+  auto runner = XfoilConfig("/usr/local/bin/xfoil")
+    .Naca("2414")
+    .Reynolds(1)
+    .GetRunner();
   
-  ASSERT_ANY_THROW(config.GetRunner().Dispatch());
+  ASSERT_ANY_THROW(runner.Dispatch());
 }
 
 int main(int argc, char *argv[]) {

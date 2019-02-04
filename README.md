@@ -20,10 +20,10 @@ Create an `XfoilConfig` instance with the path to the Xfoil executable, and conf
 it as desired:
 
 ~~~cpp
-cxxfoil::XfoilConfig config("/bin/xfoil")
-config.NACA("0015");
-config.AngleOfAttack(4.0);
-config.PaccRandom(); // generates a random file name under /tmp
+cxxfoil::XfoilConfig config = XfoilConfig("/bin/xfoil")
+  .Naca("0015")
+  .AngleOfAttack(4.0)
+  .PaccRandom(); // generates a random file name under /tmp
 ~~~
 
 Build an `XfoilRunner` instance, and dispatch the child process:
@@ -41,11 +41,24 @@ double CD = result["CD"];
 // etc, other keys are CL, CDp, CM, Top_Xtr, Bot_Xtr, Top_Itr, Bot_Itr
 ~~~
 
-If you're doing a viscous calculation, especially for low Reynolds numbers, few iterations, or extreme angle of attack/lift coefficient, you may want to guard for a ConvergenceException:
+Chaining setters:
+
+~~~cpp
+auto result = XfoilConfig("/bin/xfoil")
+  .Naca("0015")
+  .LiftCoefficient(0.6)
+  .Pacc("my__result.txt")
+  .Reynolds(100000)
+  .GetRunner()
+  .Dispatch();
+~~~
+
+If you're doing a viscous calculation, especially for low Reynolds numbers or 
+extreme angle of attack/lift coefficient, you may want to guard for a ConvergenceException:
 
 ~~~cpp
 // ... setup XfoilConfig 
-config.SetViscosity(1000);
+config.Reynolds(1000);
 config.AngleOfAttack(9.0);
 try {
   auto result = config.GetRunner().Dispatch();

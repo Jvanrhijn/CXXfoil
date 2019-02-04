@@ -1,5 +1,3 @@
-#include <cstdio>
-
 #include "xfoil_config.h"
 #include "except.h"
 
@@ -9,44 +7,46 @@ XfoilConfig::XfoilConfig(std::string binpath) noexcept
   : binpath_(std::move(binpath)), mode_(Mode::ANGLE), aoa_(0.0)
 {}
 
-void XfoilConfig::AngleOfAttack(double aoa) noexcept {
+XfoilConfig& XfoilConfig::AngleOfAttack(double aoa) noexcept {
   mode_ = Mode::ANGLE;
   aoa_ = aoa;
   cl_ = Optional<double>();
-  //return std::move(*this);
+  return *this;
 }
 
-void XfoilConfig::LiftCoefficient(double cl) noexcept {
+XfoilConfig& XfoilConfig::LiftCoefficient(double cl) noexcept {
   mode_ = Mode::CL;
   cl_ = cl;
   aoa_ = Optional<double>();
-  //return std::move(*this);
+  return *this;
 }
 
-void XfoilConfig::PaccFromString(const std::string& path) noexcept {
+XfoilConfig& XfoilConfig::PaccFromString(const std::string& path) noexcept {
   polar_ = std::move(path);
-  //return std::move(*this);
+  return *this;
 }
 
-void XfoilConfig::Naca(const std::string& naca) noexcept {
+XfoilConfig& XfoilConfig::Naca(const std::string& naca) noexcept {
   naca_ = naca;
   dat_file_ = Optional<std::string>();
-  //return std::move(*this);
+  return *this;
 }
 
-void XfoilConfig::AirfoilPolarFile(const std::string& datfile) noexcept {
+XfoilConfig& XfoilConfig::AirfoilPolarFile(const std::string& datfile) noexcept {
   dat_file_ = datfile;
   naca_ = Optional<std::string>();
+  return *this;
 }
 
-void XfoilConfig::PaccRandom() noexcept {
+XfoilConfig& XfoilConfig::PaccRandom() noexcept {
   std::string polar = std::tmpnam(nullptr);
   polar_ = polar;
-  //return std::move(*this);
+  return *this;
 }
 
-void XfoilConfig::Reynolds(size_t reynolds) noexcept {
+XfoilConfig& XfoilConfig::Reynolds(size_t reynolds) noexcept {
   reynolds_ = reynolds;
+  return *this;
 }
 
 XfoilRunner XfoilConfig::GetRunner() {
