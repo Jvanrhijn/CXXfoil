@@ -14,40 +14,84 @@ convenient typedef for this (`cxxfoil::polar`).
 Windows, so I provide no guarantee that it will work on anything that is not Unix
 compatible.
 
+## Building with CMake
+
+Add the following line to your CMakeLists.txt:
+
+~~~cmake
+add_subdirectory(CXXfoil) # or whatever directory you put the library in
+~~~
+
+Then link the library with your project:
+
+~~~cmake
+add_executable(${TARGET} your_main_file.cc)
+target_link_libraries(${TARGET} cxxfoil)
+~~~
+
 ## Example usage
 
-Create an `XfoilConfig` instance with the path to the Xfoil executable, and configure
-it as desired:
+Full usage example:
 
 ~~~cpp
-cxxfoil::XfoilConfig config = XfoilConfig("/bin/xfoil")
-  .Naca("0015")
-  .AngleOfAttack(4.0)
-  .PaccRandom(); // generates a random file name under /tmp
+#include <iostream>
+
+#include "cxxfoil.h"
+
+using namespace cxxfoil;
+
+int main() {
+  XfoilConfig config("/usr/local/bin/xfoil"); // or wherever your xfoil binary is
+  config.Naca("0015");
+  config.PaccRandom();
+  config.AngleOfAttack(4.0);
+  config.Reynolds(100000);
+  
+  XfoilRunner runner = config.GetRunner();
+  polar result = runner.Dispatch();
+
+  std::vector<double> cl = result["CL"];
+  // etc, other keys are alpha, CD, CDp, CM, Top_Xtr, Bot_Xtr, Top_Itr, Bot_Itr
+
+  std::cout << "Lift coefficient at alpha = 4.0: " << cl[0] << std::endl;
+}
+~~~
+
+## Step-by-step breakdown
+
+Create an `XfoilConfig` instance with the path to the Xfoil executable, and configure
+it as desired. 
+
+~~~cpp
+XfoilConfig config("/bin/xfoil");
+config.Naca("0015");
+config.AngleOfAttack(4.0);
+config.PaccRandom(); // generates a random file name under /tmp
 ~~~
 
 Build an `XfoilRunner` instance, and dispatch the child process:
 
 ~~~cpp
-cxxfoil::XfoilRunner runner = config.GetRunner();
-cxxfoil::polar result = runner.Dispatch();
+XfoilRunner runner = config.GetRunner();
+polar result = runner.Dispatch();
 ~~~
 
 Access result from polar:
 
 ~~~cpp
-double alpha = result["alpha"];
-double CD = result["CD"];
-// etc, other keys are CL, CDp, CM, Top_Xtr, Bot_Xtr, Top_Itr, Bot_Itr
+std::vector<double> alpha = result["alpha"];
+std::vector<double> CD = result["CD"];
 ~~~
 
-Chaining setters:
+You can also chain setters on the config object, but be sure to end this chain by
+actually retrieving the runner, as at the end of the chain the temporary object
+created by the constructor call will be dropped:
 
 ~~~cpp
-auto result = XfoilConfig("/bin/xfoil")
+polar result = XfoilConfig("/bin/xfoil")
   .Naca("0015")
   .LiftCoefficient(0.6)
-  .Pacc("my__result.txt")
+  .Pacc("my_result.txt")
   .Reynolds(100000)
   .GetRunner()
   .Dispatch();
