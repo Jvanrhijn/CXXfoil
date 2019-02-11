@@ -40,6 +40,9 @@ XfoilConfig& XfoilConfig::AirfoilPolarFile(const std::string& datfile) noexcept 
 
 XfoilConfig& XfoilConfig::PaccRandom() noexcept {
   std::string polar = std::tmpnam(nullptr);
+#if defined(_WIN32) || defined(WIN32) || defined(__WIN32) || defined(__CYGWIN__)
+  polar = std::string("C:/Windows/TEMP/") + polar.substr(6);
+#endif
   polar_ = polar;
   return *this;
 }
@@ -50,7 +53,7 @@ XfoilConfig& XfoilConfig::Reynolds(size_t reynolds) noexcept {
 }
 
 XfoilRunner XfoilConfig::GetRunner() {
-  std::vector<std::string> command_sequence{"plop", "G", "\n"}; 
+  std::vector<std::string> command_sequence{"plop", "G", "\n"};
 
   if (naca_.has_value()) {
     command_sequence.push_back(std::string("naca ") + naca_.value());
@@ -87,12 +90,12 @@ XfoilRunner XfoilConfig::GetRunner() {
       command_sequence.push_back("\n");
     }
     default:
-      break; 
+      break;
   }
 
   command_sequence.push_back("quit");
 
-  return XfoilRunner(binpath_, command_sequence, polar_); 
+  return XfoilRunner(binpath_, command_sequence, polar_);
 }
 
 } // namespace cxxfoil

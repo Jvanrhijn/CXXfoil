@@ -1,6 +1,6 @@
 #include <sstream>
 #include <iterator>
-#include "spawn.h"
+#include "child_process.h"
 #include <iostream>
 
 #include "xfoil_runner.h"
@@ -8,11 +8,11 @@
 
 namespace cxxfoil {
 
-XfoilRunner::XfoilRunner(std::string path, 
-                         std::vector<std::string> command_sequence, 
+XfoilRunner::XfoilRunner(std::string path,
+                         std::vector<std::string> command_sequence,
                          std::string polar)
-  : path_(std::move(path)), 
-    polar_(std::move(polar)), 
+  : path_(std::move(path)),
+    polar_(std::move(polar)),
     command_sequence_(std::move(command_sequence))
 {}
 
@@ -21,17 +21,20 @@ polar XfoilRunner::Dispatch() const {
   spawn process(argv);
 
   for (const auto& cmd: command_sequence_) {
-    process.stdin << cmd;
-    process.stdin << '\n';
+    process.child_stdin << cmd;
+    process.child_stdin << '\n';
   }
 
   process.send_eof();
   int child_status = process.wait();
 
   std::string output;
-  while (std::getline(process.stdout, output)) {
+  while (std::getline(process.child_stdout, output)) {
     if (output.find("VISCAL:  Convergence failed") != std::string::npos) {
       throw XfoilException("Xfoil failed to converge");
+    }
+    if (output.find("New polar save file OPEN error") != std::string::npos) {
+      throw XfoilException("Xfoil failed to open polar save file");
     }
   }
 
@@ -62,14 +65,14 @@ polar XfoilRunner::ParsePolar(const std::string& path) const {
     }
     // split the line by white spaces
     std::istringstream iss(line);
-    std::vector<std::string> vec = std::vector<std::string>(std::istream_iterator<std::string>(iss), 
+    std::vector<std::string> vec = std::vector<std::string>(std::istream_iterator<std::string>(iss),
                                                             std::istream_iterator<std::string>());
     for (size_t i=0; i<vec.size(); i++) {
       table[header[i]].push_back(std::stod(vec[i]));
     }
 
   }
-  return table; 
+  return table;
 }
 
 } // namespace cxxfoil

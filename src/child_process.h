@@ -1,4 +1,4 @@
-// 
+//
 // Example of communication with a subprocess via stdin/stdout
 // Author: Konstantin Tretyakov
 // License: MIT
@@ -6,7 +6,7 @@
 #ifndef _CXXFOIL_SRC_SPAWN
 #define _CXXFOIL_SRC_SPAWN
 
-#include <ext/stdio_filebuf.h> // NB: Specific to libstdc++
+#include <ext/stdio_filebuf.h> // NB: Specific /o libstdc++
 #include <sys/wait.h>
 #include <unistd.h>
 #include <iostream>
@@ -41,18 +41,20 @@ private:
     cpipe write_pipe;
     cpipe read_pipe;
 public:
-    int child_pid = -1;
-    std::unique_ptr<__gnu_cxx::stdio_filebuf<char> > write_buf = NULL; 
+
+    std::ostream child_stdin;
+    std::istream child_stdout;
+
+    std::unique_ptr<__gnu_cxx::stdio_filebuf<char> > write_buf = NULL;
     std::unique_ptr<__gnu_cxx::stdio_filebuf<char> > read_buf = NULL;
-    std::ostream stdin;
-    std::istream stdout;
-    
+    int child_pid = -1;
+
     spawn(const char* const argv[], bool with_path = false, const char* const envp[] = 0)
-      : stdin(NULL), stdout(NULL) 
+      : child_stdin(NULL), child_stdout(NULL)
     {
         child_pid = fork();
-        if (child_pid == -1) { 
-          throw std::runtime_error("Failed to start child process"); 
+        if (child_pid == -1) {
+          throw std::runtime_error("Failed to start child process");
         }
         if (child_pid == 0) {   // In child process
             dup2(write_pipe.read_fd(), STDIN_FILENO);
@@ -62,8 +64,8 @@ public:
 
             if (with_path) {
                 if (envp != 0) {
-                  result = execvpe(argv[0], 
-                                   const_cast<char* const*>(argv), 
+                  result = execve(argv[0],
+                                   const_cast<char* const*>(argv),
                                    const_cast<char* const*>(envp));
                 }
                 else {
@@ -71,10 +73,10 @@ public:
                 }
             } else {
                 if (envp != 0) {
-                  result = execve(argv[0], 
-                                  const_cast<char* const*>(argv), 
+                  result = execve(argv[0],
+                                  const_cast<char* const*>(argv),
                                   const_cast<char* const*>(envp));
-                } else { 
+                } else {
                   result = execv(argv[0], const_cast<char* const*>(argv));
                 }
             }
@@ -93,15 +95,15 @@ public:
             read_buf = std::unique_ptr<__gnu_cxx::stdio_filebuf<char> >(
                   new __gnu_cxx::stdio_filebuf<char>(read_pipe.read_fd(), std::ios::in)
                 );
-            stdin.rdbuf(write_buf.get());
-            stdout.rdbuf(read_buf.get());
+            child_stdin.rdbuf(write_buf.get());
+            child_stdout.rdbuf(read_buf.get());
         }
     }
-    
-    void send_eof() { 
-      write_buf->close(); 
+
+    void send_eof() {
+      write_buf->close();
     }
-    
+
     int wait() {
         int status;
         waitpid(child_pid, &status, 0);
