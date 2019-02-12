@@ -12,6 +12,7 @@
 #include <iostream>
 #include <memory>
 #include <exception>
+#include <cstdlib>
 
 namespace cxxfoil {
 
@@ -77,7 +78,7 @@ public:
                                   const_cast<char* const*>(argv),
                                   const_cast<char* const*>(envp));
                 } else {
-                  result = execv(argv[0], const_cast<char* const*>(argv));
+                  result = system(argv[0]);
                 }
             }
             if (result == -1) {
