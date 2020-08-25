@@ -47,7 +47,7 @@ polar XfoilRunner::Dispatch() const {
 
 polar XfoilRunner::ParsePolar(const std::string& path) const {
   polar table;
-  std::vector<std::string> header = {"alpha", "CL", "CD", "CDp", "CM", "Top_Xtr", "Bot_Xtr"};
+  std::vector<std::string> header = {"alpha", "CL", "CD", "CDp", "CM", "Top_Xtr", "Bot_Xtr", "Top_Itr", "Bot_Itr"};
   for (const auto &key: header) {
     table[key] = std::vector<double>();
   }
